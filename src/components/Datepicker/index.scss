@@ -4,6 +4,57 @@
     min-height: 400px;
     background-color: white;
     &_header{
-        //
+        display: flex;
     }
 }
+
+
+.calendar {
+    // width: 300px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 10px;
+    font-family: Arial, sans-serif;
+  }
+  
+  .calendar-header {
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  .calendar-days {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+  
+  .calendar-day {
+    flex: 1;
+    text-align: center;
+    padding: 5px;
+    font-weight: bold;
+  }
+  
+  .calendar-day.empty {
+    visibility: hidden;
+  }
+  
+  .calendar-day.current-day {
+    background-color: #f0f0f0;
+    border-radius: 50%;
+  }
+  
+  .calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 5px;
+  }
+  
+  .calendar-day {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: center;
+  }
+  
