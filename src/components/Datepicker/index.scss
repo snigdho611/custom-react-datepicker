@@ -32,11 +32,11 @@ $cellwidth: 36px;
         // outline: 1px solid blue;
         vertical-align: middle;
         color: #939598;
-        
       }
     }
     &_date {
       //   display: flex;
+      margin-top: 18px;
       display: grid;
       grid-template-columns: repeat(7, $cellwidth);
       gap: 4px;
@@ -47,7 +47,7 @@ $cellwidth: 36px;
         justify-content: center;
         width: $cellwidth;
         height: $cellheight;
-            border-radius: 4px;
+        border-radius: 4px;
         // outline: 1px solid blue;
         transition: 0.25s background-color, 0.15s color;
         cursor: pointer;
@@ -58,15 +58,21 @@ $cellwidth: 36px;
           // background-color: blue;
         }
         &:hover {
-            background-color: #009bdf;
-            color: white;
-          }
+          background-color: #009bdf;
+          color: white;
+        }
       }
     }
   }
 }
 
-.select-day {
+.current-day {
+    background-color: #009bdf;
+    color: white;
+    border-radius: 4px;
+  }
+
+.selected-day {
   background-color: #009bdf;
   color: white;
   border-radius: 4px;
