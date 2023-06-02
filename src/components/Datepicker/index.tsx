@@ -13,17 +13,24 @@ interface IDatepickerHeaderProps {
   onPrev: () => void;
 }
 
+interface IDatepickerBodyProps {
+  dateObj: IDate;
+}
+
 const DatepickerHeader: React.FC<IDatepickerHeaderProps> = ({
   dateObj,
   onNext,
   onPrev,
 }) => {
-  console.log(dayjs().month(dateObj.month));
+  //   console.log(dayjs().month(dateObj.month - 1));
   return (
     <div className="datepicker_header">
       <div onClick={onPrev}>{"<"}</div>
       <div>
-        {dayjs().locale("en").month(dateObj.month).format("MMMM")}{" "}
+        {dayjs()
+          .locale("en")
+          .month(dateObj.month - 1)
+          .format("MMMM")}{" "}
         {dateObj.year}
       </div>
       <div onClick={onNext}>{">"}</div>
@@ -31,37 +38,78 @@ const DatepickerHeader: React.FC<IDatepickerHeaderProps> = ({
   );
 };
 
+const DatepickerBody: React.FC<IDatepickerBodyProps> = ({ dateObj }) => {
+  const currentDate = new Date();
+  const currentYear = currentDate.getFullYear();
+  const currentMonth = currentDate.getMonth();
+  const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+  const startDay = new Date(currentYear, currentMonth, 1).getDay();
+  const calendarDays = [];
+
+  //   for (let i = 0; i < startDay; i++) {
+  //     calendarDays.push(<div className="calendar-day empty"></div>);
+  //   }
+
+  //   for (let i = 1; i <= daysInMonth; i++) {
+  //     const isCurrentDay = i === currentDate.getDate();
+  //     const dayClass = isCurrentDay ? "calendar-day current-day" : "calendar-day";
+  //     calendarDays.push(<div className={dayClass}>{i}</div>);
+  //   }
+
+    const getEmptyCells = () => {
+        const emptyCells = []
+        for (let i = 0; i < startDay; i++) {
+            emptyCells.push(<div className="datepicker_calendar_date_day-empty"/>)
+        }
+        return emptyCells
+    }
+
+
+  return (
+    <div className="datepicker_calendar">
+      <div className="datepicker_calendar_week">
+        <div className="datepicker_calendar_week_day">Mon</div>
+        <div className="datepicker_calendar_week_day">Tue</div>
+        <div className="datepicker_calendar_week_day">Wed</div>
+        <div className="datepicker_calendar_week_day">Thu</div>
+        <div className="datepicker_calendar_week_day">Fri</div>
+        <div className="datepicker_calendar_week_day">Sat</div>
+        <div className="datepicker_calendar_week_day">Sun</div>
+      </div>
+      <div className="datepicker_calendar_date">
+        {getEmptyCells()}
+      </div>
+      {/* <div className="calendar-grid">{calendarDays}</div> */}
+    </div>
+  );
+};
+
 const Datepicker = () => {
   const [dateObj, setDateObj] = useState<IDate>({
-    date: 0,
-    month: 0,
+    date: 1,
+    month: 1,
     year: 2023,
   });
 
-  function getLastDayOfMonth(year: number, month: number) {
-    // Create a new Date object set to the next month's first day
+  const getLastDayOfMonth = (year: number, month: number) => {
     const nextMonth: any = new Date(year, month + 1, 1);
 
-    // Subtract 1 day from the next month's first day to get the last day of the current month
     const lastDayOfMonth = new Date(nextMonth - 1);
 
-    // Return the day component of the last day of the month
     return lastDayOfMonth.getDate();
-  }
-  
+  };
+
   const onNext = () => {
-    if (dateObj.month === 11) {
+    if (dateObj.month === 12) {
       console.log("Go to next year");
       return setDateObj((prevState) => ({
         ...prevState,
-        date: 0,
-        month: 0,
+        date: 1,
+        month: 1,
         year: dateObj.year + 1,
       }));
     }
-    // if((dateObj.month ===  3 || dateObj.month ===  5 || dateObj.month ===  8 || dateObj.month ===  10) && dateObj.date === 30 ){
-    //     return console.log("Go to next month")
-    // }
+
     return setDateObj((prevState) => ({
       ...prevState,
       month: dateObj.month + 1,
@@ -69,43 +117,26 @@ const Datepicker = () => {
   };
 
   const onPrev = () => {
-    if (dateObj.month === 0) {
+    if (dateObj.month === 1) {
       console.log("Go to previous year");
       return setDateObj((prevState) => ({
         ...prevState,
-        date: 0,
-        month: 11,
+        date: 1,
+        month: 12,
         year: dateObj.year - 1,
       }));
     }
-    // if((dateObj.month ===  3 || dateObj.month ===  5 || dateObj.month ===  8 || dateObj.month ===  10) && dateObj.date === 30 ){
-    //     return console.log("Go to next month")
-    // }
+
     return setDateObj((prevState) => ({
       ...prevState,
       month: dateObj.month - 1,
     }));
   };
 
-  //   const getLastDayOfMonth = (month: number) => {
-  //     if((month ===  3 || month ===  5 || month ===  8 || month ===  10) && dateObj.date === 30 ){
-  //         return 30;
-  //     }
-  //     return 31;
-  //   }
-
-  // const year = 2023;
-  // const month = 1; // 0-based index, where 0 represents January
-
-  // const lastDay = getLastDayOfMonth(year, month);
-  // console.log(lastDay); // Output: 28 (assuming February in a non-leap year)
-  // Usage example
-
-  // console.log(getLastDayOfMonth(2024, 1))
-
   return (
     <div className="datepicker">
       <DatepickerHeader dateObj={dateObj} onNext={onNext} onPrev={onPrev} />
+      <DatepickerBody dateObj={dateObj} />
     </div>
   );
 };

@@ -1,61 +1,49 @@
-.datepicker{
-    width: fit-content;
-    min-width: 342px;
-    min-height: 400px;
-    background-color: white;
-    &_header{
-        display: flex;
-        justify-content: space-between;
-    }
-}
-// ---------------------------------------------------------------XXX-------------------------------------------------
+$cellheight: 30px;
+$cellwidth: 36px;
 
-.calendar {
-    // width: 300px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    padding: 10px;
-    font-family: Arial, sans-serif;
-  }
-  
-  .calendar-header {
-    text-align: center;
-    font-size: 18px;
-    font-weight: bold;
-    margin-bottom: 10px;
-  }
-  
-  .calendar-days {
+.datepicker {
+    font-size: 12px;
+  width: fit-content;
+  min-width: 342px;
+  min-height: 400px;
+  background-color: white;
+  &_header {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 10px;
   }
-  
-  .calendar-day {
-    flex: 1;
-    text-align: center;
-    padding: 5px;
-    font-weight: bold;
+  &_calendar {
+    display: table;
+    &_week {
+      display: grid;
+      grid-template-columns: repeat(7, $cellwidth);
+      &_day {
+        text-align: center;
+        width: $cellwidth;
+        height: $cellheight;
+        outline: 1px solid blue;
+        vertical-align: middle;
+        // padding: 15px 14px 21px 14px;
+        // &-empty {
+        //   width: $cellwidth;
+        //   height: 30px;
+        //   background-color: blue;
+        // }
+      }
+    }
+    &_date {
+      display: grid;
+      grid-template-columns: repeat(7, $cellwidth);
+      &_day {
+        width: $cellwidth;
+        height: $cellheight;
+        outline: 1px solid blue;
+        &-empty {
+            @extend .datepicker_calendar_date_day;
+          width: $cellwidth;
+          height: 30px;
+          // background-color: blue;
+        }
+      }
+    }
   }
-  
-  .calendar-day.empty {
-    visibility: hidden;
-  }
-  
-  .calendar-day.current-day {
-    background-color: #f0f0f0;
-    border-radius: 50%;
-  }
-  
-  .calendar-grid {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    gap: 5px;
-  }
-  
-  .calendar-day {
-    border: 1px solid #ccc;
-    padding: 10px;
-    text-align: center;
-  }
-  
+}

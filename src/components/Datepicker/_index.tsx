@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import "./index.scss";
 
-interface IDatepickerHeaderProps{
-    month: number;
+interface IDatepickerHeaderProps {
+  month: number;
 }
 
-const DatepickerHeader:React.FC<IDatepickerHeaderProps> = ({month}) => {
+const DatepickerHeader: React.FC<IDatepickerHeaderProps> = ({ month }) => {
   return (
     <div className="datepicker_header">
       <div>{"<"}</div>
@@ -15,19 +15,19 @@ const DatepickerHeader:React.FC<IDatepickerHeaderProps> = ({month}) => {
   );
 };
 
-const Datepicker = ({ year=2023, month=5 }) => {
-//     const [month, setMonth] = useState<number>(0)
-//   return (
-//     <div className="datepicker">
-//       <DatepickerHeader month={month} />
-//     </div>
-//   );
-const currentDate = new Date();
+const Datepicker = ({ year = 2023, month = 5 }) => {
+  //     const [month, setMonth] = useState<number>(0)
+  //   return (
+  //     <div className="datepicker">
+  //       <DatepickerHeader month={month} />
+  //     </div>
+  //   );
+  const currentDate = new Date();
   const currentYear = currentDate.getFullYear();
   const currentMonth = currentDate.getMonth();
   const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
   const startDay = new Date(currentYear, currentMonth, 1).getDay();
-  console.log(startDay)
+  console.log(startDay);
 
   const calendarDays = [];
 
@@ -39,14 +39,19 @@ const currentDate = new Date();
   // Fill the current month's days
   for (let i = 1; i <= daysInMonth; i++) {
     const isCurrentDay = i === currentDate.getDate();
-    const dayClass = isCurrentDay ? 'calendar-day current-day' : 'calendar-day';
+    const dayClass = isCurrentDay ? "calendar-day current-day" : "calendar-day";
     calendarDays.push(<div className={dayClass}>{i}</div>);
   }
 
   // Render the calendar component
   return (
     <div className="calendar">
-      <div className="calendar-header">{currentDate.toLocaleString('default', { month: 'long', year: 'numeric' })}</div>
+      <div className="calendar-header">
+        {currentDate.toLocaleString("default", {
+          month: "long",
+          year: "numeric",
+        })}
+      </div>
       <div className="calendar-days">
         <div className="calendar-day">Sun</div>
         <div className="calendar-day">Mon</div>
