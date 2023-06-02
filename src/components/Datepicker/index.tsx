@@ -15,6 +15,7 @@ interface IDatepickerHeaderProps {
 
 interface IDatepickerBodyProps {
   dateObj: IDate;
+  onDateClick: (date:number, month: number, year: number) => void;
 }
 
 const DatepickerHeader: React.FC<IDatepickerHeaderProps> = ({
@@ -44,7 +45,6 @@ const DatepickerBody: React.FC<IDatepickerBodyProps> = ({ dateObj }) => {
   const currentMonth = currentDate.getMonth();
   const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
   const startDay = new Date(currentYear, currentMonth, 1).getDay();
-  const calendarDays = [];
 
   //   for (let i = 0; i < startDay; i++) {
   //     calendarDays.push(<div className="calendar-day empty"></div>);
@@ -56,29 +56,51 @@ const DatepickerBody: React.FC<IDatepickerBodyProps> = ({ dateObj }) => {
   //     calendarDays.push(<div className={dayClass}>{i}</div>);
   //   }
 
-    const getEmptyCells = () => {
-        const emptyCells = []
-        for (let i = 0; i < startDay; i++) {
-            emptyCells.push(<div className="datepicker_calendar_date_day-empty"/>)
-        }
-        return emptyCells
+  const getStartEmptyCells = () => {
+    const emptyCells = [];
+    for (let i = 0; i < startDay; i++) {
+      emptyCells.push(<div className="datepicker_calendar_date_day-empty" />);
     }
+    return emptyCells;
+  };
 
+  const getDateCells = () => {
+    const dateCells = []
+      for (let i = 1; i <= daysInMonth; i++) {
+        const isCurrentDay = i === currentDate.getDate();
+        // const dayClass = isCurrentDay ? "datepicker_calendar_date_day current-day" : "datepicker_calendar_date_day";
+        const dayClass = "datepicker_calendar_date_day";
+        dateCells.push(<div onClick={()=>{
+            console.log(i)
+        }} className={dayClass}>{i}</div>);
+      }
+      return dateCells;
+  };
+
+  const getEndEmptyCells = () => {
+    const emptyCells = [];
+    for (let i = 0; i < (getStartEmptyCells().length + getDateCells().length)%7; i++) {
+      emptyCells.push(<div className="datepicker_calendar_date_day-empty" />);
+    }
+    return emptyCells;
+  };
 
   return (
     <div className="datepicker_calendar">
       <div className="datepicker_calendar_week">
-        <div className="datepicker_calendar_week_day">Mon</div>
-        <div className="datepicker_calendar_week_day">Tue</div>
-        <div className="datepicker_calendar_week_day">Wed</div>
-        <div className="datepicker_calendar_week_day">Thu</div>
-        <div className="datepicker_calendar_week_day">Fri</div>
-        <div className="datepicker_calendar_week_day">Sat</div>
-        <div className="datepicker_calendar_week_day">Sun</div>
+        <div className="datepicker_calendar_week_day">MON</div>
+        <div className="datepicker_calendar_week_day">TUE</div>
+        <div className="datepicker_calendar_week_day">WED</div>
+        <div className="datepicker_calendar_week_day">THU</div>
+        <div className="datepicker_calendar_week_day">FRI</div>
+        <div className="datepicker_calendar_week_day">SAT</div>
+        <div className="datepicker_calendar_week_day">SUN</div>
       </div>
       <div className="datepicker_calendar_date">
-        {getEmptyCells()}
-      </div>
+        {getStartEmptyCells()}
+        {getDateCells()}
+        {/* {getEndEmptyCells()} */}
+        </div>
       {/* <div className="calendar-grid">{calendarDays}</div> */}
     </div>
   );
@@ -133,10 +155,15 @@ const Datepicker = () => {
     }));
   };
 
+  const onDateClick = (date: number, month: number, year: number) => {
+    //
+    // setDateObj({})
+  }
+
   return (
     <div className="datepicker">
       <DatepickerHeader dateObj={dateObj} onNext={onNext} onPrev={onPrev} />
-      <DatepickerBody dateObj={dateObj} />
+      <DatepickerBody onDateClick={onDateClick} dateObj={dateObj} />
     </div>
   );
 };
