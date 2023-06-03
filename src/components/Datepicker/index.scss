@@ -49,7 +49,7 @@ $cellwidth: 36px;
         height: $cellheight;
         border-radius: 4px;
         // outline: 1px solid blue;
-        transition: 0.25s background-color, 0.15s color;
+        // transition: 0.25s background-color, 0.15s color;
         cursor: pointer;
         &-empty {
           @extend .datepicker_calendar_date_day;
@@ -67,10 +67,11 @@ $cellwidth: 36px;
 }
 
 .current-day {
-    background-color: #009bdf;
-    color: white;
-    border-radius: 4px;
-  }
+  // background-color: #009bdf;
+  outline: 1px solid #009bdf;
+  // color: white;
+  border-radius: 4px;
+}
 
 .selected-day {
   background-color: #009bdf;
