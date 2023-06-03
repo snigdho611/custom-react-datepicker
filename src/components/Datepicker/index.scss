@@ -7,15 +7,26 @@ $cellwidth: 36px;
   width: fit-content;
   min-height: 371px;
   background-color: white;
-  padding: 29px 23px 0px 23px;
   border-radius: 12px;
   box-shadow: 0px 6px 16px #0000001f;
   &_header {
     display: flex;
     justify-content: space-between;
     font-size: 14px;
-    padding-bottom: 37px;
+    // padding-bottom: 37px;
     width: 296px;
+    padding: 25px 23px 37px 23px;
+    & button {
+      background-color: transparent;
+      border: none;
+      cursor: pointer;
+      &:focus {
+        outline: 1px solid #009bdf;
+      }
+      &:hover {
+        outline: 1px solid #009bdf;
+      }
+    }
   }
   &_calendar {
     margin: 0 auto;
@@ -89,6 +100,35 @@ $cellwidth: 36px;
       &:hover {
         cursor: pointer;
         outline: 1px solid black;
+      }
+    }
+  }
+  &_footer {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    justify-content: space-between;
+    padding: 26px 15px 10px 15px;
+    &_buttons {
+      display: flex;
+      gap: 8px;
+      & button {
+        font-size: 14px;
+        padding: 10px 20px;
+        border-radius: 6px;
+        // display: flex;
+        // border: none;
+        cursor: pointer;
+      }
+      &-cancel {
+        background-color: transparent;
+        border: 1px solid #d9d9d9;
+      }
+      &-confirm {
+        background-color: transparent;
+        border: 1px solid #009bdf;
+        background-color: #009bdf;
+        color: white;
       }
     }
   }

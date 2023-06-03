@@ -9,11 +9,11 @@ interface IHeaderProps {
 const Header: React.FC<IHeaderProps> = ({ dateObj, onNext, onPrev }) => {
   return (
     <div className="datepicker_header">
-      <div onClick={onPrev}>{"<"}</div>
+      <button onClick={onPrev}>{"<"}</button>
       <div>
         {dayjs().locale("en").month(dateObj.month).format("MMMM")} {dateObj.year}
       </div>
-      <div onClick={onNext}>{">"}</div>
+      <button onClick={onNext}>{">"}</button>
     </div>
   );
 };

@@ -21,13 +21,14 @@ const Datepicker = () => {
     hours: new Date().getHours(),
     minutes: new Date().getMinutes(),
   });
+  console.log(dateObj);
 
   const onNext = () => {
-    if (dateObj.month === 12) {
+    if (dateObj.month === 11) {
       return setDateObj((prevState) => ({
         ...prevState,
         date: 1,
-        month: 1,
+        month: 0,
         year: dateObj.year + 1,
       }));
     }
@@ -40,11 +41,14 @@ const Datepicker = () => {
   };
 
   const onPrev = () => {
-    if (dateObj.month === 1) {
+    if (dateObj.year === 1970 && dateObj.month === 0) {
+      return;
+    }
+    if (dateObj.month === 0) {
       return setDateObj((prevState) => ({
         ...prevState,
         date: 1,
-        month: 12,
+        month: 11,
         year: dateObj.year - 1,
       }));
     }
