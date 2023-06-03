@@ -1,6 +1,18 @@
 $cellheight: 30px;
 $cellwidth: 36px;
 
+._input {
+  width: 310px;
+  height: 18px;
+  border: 1px solid #d9d9d9;
+  border-radius: 6px;
+  outline: 1px solid #d9d9d9;
+  padding: 10px 16px;
+  &:hover {
+    cursor: pointer;
+  }
+}
+
 .datepicker {
   font-size: 12px;
   font-family: "Noto Sans JP";
@@ -18,6 +30,8 @@ $cellwidth: 36px;
     padding: 25px 23px 37px 23px;
     & button {
       background-color: transparent;
+      color: #939598;
+      font-weight: bold;
       border: none;
       cursor: pointer;
       &:focus {
@@ -106,7 +120,7 @@ $cellwidth: 36px;
   &_footer {
     display: flex;
     align-items: center;
-    font-size: 14px;
+    font-size: 16px;
     justify-content: space-between;
     padding: 26px 15px 10px 15px;
     &_buttons {

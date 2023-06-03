@@ -14,6 +14,13 @@ const Datepicker = () => {
     hours: new Date().getHours(),
     minutes: new Date().getMinutes(),
   });
+  const [finalObj, setFinalDateObj] = useState<IDate>({
+    date: new Date().getDate(),
+    month: new Date().getMonth(),
+    year: new Date().getFullYear(),
+    hours: new Date().getHours(),
+    minutes: new Date().getMinutes(),
+  });
   const currentDateObj = useRef<IDate>({
     date: new Date().getDate(),
     month: new Date().getMonth(),
@@ -72,21 +79,53 @@ const Datepicker = () => {
     setDateObj((prevState) => ({ ...prevState, minutes: minutes }));
   };
 
+  const [open, setOpen] = useState<boolean>(false);
+
+  const handleConfirm = () => {
+    setFinalDateObj(dateObj);
+    setOpen(false);
+  };
+
+  const handleCancel = () => {
+    setOpen(false);
+  };
+
   return (
-    <div className="datepicker">
-      <DatepickerHeader dateObj={dateObj} onNext={onNext} onPrev={onPrev} />
-      <DatepickerCalendar
-        onDateClick={onDateClick}
-        dateObj={dateObj}
-        currentDateObj={currentDateObj}
+    <>
+      {/* {dateObj.year}/{dateObj.month + 1}/{dateObj.date} {dateObj.hours}:{dateObj.minutes}{" "} */}
+      <input
+        type="text"
+        className="_input"
+        onClick={() => {
+          setOpen(!open);
+        }}
+        value={`${finalObj.year}/${finalObj.month + 1}/${finalObj.date}  ${finalObj.hours}:${
+          finalObj.minutes
+        }`}
+        // disabled
+        readOnly
       />
-      <DatepickerTime
-        onTimeClickHour={onTimeClickHour}
-        onTimeClickMinute={onTimeClickMinute}
-        dateObj={dateObj}
-      />
-      <DatepickerFooter dateObj={dateObj} />
-    </div>
+      {open ? (
+        <div className="datepicker">
+          <DatepickerHeader dateObj={dateObj} onNext={onNext} onPrev={onPrev} />
+          <DatepickerCalendar
+            onDateClick={onDateClick}
+            dateObj={dateObj}
+            currentDateObj={currentDateObj}
+          />
+          <DatepickerTime
+            onTimeClickHour={onTimeClickHour}
+            onTimeClickMinute={onTimeClickMinute}
+            dateObj={dateObj}
+          />
+          <DatepickerFooter
+            handleConfirm={handleConfirm}
+            handleCancel={handleCancel}
+            dateObj={dateObj}
+          />
+        </div>
+      ) : null}
+    </>
   );
 };
 
