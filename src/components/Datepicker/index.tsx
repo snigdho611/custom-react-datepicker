@@ -60,6 +60,14 @@ const Datepicker = () => {
     setDateObj((prevState) => ({ ...prevState, date: date, month: month, year: year }));
   };
 
+  const onTimeClickHour = (hours: number) => {
+    setDateObj((prevState) => ({ ...prevState, hours: hours }));
+  };
+
+  const onTimeClickMinute = (minutes: number) => {
+    setDateObj((prevState) => ({ ...prevState, minutes: minutes }));
+  };
+
   return (
     <div className="datepicker">
       <DatepickerHeader dateObj={dateObj} onNext={onNext} onPrev={onPrev} />
@@ -68,7 +76,11 @@ const Datepicker = () => {
         dateObj={dateObj}
         currentDateObj={currentDateObj}
       />
-      <DatepickerTime dateObj={dateObj} />
+      <DatepickerTime
+        onTimeClickHour={onTimeClickHour}
+        onTimeClickMinute={onTimeClickMinute}
+        dateObj={dateObj}
+      />
       <DatepickerFooter dateObj={dateObj} />
     </div>
   );

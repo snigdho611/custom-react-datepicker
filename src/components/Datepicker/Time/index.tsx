@@ -3,9 +3,11 @@ import { useRef } from "react";
 
 interface ITimeProps {
   dateObj: IDate;
+  onTimeClickHour: (hours: number) => void;
+  onTimeClickMinute: (minutes: number) => void;
 }
 
-const DatepickerTime: React.FC<ITimeProps> = ({ dateObj }) => {
+const DatepickerTime: React.FC<ITimeProps> = ({ dateObj, onTimeClickHour, onTimeClickMinute }) => {
   const hours = [
     "00",
     "01",
@@ -95,7 +97,10 @@ const DatepickerTime: React.FC<ITimeProps> = ({ dateObj }) => {
 
   return (
     <div className="datepicker_time">
-      <select defaultValue={dateObj.hours}>
+      <select
+        onChange={(e) => onTimeClickHour(parseInt(e.target.value))}
+        defaultValue={dateObj.hours}
+      >
         {hours.map((hour) => (
           <option key={hour} value={hour}>
             {hour}
@@ -103,7 +108,10 @@ const DatepickerTime: React.FC<ITimeProps> = ({ dateObj }) => {
         ))}
       </select>
       :
-      <select defaultValue={dateObj.minutes}>
+      <select
+        onChange={(e) => onTimeClickMinute(parseInt(e.target.value))}
+        defaultValue={dateObj.minutes}
+      >
         {minutes.map((hour) => (
           <option key={hour}>{hour}</option>
         ))}
