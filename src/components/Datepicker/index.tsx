@@ -14,11 +14,13 @@ interface IDatepickerHeaderProps {
   onPrev: () => void;
 }
 
-interface IDatepickerBodyProps {
+interface IDatepickerCalendarProps {
   dateObj: IDate;
   currentDateObj: MutableRefObject<IDate>;
   onDateClick: (date: number, month: number, year: number) => void;
 }
+
+interface IDatepickerTimeProps {}
 
 const DatepickerHeader: React.FC<IDatepickerHeaderProps> = ({ dateObj, onNext, onPrev }) => {
   return (
@@ -32,7 +34,7 @@ const DatepickerHeader: React.FC<IDatepickerHeaderProps> = ({ dateObj, onNext, o
   );
 };
 
-const DatepickerBody: React.FC<IDatepickerBodyProps> = ({
+const DatepickerCalendar: React.FC<IDatepickerCalendarProps> = ({
   dateObj,
   currentDateObj,
   onDateClick,
@@ -93,6 +95,7 @@ const DatepickerBody: React.FC<IDatepickerBodyProps> = ({
 
   return (
     <div className="datepicker_calendar">
+      {/* <hr style={{ width: "70%" }} /> */}
       <div className="datepicker_calendar_week">
         <div className="datepicker_calendar_week_day">MON</div>
         <div className="datepicker_calendar_week_day">TUE</div>
@@ -102,7 +105,6 @@ const DatepickerBody: React.FC<IDatepickerBodyProps> = ({
         <div className="datepicker_calendar_week_day">SAT</div>
         <div className="datepicker_calendar_week_day">SUN</div>
       </div>
-      <hr style={{ width: "70%" }} />
       <div className="datepicker_calendar_date">
         {getStartEmptyCells()}
         {getDateCells()}
@@ -111,6 +113,11 @@ const DatepickerBody: React.FC<IDatepickerBodyProps> = ({
       {/* <div className="calendar-grid">{calendarDays}</div> */}
     </div>
   );
+};
+
+const DatepickerTime: React.FC<IDatepickerTimeProps> = () => {
+  //
+  return <div></div>;
 };
 
 const Datepicker = () => {
@@ -129,7 +136,7 @@ const Datepicker = () => {
 
   const onNext = () => {
     if (dateObj.month === 12) {
-      console.log("Go to next year");
+      // console.log("Go to next year");
       return setDateObj({
         date: 1,
         month: 1,
@@ -145,7 +152,7 @@ const Datepicker = () => {
 
   const onPrev = () => {
     if (dateObj.month === 1) {
-      console.log("Go to previous year");
+      // console.log("Go to previous year");
       return setDateObj({
         date: 1,
         month: 12,
@@ -161,13 +168,18 @@ const Datepicker = () => {
 
   const onDateClick = (date: number, month: number, year: number) => {
     setDateObj({ date: date, month: month, year: year });
-    console.log(dateObj);
+    // console.log(dateObj);
   };
 
   return (
     <div className="datepicker">
       <DatepickerHeader dateObj={dateObj} onNext={onNext} onPrev={onPrev} />
-      <DatepickerBody onDateClick={onDateClick} dateObj={dateObj} currentDateObj={currentDateObj} />
+      <DatepickerCalendar
+        onDateClick={onDateClick}
+        dateObj={dateObj}
+        currentDateObj={currentDateObj}
+      />
+      <DatepickerTime />
     </div>
   );
 };
