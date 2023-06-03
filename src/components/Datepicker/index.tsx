@@ -1,174 +1,62 @@
-import React, { MutableRefObject, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import "./index.scss";
-import dayjs from "dayjs";
-
-interface IDate {
-  date: number;
-  month: number;
-  year: number;
-}
-
-interface IDatepickerHeaderProps {
-  dateObj: IDate;
-  onNext: () => void;
-  onPrev: () => void;
-}
-
-interface IDatepickerCalendarProps {
-  dateObj: IDate;
-  currentDateObj: MutableRefObject<IDate>;
-  onDateClick: (date: number, month: number, year: number) => void;
-}
-
-interface IDatepickerTimeProps {}
-
-const DatepickerHeader: React.FC<IDatepickerHeaderProps> = ({ dateObj, onNext, onPrev }) => {
-  return (
-    <div className="datepicker_header">
-      <div onClick={onPrev}>{"<"}</div>
-      <div>
-        {dayjs().locale("en").month(dateObj.month).format("MMMM")} {dateObj.year}
-      </div>
-      <div onClick={onNext}>{">"}</div>
-    </div>
-  );
-};
-
-const DatepickerCalendar: React.FC<IDatepickerCalendarProps> = ({
-  dateObj,
-  currentDateObj,
-  onDateClick,
-}) => {
-  const daysInMonth = new Date(dateObj.year, dateObj.month, 0).getDate();
-  const startDay = new Date(dateObj.year, dateObj.month, 0).getDay();
-
-  const getStartEmptyCells = () => {
-    const emptyCells = [];
-    for (let i = 0; i < startDay; i++) {
-      emptyCells.push(<div key={i} className="datepicker_calendar_date_day-empty" />);
-    }
-    return emptyCells;
-  };
-
-  const getDateCells = () => {
-    const dateCells = [];
-    for (let i = 1; i <= daysInMonth; i++) {
-      // const isSelectedDate = i === new Date().getDate();
-      let dayClass: string = "";
-      dayClass = "datepicker_calendar_date_day";
-      if (
-        currentDateObj.current.date === i &&
-        currentDateObj.current.month === dateObj.month &&
-        currentDateObj.current.year === dateObj.year
-      ) {
-        dayClass = dayClass + " current-day";
-      }
-
-      if (dateObj.date === i) {
-        dayClass = dayClass + " selected-day";
-      }
-      dateCells.push(
-        <div
-          key={i}
-          onClick={() => {
-            // console.log(dateObj);
-            onDateClick(i, dateObj.month, dateObj.year);
-          }}
-          className={dayClass}
-        >
-          {i}
-        </div>
-      );
-    }
-    return dateCells;
-  };
-
-  // const getEndEmptyCells = () => {
-  //   const emptyCells = [];
-  //   for (let i = 0; i < (getStartEmptyCells().length + getDateCells().length) % 7; i++) {
-  //     emptyCells.push(<div className="datepicker_calendar_date_day-empty" />);
-  //   }
-  //   return emptyCells;
-  // };
-
-  // console.log(dateObj);
-
-  return (
-    <div className="datepicker_calendar">
-      {/* <hr style={{ width: "70%" }} /> */}
-      <div className="datepicker_calendar_week">
-        <div className="datepicker_calendar_week_day">MON</div>
-        <div className="datepicker_calendar_week_day">TUE</div>
-        <div className="datepicker_calendar_week_day">WED</div>
-        <div className="datepicker_calendar_week_day">THU</div>
-        <div className="datepicker_calendar_week_day">FRI</div>
-        <div className="datepicker_calendar_week_day">SAT</div>
-        <div className="datepicker_calendar_week_day">SUN</div>
-      </div>
-      <div className="datepicker_calendar_date">
-        {getStartEmptyCells()}
-        {getDateCells()}
-        {/* {getEndEmptyCells()} */}
-      </div>
-      {/* <div className="calendar-grid">{calendarDays}</div> */}
-    </div>
-  );
-};
-
-const DatepickerTime: React.FC<IDatepickerTimeProps> = () => {
-  //
-  return <div></div>;
-};
+import DatepickerTime from "./Time";
+import DatepickerHeader from "./Header";
+import DatepickerCalendar from "./Calendar";
+import { IDate } from "interface";
 
 const Datepicker = () => {
   const [dateObj, setDateObj] = useState<IDate>({
     date: new Date().getDate(),
     month: new Date().getMonth(),
     year: new Date().getFullYear(),
+    hours: new Date().getHours(),
+    minutes: new Date().getMinutes(),
   });
   const currentDateObj = useRef<IDate>({
     date: new Date().getDate(),
     month: new Date().getMonth(),
     year: new Date().getFullYear(),
+    hours: new Date().getHours(),
+    minutes: new Date().getMinutes(),
   });
-
-  // const;
 
   const onNext = () => {
     if (dateObj.month === 12) {
-      // console.log("Go to next year");
-      return setDateObj({
+      return setDateObj((prevState) => ({
+        ...prevState,
         date: 1,
         month: 1,
         year: dateObj.year + 1,
-      });
+      }));
     }
 
     return setDateObj((prevState) => ({
       ...prevState,
+      date: 1,
       month: dateObj.month + 1,
     }));
   };
 
   const onPrev = () => {
     if (dateObj.month === 1) {
-      // console.log("Go to previous year");
-      return setDateObj({
+      return setDateObj((prevState) => ({
+        ...prevState,
         date: 1,
         month: 12,
         year: dateObj.year - 1,
-      });
+      }));
     }
 
     return setDateObj((prevState) => ({
       ...prevState,
+      date: 1,
       month: dateObj.month - 1,
     }));
   };
 
   const onDateClick = (date: number, month: number, year: number) => {
-    setDateObj({ date: date, month: month, year: year });
-    // console.log(dateObj);
+    setDateObj((prevState) => ({ ...prevState, date: date, month: month, year: year }));
   };
 
   return (

@@ -5,19 +5,15 @@ $cellwidth: 36px;
   font-size: 12px;
   font-family: "Noto Sans JP";
   width: fit-content;
-  // min-width: 342px;
   min-height: 371px;
   background-color: white;
   padding: 29px 23px 0px 23px;
   border-radius: 12px;
-  // display: flex;
-  // flex-direction: column;
   box-shadow: 0px 6px 16px #0000001f;
   &_header {
     display: flex;
     justify-content: space-between;
     font-size: 14px;
-    // padding-top: 25px;
     padding-bottom: 37px;
     width: 296px;
   }
@@ -27,7 +23,6 @@ $cellwidth: 36px;
     flex-direction: column;
     align-items: center;
     &_week {
-      //   display: flex;
       display: grid;
       grid-template-columns: repeat(7, $cellwidth);
       gap: 4px;
@@ -39,13 +34,11 @@ $cellwidth: 36px;
         justify-content: center;
         width: $cellwidth;
         height: $cellheight;
-        // outline: 1px solid blue;
         vertical-align: middle;
         color: #939598;
       }
     }
     &_date {
-      //   display: flex;
       margin-top: 18px;
       display: grid;
       grid-template-columns: repeat(7, $cellwidth);
@@ -58,28 +51,28 @@ $cellwidth: 36px;
         width: $cellwidth;
         height: $cellheight;
         border-radius: 4px;
-        // outline: 1px solid blue;
-        // transition: 0.25s background-color, 0.15s color;
-        cursor: pointer;
+        &-normal {
+          @extend .datepicker_calendar_date_day;
+          cursor: pointer;
+          &:hover {
+            background-color: #009bdf;
+            color: white;
+          }
+        }
         &-empty {
           @extend .datepicker_calendar_date_day;
-          //   width: $cellwidth;
-          //   height: 30px;
-          // background-color: blue;
-        }
-        &:hover {
-          background-color: #009bdf;
-          color: white;
+          // background-color: #939598;
         }
       }
+    }
+    &_time {
+      //
     }
   }
 }
 
 .current-day {
-  // background-color: #009bdf;
   outline: 1px solid #009bdf;
-  // color: white;
   border-radius: 4px;
 }
 
