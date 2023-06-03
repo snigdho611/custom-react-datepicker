@@ -3,6 +3,7 @@ import "./index.scss";
 import DatepickerTime from "./Time";
 import DatepickerHeader from "./Header";
 import DatepickerCalendar from "./Calendar";
+import DatepickerFooter from "./Footer";
 import { IDate } from "interface";
 
 const Datepicker = () => {
@@ -67,7 +68,8 @@ const Datepicker = () => {
         dateObj={dateObj}
         currentDateObj={currentDateObj}
       />
-      <DatepickerTime />
+      <DatepickerTime dateObj={dateObj} />
+      <DatepickerFooter dateObj={dateObj} />
     </div>
   );
 };

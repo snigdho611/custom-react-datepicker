@@ -54,9 +54,16 @@ $cellwidth: 36px;
         &-normal {
           @extend .datepicker_calendar_date_day;
           cursor: pointer;
+          background-color: transparent;
+          border: none;
           &:hover {
             background-color: #009bdf;
             color: white;
+          }
+          &:focus {
+            background-color: #009bdf;
+            color: white;
+            outline: none;
           }
         }
         &-empty {
@@ -65,8 +72,24 @@ $cellwidth: 36px;
         }
       }
     }
-    &_time {
-      //
+  }
+  &_time {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 18px;
+    & select {
+      width: 50px;
+      height: 30px;
+      text-align: center;
+      border-radius: 4px;
+      border: none;
+      background-color: #eaeded;
+      &:focus,
+      &:hover {
+        cursor: pointer;
+        outline: 1px solid black;
+      }
     }
   }
 }

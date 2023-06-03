@@ -30,14 +30,14 @@ const Calendar: React.FC<ICalendarProps> = ({ dateObj, currentDateObj, onDateCli
         currentDateObj.current.month === dateObj.month &&
         currentDateObj.current.year === dateObj.year
       ) {
-        dayClass = dayClass + " current-day";
+        dayClass = "datepicker_calendar_date_day-normal current-day";
       }
 
       if (dateObj.date === i) {
-        dayClass = dayClass + " selected-day";
+        dayClass = "datepicker_calendar_date_day-normal selected-day";
       }
       dateCells.push(
-        <div
+        <button
           key={i}
           onClick={() => {
             // console.log(dateObj);
@@ -46,7 +46,7 @@ const Calendar: React.FC<ICalendarProps> = ({ dateObj, currentDateObj, onDateCli
           className={dayClass}
         >
           {i}
-        </div>
+        </button>
       );
     }
     return dateCells;
