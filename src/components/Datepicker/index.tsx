@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import "./index.scss";
 import DatepickerTime from "./Time";
 import DatepickerHeader from "./Header";
@@ -11,8 +11,6 @@ const Datepicker = () => {
     date: new Date().getDate(),
     month: new Date().getMonth(),
     year: new Date().getFullYear(),
-    // hours: new Date().getHours(),
-    // minutes: new Date().getMinutes(),
     hours: 0,
     minutes: 0,
   });
@@ -30,7 +28,25 @@ const Datepicker = () => {
     hours: new Date().getHours(),
     minutes: new Date().getMinutes(),
   });
-  console.log(dateObj);
+  const menuRef = useRef<any>(null);
+  const inputRef = useRef<any>(null);
+  const [open, setOpen] = useState<boolean>(false);
+
+  useEffect(() => {
+    const handleClickOutside = (event: any) => {
+      if(inputRef.current && inputRef.current.contains(event.target)){
+        setOpen(!open)
+      }
+      if(open && menuRef.current && !menuRef.current.contains(event.target)){
+        console.log("Click outside menu")
+        setOpen(!open)
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [menuRef, setOpen, open]);
 
   const onNext = () => {
     if (dateObj.month === 11) {
@@ -70,7 +86,12 @@ const Datepicker = () => {
   };
 
   const onDateClick = (date: number, month: number, year: number) => {
-    setDateObj((prevState) => ({ ...prevState, date: date, month: month, year: year }));
+    setDateObj((prevState) => ({
+      ...prevState,
+      date: date,
+      month: month,
+      year: year,
+    }));
   };
 
   const onTimeClickHour = (hours: number) => {
@@ -80,8 +101,6 @@ const Datepicker = () => {
   const onTimeClickMinute = (minutes: number) => {
     setDateObj((prevState) => ({ ...prevState, minutes: minutes }));
   };
-
-  const [open, setOpen] = useState<boolean>(true);
 
   const handleConfirm = () => {
     setFinalDateObj(dateObj);
@@ -94,21 +113,26 @@ const Datepicker = () => {
 
   return (
     <>
-      {/* {dateObj.year}/{dateObj.month + 1}/{dateObj.date} {dateObj.hours}:{dateObj.minutes}{" "} */}
       <input
+        ref={inputRef}
         type="text"
         className="datepicker_input"
-        onClick={() => {
-          setOpen(!open);
-        }}
-        value={`${finalObj.year}/${String(finalObj.month + 1).padStart(2, "0")}/${String(finalObj.date).padStart(2, "0")} ${String(finalObj.hours).padStart(2, "0")}:${
-          String(finalObj.minutes).padStart(2, "0")
-        }`}
-        // disabled
+        // onClick={() => {
+        //   if(open){
+        //     return setOpen(false)
+        //   }
+        //   return setOpen(true)
+        // }}
+        value={`${finalObj.year}/${String(finalObj.month + 1).padStart(
+          2,
+          "0"
+        )}/${String(finalObj.date).padStart(2, "0")} ${String(
+          finalObj.hours
+        ).padStart(2, "0")}:${String(finalObj.minutes).padStart(2, "0")}`}
         readOnly
       />
       {open ? (
-        <div className="datepicker">
+        <div className="datepicker" ref={menuRef}>
           <DatepickerHeader dateObj={dateObj} onNext={onNext} onPrev={onPrev} />
           <DatepickerCalendar
             onDateClick={onDateClick}
