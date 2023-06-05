@@ -11,15 +11,17 @@ const Datepicker = () => {
     date: new Date().getDate(),
     month: new Date().getMonth(),
     year: new Date().getFullYear(),
-    hours: new Date().getHours(),
-    minutes: new Date().getMinutes(),
+    // hours: new Date().getHours(),
+    // minutes: new Date().getMinutes(),
+    hours: 0,
+    minutes: 0,
   });
   const [finalObj, setFinalDateObj] = useState<IDate>({
     date: new Date().getDate(),
     month: new Date().getMonth(),
     year: new Date().getFullYear(),
-    hours: new Date().getHours(),
-    minutes: new Date().getMinutes(),
+    hours: 0,
+    minutes: 0,
   });
   const currentDateObj = useRef<IDate>({
     date: new Date().getDate(),
@@ -79,7 +81,7 @@ const Datepicker = () => {
     setDateObj((prevState) => ({ ...prevState, minutes: minutes }));
   };
 
-  const [open, setOpen] = useState<boolean>(false);
+  const [open, setOpen] = useState<boolean>(true);
 
   const handleConfirm = () => {
     setFinalDateObj(dateObj);
@@ -95,12 +97,12 @@ const Datepicker = () => {
       {/* {dateObj.year}/{dateObj.month + 1}/{dateObj.date} {dateObj.hours}:{dateObj.minutes}{" "} */}
       <input
         type="text"
-        className="_input"
+        className="datepicker_input"
         onClick={() => {
           setOpen(!open);
         }}
-        value={`${finalObj.year}/${finalObj.month + 1}/${finalObj.date}  ${finalObj.hours}:${
-          finalObj.minutes
+        value={`${finalObj.year}/${String(finalObj.month + 1).padStart(2, "0")}/${String(finalObj.date).padStart(2, "0")} ${String(finalObj.hours).padStart(2, "0")}:${
+          String(finalObj.minutes).padStart(2, "0")
         }`}
         // disabled
         readOnly

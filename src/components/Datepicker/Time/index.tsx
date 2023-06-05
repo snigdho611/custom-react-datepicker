@@ -7,93 +7,17 @@ interface ITimeProps {
   onTimeClickMinute: (minutes: number) => void;
 }
 
-const DatepickerTime: React.FC<ITimeProps> = ({ dateObj, onTimeClickHour, onTimeClickMinute }) => {
-  const hours = [
-    "00",
-    "01",
-    "02",
-    "03",
-    "04",
-    "05",
-    "06",
-    "07",
-    "08",
-    "10",
-    "11",
-    "12",
-    "13",
-    "14",
-    "15",
-    "16",
-    "17",
-    "18",
-    "19",
-    "20",
-    "21",
-    "22",
-    "23",
-  ];
-  const minutes = [
-    "00",
-    "01",
-    "02",
-    "03",
-    "04",
-    "05",
-    "06",
-    "07",
-    "08",
-    "10",
-    "11",
-    "12",
-    "13",
-    "14",
-    "15",
-    "16",
-    "17",
-    "18",
-    "19",
-    "20",
-    "21",
-    "22",
-    "23",
-    "24",
-    "25",
-    "26",
-    "27",
-    "28",
-    "29",
-    "30",
-    "31",
-    "32",
-    "33",
-    "34",
-    "35",
-    "36",
-    "37",
-    "38",
-    "39",
-    "40",
-    "41",
-    "42",
-    "43",
-    "44",
-    "45",
-    "46",
-    "47",
-    "48",
-    "49",
-    "50",
-    "51",
-    "52",
-    "53",
-    "54",
-    "55",
-    "56",
-    "57",
-    "58",
-    "59",
-  ];
+const DatepickerTime: React.FC<ITimeProps> = ({
+  dateObj,
+  onTimeClickHour,
+  onTimeClickMinute,
+}) => {
+  const hours = Array.from({ length: 24 }, (_, index) => index);
+  const minutes = Array.from({ length: 60 }, (_, index) => index);
+  // const hours = Array.from({ length: 10 }, (_, index) => index );
+  // const minutes = Array.from({ length: 10 }, (_, index) => index );
+
+  console.log(dateObj.hours, dateObj.minutes);
 
   return (
     <div className="datepicker_time">
@@ -103,7 +27,8 @@ const DatepickerTime: React.FC<ITimeProps> = ({ dateObj, onTimeClickHour, onTime
       >
         {hours.map((hour) => (
           <option key={hour} value={hour}>
-            {hour}
+            {/* {String(hour).padStart(2, "0")} */}
+            {hour < 10 ? "0" + hour : hour}
           </option>
         ))}
       </select>
@@ -112,8 +37,12 @@ const DatepickerTime: React.FC<ITimeProps> = ({ dateObj, onTimeClickHour, onTime
         onChange={(e) => onTimeClickMinute(parseInt(e.target.value))}
         defaultValue={dateObj.minutes}
       >
-        {minutes.map((hour) => (
-          <option key={hour}>{hour}</option>
+        {minutes.map((minute) => (
+          <option key={minute}>
+            {/* {String(minute).padStart(2, "0")} */}
+            {minute < 10 ? "0" + minute : minute}
+            {/* {minute} */}
+          </option>
         ))}
       </select>
     </div>
