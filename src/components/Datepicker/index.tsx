@@ -4,11 +4,7 @@ import DatepickerTime from "./Time";
 import DatepickerHeader from "./Header";
 import DatepickerCalendar from "./Calendar";
 import DatepickerFooter from "./Footer";
-import { IDate } from "interface";
-
-interface IDatepickerProps {
-  width?: string;
-}
+import { IDate, IDatepickerProps } from "interface";
 
 const Datepicker: React.FC<IDatepickerProps> = ({ width = "100%" }) => {
   const [dateObj, setDateObj] = useState<IDate>({
@@ -37,7 +33,7 @@ const Datepicker: React.FC<IDatepickerProps> = ({ width = "100%" }) => {
   const [open, setOpen] = useState<boolean>(true);
 
   useEffect(() => {
-    const handleClickOutside = (event: any) => {
+    const handleClickOutside = (event: Event) => {
       if (inputRef.current && inputRef.current.contains(event.target)) {
         setOpen(!open);
       }

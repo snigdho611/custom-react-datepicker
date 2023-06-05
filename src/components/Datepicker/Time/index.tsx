@@ -1,10 +1,4 @@
-import { IDate } from "interface";
-
-interface ITimeProps {
-  dateObj: IDate;
-  onTimeClickHour: (hours: number) => void;
-  onTimeClickMinute: (minutes: number) => void;
-}
+import { ITimeProps } from "interface";
 
 const DatepickerTime: React.FC<ITimeProps> = ({ dateObj, onTimeClickHour, onTimeClickMinute }) => {
   const hours = Array.from({ length: 24 }, (_, index) => index);

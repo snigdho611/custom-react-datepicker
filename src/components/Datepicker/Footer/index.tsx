@@ -1,11 +1,5 @@
-import { IDate } from "interface";
-import React from "react";
+import { IFooterProps } from "interface";
 
-interface IFooterProps {
-  dateObj: IDate;
-  handleConfirm: () => void;
-  handleCancel: () => void;
-}
 const Footer: React.FC<IFooterProps> = ({ dateObj, handleConfirm, handleCancel }) => {
   return (
     <div className="datepicker_modal_footer">

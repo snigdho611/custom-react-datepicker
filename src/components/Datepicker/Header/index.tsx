@@ -1,4 +1,3 @@
-import dayjs from "dayjs";
 import { IDate } from "interface";
 
 interface IHeaderProps {
