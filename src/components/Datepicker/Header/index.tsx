@@ -39,12 +39,11 @@ const Header: React.FC<IHeaderProps> = ({ dateObj, onNext, onPrev }) => {
   };
 
   return (
-    <div className="datepicker_header">
+    <div className="datepicker_modal_header">
       <button onClick={onPrev}>{"<"}</button>
       <div>
         {/* {dayjs().locale("en").month(dateObj.month).format("MMMM")}{" "} */}
-        {getMonthName(dateObj.month)} {" "}
-        {dateObj.year}
+        {getMonthName(dateObj.month)} {dateObj.year}
       </div>
       <button onClick={onNext}>{">"}</button>
     </div>

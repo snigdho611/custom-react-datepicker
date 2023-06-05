@@ -6,7 +6,11 @@ import DatepickerCalendar from "./Calendar";
 import DatepickerFooter from "./Footer";
 import { IDate } from "interface";
 
-const Datepicker = () => {
+interface IDatepickerProps {
+  width?: string;
+}
+
+const Datepicker: React.FC<IDatepickerProps> = ({ width = "100%" }) => {
   const [dateObj, setDateObj] = useState<IDate>({
     date: new Date().getDate(),
     month: new Date().getMonth(),
@@ -30,16 +34,16 @@ const Datepicker = () => {
   });
   const menuRef = useRef<any>(null);
   const inputRef = useRef<any>(null);
-  const [open, setOpen] = useState<boolean>(false);
+  const [open, setOpen] = useState<boolean>(true);
 
   useEffect(() => {
     const handleClickOutside = (event: any) => {
-      if(inputRef.current && inputRef.current.contains(event.target)){
-        setOpen(!open)
+      if (inputRef.current && inputRef.current.contains(event.target)) {
+        setOpen(!open);
       }
-      if(open && menuRef.current && !menuRef.current.contains(event.target)){
-        console.log("Click outside menu")
-        setOpen(!open)
+      if (open && menuRef.current && !menuRef.current.contains(event.target)) {
+        console.log("Click outside menu");
+        setOpen(!open);
       }
     };
     document.addEventListener("mousedown", handleClickOutside);
@@ -112,27 +116,21 @@ const Datepicker = () => {
   };
 
   return (
-    <>
+    <div className="datepicker">
       <input
+        style={{ width: width }}
         ref={inputRef}
         type="text"
         className="datepicker_input"
-        // onClick={() => {
-        //   if(open){
-        //     return setOpen(false)
-        //   }
-        //   return setOpen(true)
-        // }}
-        value={`${finalObj.year}/${String(finalObj.month + 1).padStart(
-          2,
-          "0"
-        )}/${String(finalObj.date).padStart(2, "0")} ${String(
-          finalObj.hours
-        ).padStart(2, "0")}:${String(finalObj.minutes).padStart(2, "0")}`}
+        value={`${finalObj.year}/${String(finalObj.month + 1).padStart(2, "0")}/${String(
+          finalObj.date
+        ).padStart(2, "0")} ${String(finalObj.hours).padStart(2, "0")}:${String(
+          finalObj.minutes
+        ).padStart(2, "0")}`}
         readOnly
       />
       {open ? (
-        <div className="datepicker" ref={menuRef}>
+        <div className="datepicker_modal" style={{ width: width }} ref={menuRef}>
           <DatepickerHeader dateObj={dateObj} onNext={onNext} onPrev={onPrev} />
           <DatepickerCalendar
             onDateClick={onDateClick}
@@ -151,7 +149,7 @@ const Datepicker = () => {
           />
         </div>
       ) : null}
-    </>
+    </div>
   );
 };
 
