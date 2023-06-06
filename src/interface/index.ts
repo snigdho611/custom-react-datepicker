@@ -10,7 +10,7 @@ export interface IDate {
 
 export interface IDatepickerProps {
   width?: string;
-  onChange: Dispatch<SetStateAction<Date|null|undefined>>;
+  onChange: Dispatch<SetStateAction<Date | undefined>>;
   date?: Date;
 }
 
