@@ -5,14 +5,16 @@ $cellwidth: 36px;
   font-size: 12px;
   font-family: "Noto Sans JP";
   border-radius: 12px;
-  width: auto;
+  // width: auto;
+  position: relative;
   &_input {
     display: flex;
     // width: 310px;
     height: 18px;
     border: 1px solid #d9d9d9;
     border-radius: 6px;
-    outline: 1px solid #d9d9d9;
+    // outline: 1px solid #d9d9d9;
+    outline: none;
     padding: 10px 16px;
     // width: 100%;
     &:hover {

@@ -4,8 +4,6 @@ const DatepickerTime: React.FC<ITimeProps> = ({ dateObj, onTimeClickHour, onTime
   const hours = Array.from({ length: 24 }, (_, index) => index);
   const minutes = Array.from({ length: 60 }, (_, index) => index);
 
-  console.log(dateObj.hours, dateObj.minutes);
-
   return (
     <div className="datepicker_modal_time">
       <select

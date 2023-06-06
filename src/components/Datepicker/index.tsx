@@ -6,31 +6,35 @@ import DatepickerCalendar from "./Calendar";
 import DatepickerFooter from "./Footer";
 import { IDate, IDatepickerProps } from "interface";
 
-const Datepicker: React.FC<IDatepickerProps> = ({ width = "100%" }) => {
+const Datepicker: React.FC<IDatepickerProps> = ({ width = "100%", onChange, date }) => {
   const [dateObj, setDateObj] = useState<IDate>({
-    date: new Date().getDate(),
-    month: new Date().getMonth(),
-    year: new Date().getFullYear(),
-    hours: 0,
-    minutes: 0,
+    date: date ? new Date(date).getDate() : new Date().getDate(),
+    month: date ? new Date(date).getMonth() : new Date().getMonth(),
+    year: date ? new Date(date).getFullYear() : new Date().getFullYear(),
+    hours: date ? new Date(date).getHours() : new Date().getHours(),
+    minutes: date ? new Date(date).getMinutes() : new Date().getMinutes(),
   });
   const [finalObj, setFinalDateObj] = useState<IDate>({
-    date: new Date().getDate(),
-    month: new Date().getMonth(),
-    year: new Date().getFullYear(),
-    hours: 0,
-    minutes: 0,
+    date: date ? new Date(date).getDate() : new Date().getDate(),
+    month: date ? new Date(date).getMonth() : new Date().getMonth(),
+    year: date ? new Date(date).getFullYear() : new Date().getFullYear(),
+    hours: date ? new Date(date).getHours() : new Date().getHours(),
+    minutes: date ? new Date(date).getMinutes() : new Date().getMinutes(),
   });
   const currentDateObj = useRef<IDate>({
-    date: new Date().getDate(),
-    month: new Date().getMonth(),
-    year: new Date().getFullYear(),
-    hours: new Date().getHours(),
-    minutes: new Date().getMinutes(),
+    date: date ? new Date(date).getDate() : new Date().getDate(),
+    month: date ? new Date(date).getMonth() : new Date().getMonth(),
+    year: date ? new Date(date).getFullYear() : new Date().getFullYear(),
+    hours: date ? new Date(date).getHours() : new Date().getHours(),
+    minutes: date ? new Date(date).getMinutes() : new Date().getMinutes(),
   });
   const menuRef = useRef<any>(null);
   const inputRef = useRef<any>(null);
-  const [open, setOpen] = useState<boolean>(true);
+  const [open, setOpen] = useState<boolean>(false);
+
+  useEffect(()=>{
+    onChange(new Date(finalObj.year, finalObj.month, finalObj.date, finalObj.hours, finalObj.minutes))
+  }, [finalObj, onChange])
 
   useEffect(() => {
     const handleClickOutside = (event: Event) => {
@@ -38,7 +42,6 @@ const Datepicker: React.FC<IDatepickerProps> = ({ width = "100%" }) => {
         setOpen(!open);
       }
       if (open && menuRef.current && !menuRef.current.contains(event.target)) {
-        console.log("Click outside menu");
         setOpen(!open);
       }
     };

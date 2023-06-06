@@ -1,4 +1,4 @@
-import { MutableRefObject } from "react";
+import { Dispatch, MutableRefObject, SetStateAction } from "react";
 
 export interface IDate {
   date: number;
@@ -10,6 +10,8 @@ export interface IDate {
 
 export interface IDatepickerProps {
   width?: string;
+  onChange: Dispatch<SetStateAction<Date|null|undefined>>;
+  date?: Date;
 }
 
 export interface ICalendarProps {
