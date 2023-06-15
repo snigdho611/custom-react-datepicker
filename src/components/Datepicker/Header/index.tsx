@@ -1,52 +1,57 @@
-import { IDate } from "interface";
+import { IDate } from '../../../../types/datepicker/index'
+import { ReactComponent as ArrowLeft} from '../../../../images/LeftArrow.svg'
+import { ReactComponent as ArrowRight} from '../../../../images/RightArrow.svg'
 
 interface IHeaderProps {
-  dateObj: IDate;
-  onNext: () => void;
-  onPrev: () => void;
+  dateObj: IDate
+  onNext: () => void
+  onPrev: () => void
 }
 const Header: React.FC<IHeaderProps> = ({ dateObj, onNext, onPrev }) => {
   const getMonthName = (monthIndex: number) => {
     switch (monthIndex) {
       case 0:
-        return "January";
+        return 'January'
       case 1:
-        return "February";
+        return 'February'
       case 2:
-        return "March";
+        return 'March'
       case 3:
-        return "April";
+        return 'April'
       case 4:
-        return "May";
+        return 'May'
       case 5:
-        return "June";
+        return 'June'
       case 6:
-        return "July";
+        return 'July'
       case 7:
-        return "August";
+        return 'August'
       case 8:
-        return "September";
+        return 'September'
       case 9:
-        return "October";
+        return 'October'
       case 10:
-        return "November";
+        return 'November'
       case 11:
-        return "December";
+        return 'December'
       default:
-        break;
+        break
     }
-  };
+  }
 
   return (
-    <div className="datepicker_modal_header">
-      <button onClick={onPrev}>{"<"}</button>
-      <div>
-        {/* {dayjs().locale("en").month(dateObj.month).format("MMMM")}{" "} */}
-        {getMonthName(dateObj.month)} {dateObj.year}
+    <div className='datepicker_modal_header'>
+      <div className='datepicker_modal_header_buttons'>
+        <button type="button" onClick={onPrev}><ArrowLeft /></button>
+        <div>
+          {/* {dayjs().locale("en").month(dateObj.month).format("MMMM")}{" "} */}
+          {getMonthName(dateObj.month)} {dateObj.year}
+        </div>
+        <button type="button" onClick={onNext}><ArrowRight /></button>
       </div>
-      <button onClick={onNext}>{">"}</button>
+      <hr className='datepicker_modal_header_divider' />
     </div>
-  );
-};
+  )
+}
 
-export default Header;
+export default Header

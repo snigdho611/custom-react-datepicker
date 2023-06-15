@@ -1,4 +1,4 @@
-import { ITimeProps } from "interface";
+import { ITimeProps } from "../../../../types/datepicker/index";
 
 const DatepickerTime: React.FC<ITimeProps> = ({ dateObj, onTimeClickHour, onTimeClickMinute }) => {
   const hours = Array.from({ length: 24 }, (_, index) => index);
@@ -16,7 +16,7 @@ const DatepickerTime: React.FC<ITimeProps> = ({ dateObj, onTimeClickHour, onTime
           </option>
         ))}
       </select>
-      :
+      <span className="time-divider">:</span>
       <select
         onChange={(e) => onTimeClickMinute(parseInt(e.target.value))}
         defaultValue={dateObj.minutes}

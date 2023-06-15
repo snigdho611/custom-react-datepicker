@@ -2,23 +2,31 @@ $cellheight: 30px;
 $cellwidth: 36px;
 
 .datepicker {
-  font-size: 12px;
-  font-family: "Noto Sans JP";
+  font-size: 14px;
+  font-family: 'Noto Sans JP';
   border-radius: 12px;
   // width: auto;
   position: relative;
   &_input {
     display: flex;
-    // width: 310px;
-    height: 18px;
+    width: 292px;
+    // height: 18px;
     border: 1px solid #d9d9d9;
     border-radius: 6px;
     // outline: 1px solid #d9d9d9;
     outline: none;
     padding: 10px 16px;
     // width: 100%;
+    font-family: "Noto Sans JP", sans-serif;
+    height: 38px;
+    font-size: 14px;
+    color: #313133;
     &:hover {
       cursor: pointer;
+    }
+    &:focus{
+      outline: '1px solid #9AA5B1',
+
     }
   }
   &_modal {
@@ -26,24 +34,34 @@ $cellwidth: 36px;
     background-color: white;
     min-height: 371px;
     box-shadow: 0px 6px 16px #0000001f;
+    z-index: 1;
+    width: 342px;
     &_header {
-      display: flex;
-      justify-content: space-between;
       font-size: 14px;
       width: 296px;
-      padding: 25px 23px 37px 23px;
       width: 100%;
-      & button {
-        background-color: transparent;
-        color: #939598;
-        font-weight: bold;
-        border: none;
-        cursor: pointer;
-        &:focus {
-          outline: 1px solid #009bdf;
-        }
-        &:hover {
-          outline: 1px solid #009bdf;
+      &_divider {
+        margin: 17px auto 20px auto;
+        width: 251px;
+        border-top: 1px solid #D9D9D9;
+      }
+      &_buttons {
+        padding: 25px 23px 0px 23px;
+        display: flex;
+        justify-content: space-between;
+        font-weight: 500;
+        & button {
+          background-color: transparent;
+          color: #939598;
+          font-weight: bold;
+          border: none;
+          cursor: pointer;
+          &:focus {
+            outline: 1px solid #009DE1;
+          }
+          &:hover {
+            outline: 1px solid #009DE1;
+          }
         }
       }
     }
@@ -56,20 +74,20 @@ $cellwidth: 36px;
         display: grid;
         grid-template-columns: repeat(7, $cellwidth);
         gap: 4px;
-        font-size: 11px;
+        font-size: 10px;
         &_day {
           text-align: center;
           display: flex;
           align-items: center;
           justify-content: center;
           width: $cellwidth;
-          height: $cellheight;
+          height: 14px;
           vertical-align: middle;
           color: #939598;
         }
       }
       &_date {
-        margin-top: 18px;
+        margin-top: 16px;
         display: grid;
         grid-template-columns: repeat(7, $cellwidth);
         gap: 4px;
@@ -81,17 +99,20 @@ $cellwidth: 36px;
           width: $cellwidth;
           height: $cellheight;
           border-radius: 4px;
+          font-family: "Noto Sans JP", sans-serif;
           &-normal {
-            @extend .datepicker_modal_calendar_date_day;
             cursor: pointer;
             background-color: transparent;
             border: none;
+            font-family: "Noto Sans JP", sans-serif;
+            padding: 5px;
+            border-radius: 4px;
             &:hover {
-              background-color: #009bdf;
+              background-color: #009DE1;
               color: white;
             }
             &:focus {
-              background-color: #009bdf;
+              background-color: #009DE1;
               color: white;
               outline: none;
             }
@@ -107,7 +128,7 @@ $cellwidth: 36px;
       display: flex;
       justify-content: center;
       align-items: center;
-      padding-top: 18px;
+      padding-top: 16px;
       & select {
         width: 50px;
         height: 30px;
@@ -115,6 +136,7 @@ $cellwidth: 36px;
         border-radius: 4px;
         border: none;
         background-color: #eaeded;
+        font-family: "Noto Sans JP", sans-serif;
         &:focus,
         &:hover {
           cursor: pointer;
@@ -123,45 +145,59 @@ $cellwidth: 36px;
       }
     }
     &_footer {
-      display: flex;
-      align-items: center;
       font-size: 16px;
-      justify-content: space-between;
-      padding: 26px 15px 10px 15px;
-      &_buttons {
+      &_divider{
+        margin: 16px auto 10px auto;
+        width: 100%;
+        border-top: 1px solid #D9D9D9;
+      }
+      &_content{
+        align-items: center;
         display: flex;
-        gap: 8px;
-        & button {
+        justify-content: space-between;
+        padding: 0 15px 10px 15px;
+        &_text{
           font-size: 14px;
-          padding: 10px 20px;
-          border-radius: 6px;
-          // display: flex;
-          // border: none;
-          cursor: pointer;
         }
-        &-cancel {
-          background-color: transparent;
-          border: 1px solid #d9d9d9;
-        }
-        &-confirm {
-          background-color: transparent;
-          border: 1px solid #009bdf;
-          background-color: #009bdf;
-          color: white;
+        &_buttons {
+          display: flex;
+          gap: 8px;
+          & button {
+            font-size: 14px;
+            padding: 0 20px;
+            border-radius: 6px;
+            height: 38px;
+            cursor: pointer;
+            font-family: "Noto Sans JP", sans-serif;
+          }
+          &-cancel {
+            background-color: transparent;
+            border: 1px solid #d9d9d9;
+          }
+          &-confirm {
+            background-color: transparent;
+            border: 1px solid #009DE1;
+            background-color: #009DE1;
+            color: white;
+          }
         }
       }
+      
     }
   }
 }
 
 .current-day {
-  outline: 1px solid #009bdf;
+  outline: 1px solid #009DE1;
   border-radius: 4px;
   border: none;
 }
 
 .selected-day {
-  background-color: #009bdf;
+  background-color: #009DE1;
   color: white;
-  border-radius: 4px;
+}
+.time-divider{
+  margin-left: 5px;
+  margin-right: 5px;
 }

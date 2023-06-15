@@ -1,21 +1,22 @@
-import { ICalendarProps } from "interface";
+import { ICalendarProps } from "../../../../types/datepicker/index";
 
 const Calendar: React.FC<ICalendarProps> = ({ dateObj, currentDateObj, onDateClick }) => {
   const daysInMonth = new Date(dateObj.year, dateObj.month, 0).getDate();
   const startDay = new Date(dateObj.year, dateObj.month, 0).getDay();
 
-  const getStartEmptyCells = () => {
+  const getStartEmptyCells = ():JSX.Element[] => {
     const emptyCells = [];
-    for (let i = 0; i < startDay; i++) {
+    for (let i = 0; i < startDay; i+=1) {
       emptyCells.push(<div key={i} className="datepicker_modal_calendar_date_day-empty" />);
     }
+
     return emptyCells;
   };
 
   const getDateCells = () => {
     const dateCells = [];
-    for (let i = 1; i <= daysInMonth; i++) {
-      let dayClass: string = "";
+    for (let i = 1; i <= daysInMonth; i+=1) {
+      let dayClass: string;
       dayClass = "datepicker_modal_calendar_date_day-normal";
       if (
         currentDateObj.current.date === i &&
@@ -29,7 +30,7 @@ const Calendar: React.FC<ICalendarProps> = ({ dateObj, currentDateObj, onDateCli
         dayClass = "datepicker_modal_calendar_date_day-normal selected-day";
       }
       dateCells.push(
-        <button
+        <button type="button"
           key={i}
           onClick={() => {
             // console.log(dateObj);
