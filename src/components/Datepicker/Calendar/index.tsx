@@ -1,4 +1,4 @@
-import { ICalendarProps } from "../../../../types/datepicker/index";
+import { ICalendarProps } from "interface";
 
 const Calendar: React.FC<ICalendarProps> = ({ dateObj, currentDateObj, onDateClick }) => {
   const daysInMonth = new Date(dateObj.year, dateObj.month, 0).getDate();

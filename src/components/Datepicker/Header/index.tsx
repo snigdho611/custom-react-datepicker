@@ -1,13 +1,15 @@
-import { IDate } from '../../../../types/datepicker/index'
-import { ReactComponent as ArrowLeft} from '../../../../images/LeftArrow.svg'
-import { ReactComponent as ArrowRight} from '../../../../images/RightArrow.svg'
+import { IDate } from 'interface'
+// import { ReactComponent as ArrowLeft} from 'icons/left-arrow.svg'
+// import { ReactComponent as ArrowRight} from '../../../icons/right-arrow.svg'
+// import test from 'icons/test'
 
 interface IHeaderProps {
-  dateObj: IDate
+  selected: IDate
   onNext: () => void
   onPrev: () => void
 }
-const Header: React.FC<IHeaderProps> = ({ dateObj, onNext, onPrev }) => {
+
+const Header: React.FC<IHeaderProps> = ({ selected, onNext, onPrev }) => {
   const getMonthName = (monthIndex: number) => {
     switch (monthIndex) {
       case 0:
@@ -42,12 +44,15 @@ const Header: React.FC<IHeaderProps> = ({ dateObj, onNext, onPrev }) => {
   return (
     <div className='datepicker_modal_header'>
       <div className='datepicker_modal_header_buttons'>
-        <button type="button" onClick={onPrev}><ArrowLeft /></button>
+        <button type="button" onClick={onPrev}>
+          {"<"}
+          </button>
         <div>
-          {/* {dayjs().locale("en").month(dateObj.month).format("MMMM")}{" "} */}
-          {getMonthName(dateObj.month)} {dateObj.year}
+          {getMonthName(selected.month)} {selected.year}
         </div>
-        <button type="button" onClick={onNext}><ArrowRight /></button>
+        <button type="button" onClick={onNext}>
+          {">"}
+          </button>
       </div>
       <hr className='datepicker_modal_header_divider' />
     </div>

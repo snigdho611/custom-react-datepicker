@@ -10,8 +10,9 @@ export interface IDate {
 
 export interface IDatepickerProps {
   width?: string;
-  onChange: Dispatch<SetStateAction<Date | undefined>>;
   date?: Date;
+  disabled?:boolean
+  onChange: (date: Date)=>void
 }
 
 export interface ICalendarProps {

@@ -1,6 +1,6 @@
 /* eslint-disable react/button-has-type */
 /* eslint-disable arrow-body-style */
-import { IFooterProps } from '../../../../types/datepicker/index'
+import { IFooterProps } from 'interface'
 
 const Footer: React.FC<IFooterProps> = ({
   dateObj,

@@ -11,11 +11,14 @@ function App() {
   return (
     <div style={{ width: "50%" }}>
       <Datepicker
-        onChange={setDate}
-        // date={new Date(2023, 10, 10, 6, 50)}
+        onChange={(e)=>{
+          setDate(e)
+        }}
       />
     </div>
   );
 }
 
 export default App;
+
+// If schedule is true, the notification_status will also be "SCHEDULED"

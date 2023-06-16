@@ -1,27 +1,34 @@
-import { useEffect, useRef, useState } from "react";
+import { MutableRefObject, useEffect, useRef, useState } from "react";
 import "./index.scss";
-import { IDate, IDatepickerProps } from "../../../types/datepicker/index";
+import { IDate, IDatepickerProps } from "../../interface";
 import DatepickerTime from "./Time";
 import DatepickerHeader from "./Header";
 import DatepickerCalendar from "./Calendar";
 import DatepickerFooter from "./Footer";
 
-const Datepicker: React.FC<IDatepickerProps> = ({ width = "100%", onDateChange, date, disabled = false }) => {
+const Datepicker: React.FC<IDatepickerProps> = ({
+  width = "100%",
+  onChange,
+  date,
+  disabled = false,
+}) => {
   const [dateObj, setDateObj] = useState<IDate>({
     date: date ? new Date(date).getDate() : new Date().getDate(),
     month: date ? new Date(date).getMonth() : new Date().getMonth(),
     year: date ? new Date(date).getFullYear() : new Date().getFullYear(),
-    hours: date? new Date(date).getHours() : 0,
-    minutes: date? new Date(date).getMinutes() : 0,
+    hours: date ? new Date(date).getHours() : 0,
+    minutes: date ? new Date(date).getMinutes() : 0,
   });
-  const [finalObj, setFinalDateObj] = useState<IDate | null>( date? 
-    {
-    date: date ? new Date(date).getDate() : new Date().getDate(),
-    month: date ? new Date(date).getMonth() : new Date().getMonth(),
-    year: date ? new Date(date).getFullYear() : new Date().getFullYear(),
-    hours: date? new Date(date).getHours() : 0,
-    minutes: date? new Date(date).getMinutes() : 0,
-  } : null
+  const [finalObj, setFinalDateObj] = useState<IDate | null>(
+    date
+      ? {
+          date: date ? new Date(date).getDate() : new Date().getDate(),
+          month: date ? new Date(date).getMonth() : new Date().getMonth(),
+          year: date ? new Date(date).getFullYear() : new Date().getFullYear(),
+          hours: date ? new Date(date).getHours() : 0,
+          minutes: date ? new Date(date).getMinutes() : 0,
+        }
+      : null
   );
   const currentDateObj = useRef<IDate>({
     date: date ? new Date(date).getDate() : new Date().getDate(),
@@ -30,24 +37,24 @@ const Datepicker: React.FC<IDatepickerProps> = ({ width = "100%", onDateChange, 
     hours: date ? new Date(date).getHours() : new Date().getHours(),
     minutes: date ? new Date(date).getMinutes() : new Date().getMinutes(),
   });
-  const menuRef = useRef<any>(null);
-  const inputRef = useRef<any>(null);
+  const menuRef = useRef<HTMLDivElement | null>(null);
+  const inputRef = useRef<HTMLInputElement | null>(null);
   const [open, setOpen] = useState<boolean>(false);
 
   useEffect(() => {
-    if(disabled){
+    if (disabled) {
       return;
     }
     const handleClickOutside = (event: Event) => {
-      if (inputRef.current && inputRef.current.contains(event.target)) {
+      if (inputRef.current && inputRef.current.contains(event.target as Node)) {
         setOpen(!open);
       }
-      if (open && menuRef.current && !menuRef.current.contains(event.target)) {
+      if (open && menuRef.current && !menuRef.current.contains(event.target as Node)) {
         setOpen(!open);
       }
     };
     document.addEventListener("mousedown", handleClickOutside);
-    
+
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
@@ -109,7 +116,15 @@ const Datepicker: React.FC<IDatepickerProps> = ({ width = "100%", onDateChange, 
 
   const handleConfirm = () => {
     setFinalDateObj(dateObj);
-    onDateChange(new Date(dateObj.year, dateObj.month, dateObj.date, dateObj.hours, dateObj.minutes))
+    onChange(
+      new Date(
+        dateObj.year,
+        dateObj.month,
+        dateObj.date,
+        dateObj.hours,
+        dateObj.minutes
+      )
+    );
     setOpen(false);
   };
 
@@ -120,21 +135,34 @@ const Datepicker: React.FC<IDatepickerProps> = ({ width = "100%", onDateChange, 
   return (
     <div className="datepicker">
       <input
-        style={{ width, backgroundColor: disabled? "#FAFAFA":"#fff", cursor: disabled?"default": "pointer" }}
+        style={{
+          width,
+          backgroundColor: disabled ? "#FAFAFA" : "#fff",
+          cursor: disabled ? "default" : "pointer",
+        }}
         ref={inputRef}
         type="text"
         className="datepicker_input"
-        value={finalObj? `${finalObj.year}/${String(finalObj.month + 1).padStart(2, "0")}/${String(
-          finalObj.date
-        ).padStart(2, "0")} ${String(finalObj.hours).padStart(2, "0")}:${String(
-          finalObj.minutes
-        ).padStart(2, "0")}` : ""}
+        value={
+          finalObj
+            ? `${finalObj.year}/${String(finalObj.month + 1).padStart(
+                2,
+                "0"
+              )}/${String(finalObj.date).padStart(2, "0")} ${String(
+                finalObj.hours
+              ).padStart(2, "0")}:${String(finalObj.minutes).padStart(2, "0")}`
+            : ""
+        }
         placeholder="Select a date"
         readOnly
       />
       {open ? (
         <div className="datepicker_modal" ref={menuRef}>
-          <DatepickerHeader dateObj={dateObj} onNext={onNext} onPrev={onPrev} />
+          <DatepickerHeader
+            selected={dateObj}
+            onNext={onNext}
+            onPrev={onPrev}
+          />
           <DatepickerCalendar
             onDateClick={onDateClick}
             dateObj={dateObj}
