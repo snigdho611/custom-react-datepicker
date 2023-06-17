@@ -1,4 +1,4 @@
-import { MutableRefObject, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import "./index.scss";
 import { IDate, IDatepickerProps } from "../../interface";
 import DatepickerTime from "./Time";
@@ -39,34 +39,34 @@ const Datepicker: React.FC<IDatepickerProps> = ({
       : null
   );
   const currentDateObj = useRef<IDate>({
-    date: selected ? new Date(selected).getDate() : currentDate,
-    month: selected ? new Date(selected).getMonth() : currentMonth,
-    year: selected ? new Date(selected).getFullYear() : currentYear,
-    hours: selected ? new Date(selected).getHours() : currentHour,
-    minutes: selected ? new Date(selected).getMinutes() : currentMinute,
+    date: currentDate,
+    month: currentMonth,
+    year: currentYear,
+    hours: currentHour,
+    minutes: currentMinute,
   });
   const menuRef = useRef<HTMLDivElement | null>(null);
   const inputRef = useRef<HTMLInputElement | null>(null);
   const [open, setOpen] = useState<boolean>(true);
 
-  // useEffect(() => {
-  //   if (disabled) {
-  //     return;
-  //   }
-  //   const handleClickOutside = (event: Event) => {
-  //     if (inputRef.current && inputRef.current.contains(event.target as Node)) {
-  //       setOpen(!open);
-  //     }
-  //     if (open && menuRef.current && !menuRef.current.contains(event.target as Node)) {
-  //       setOpen(!open);
-  //     }
-  //   };
-  //   document.addEventListener("mousedown", handleClickOutside);
+  useEffect(() => {
+    if (disabled) {
+      return;
+    }
+    const handleClickOutside = (event: Event) => {
+      if (inputRef.current && inputRef.current.contains(event.target as Node)) {
+        setOpen(!open);
+      }
+      if (open && menuRef.current && !menuRef.current.contains(event.target as Node)) {
+        setOpen(!open);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
 
-  //   return () => {
-  //     document.removeEventListener("mousedown", handleClickOutside);
-  //   };
-  // }, [menuRef, setOpen, open, disabled]);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [menuRef, setOpen, open, disabled]);
 
   const onNext = () => {
     if (dateObj.month === 11) {
@@ -123,7 +123,14 @@ const Datepicker: React.FC<IDatepickerProps> = ({
   };
 
   const handleConfirm = () => {
-    setFinalDateObj(dateObj);
+    if (min && new Date(`${dateObj.year}-${dateObj.month + 1}-${dateObj.date}`) < min) {
+      setFinalDateObj(null);
+    }
+    if (max && new Date(`${dateObj.year}-${dateObj.month + 1}-${dateObj.date}`) > max) {
+      setFinalDateObj(null);
+    } else {
+      setFinalDateObj(dateObj);
+    }
     onChange(new Date(dateObj.year, dateObj.month, dateObj.date, dateObj.hours, dateObj.minutes));
     setOpen(false);
   };
@@ -163,6 +170,7 @@ const Datepicker: React.FC<IDatepickerProps> = ({
             dateObj={dateObj}
             currentDateObj={currentDateObj}
             min={min}
+            max={max}
           />
           <DatepickerTime
             onTimeClickHour={onTimeClickHour}

@@ -5,6 +5,7 @@ const Calendar: React.FC<ICalendarProps> = ({
   currentDateObj,
   onDateClick,
   min = null,
+  max = null,
 }) => {
   const daysInMonth = new Date(dateObj.year, dateObj.month, 0).getDate();
   const startDay = new Date(dateObj.year, dateObj.month, 0).getDay();
@@ -23,10 +24,6 @@ const Calendar: React.FC<ICalendarProps> = ({
     for (let i = 1; i <= daysInMonth; i += 1) {
       let dayClass: string = "datepicker_modal_calendar_grid_cell-normal";
 
-      if (min && new Date(`${dateObj.year}-${dateObj.month + 1}-${i}`) < min) {
-        dayClass = "datepicker_modal_calendar_grid_cell-disabled";
-      }
-
       if (
         currentDateObj.current.date === i &&
         currentDateObj.current.month === dateObj.month &&
@@ -36,6 +33,12 @@ const Calendar: React.FC<ICalendarProps> = ({
       }
       if (dateObj.date === i) {
         dayClass = "datepicker_modal_calendar_grid_cell-selected";
+      }
+      if (min && new Date(`${dateObj.year}-${dateObj.month + 1}-${i}`) < min) {
+        dayClass = "datepicker_modal_calendar_grid_cell-disabled";
+      }
+      if (max && new Date(`${dateObj.year}-${dateObj.month + 1}-${i}`) >= max) {
+        dayClass = "datepicker_modal_calendar_grid_cell-disabled";
       }
 
       dateCells.push(

@@ -1,5 +1,7 @@
 $cellheight: 30px;
 $cellwidth: 36px;
+$disabled: #bfc1c2;
+$foreground: #009de1;
 
 .datepicker {
   font-size: 14px;
@@ -52,10 +54,10 @@ $cellwidth: 36px;
           border: none;
           cursor: pointer;
           &:focus {
-            outline: 1px solid #009de1;
+            outline: 1px solid $foreground;
           }
           &:hover {
-            outline: 1px solid #009de1;
+            outline: 1px solid $foreground;
           }
         }
       }
@@ -104,41 +106,41 @@ $cellwidth: 36px;
             height: $cellheight;
             border-radius: 4px;
             &:hover {
-              background-color: #009de1;
+              background-color: $foreground;
               color: white;
             }
             &:focus {
-              background-color: #009de1;
+              background-color: $foreground;
               color: white;
               outline: none;
             }
           }
           &-selected {
             @extend .datepicker_modal_calendar_grid_cell-normal;
-            background-color: #009de1;
+            background-color: $foreground;
             color: white;
             cursor: pointer;
           }
           &-current {
             @extend .datepicker_modal_calendar_grid_cell-normal;
-            outline: 1px solid #009de1;
+            outline: 1px solid $foreground;
             border-radius: 4px;
             border: none;
             cursor: pointer;
           }
           &-disabled {
             @extend .datepicker_modal_calendar_grid_cell-normal;
-            background-color: gray;
+            background-color: $disabled;
             color: white;
             cursor: pointer;
             &:hover {
-              background-color: gray;
+              background-color: $disabled;
               color: white;
               cursor: default;
             }
             &:focus {
-              // background-color: #009de1;
-              background-color: gray;
+              // background-color: $foreground;
+              background-color: $disabled;
               color: white;
               outline: none;
             }
@@ -198,8 +200,8 @@ $cellwidth: 36px;
           }
           &-confirm {
             background-color: transparent;
-            border: 1px solid #009de1;
-            background-color: #009de1;
+            border: 1px solid $foreground;
+            background-color: $foreground;
             color: white;
           }
         }
@@ -209,14 +211,14 @@ $cellwidth: 36px;
 }
 
 .current-day {
-  outline: 1px solid #009de1;
+  outline: 1px solid $foreground;
   border-radius: 4px;
   border: none;
   cursor: pointer;
 }
 
 .selected-day {
-  background-color: #009de1;
+  background-color: $foreground;
   color: white;
 }
 .time-divider {
