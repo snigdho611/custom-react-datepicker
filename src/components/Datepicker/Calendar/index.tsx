@@ -1,13 +1,18 @@
 import { ICalendarProps } from "interface";
 
-const Calendar: React.FC<ICalendarProps> = ({ dateObj, currentDateObj, onDateClick }) => {
+const Calendar: React.FC<ICalendarProps> = ({
+  dateObj,
+  currentDateObj,
+  onDateClick,
+  min = null,
+}) => {
   const daysInMonth = new Date(dateObj.year, dateObj.month, 0).getDate();
   const startDay = new Date(dateObj.year, dateObj.month, 0).getDay();
 
-  const getStartEmptyCells = ():JSX.Element[] => {
+  const getStartEmptyCells = (): JSX.Element[] => {
     const emptyCells = [];
-    for (let i = 0; i < startDay; i+=1) {
-      emptyCells.push(<div key={i} className="datepicker_modal_calendar_date_day-empty" />);
+    for (let i = 0; i < startDay; i += 1) {
+      emptyCells.push(<div key={i} className="datepicker_modal_calendar_grid_cell" />);
     }
 
     return emptyCells;
@@ -15,27 +20,36 @@ const Calendar: React.FC<ICalendarProps> = ({ dateObj, currentDateObj, onDateCli
 
   const getDateCells = () => {
     const dateCells = [];
-    for (let i = 1; i <= daysInMonth; i+=1) {
-      let dayClass: string;
-      dayClass = "datepicker_modal_calendar_date_day-normal";
+    for (let i = 1; i <= daysInMonth; i += 1) {
+      let dayClass: string = "datepicker_modal_calendar_grid_cell-normal";
+
+      if (min && new Date(`${dateObj.year}-${dateObj.month + 1}-${i}`) < min) {
+        dayClass = "datepicker_modal_calendar_grid_cell-disabled";
+      }
+
       if (
         currentDateObj.current.date === i &&
         currentDateObj.current.month === dateObj.month &&
         currentDateObj.current.year === dateObj.year
       ) {
-        dayClass = "datepicker_calendar_date_day-normal current-day";
+        dayClass = "datepicker_modal_calendar_grid_cell-current";
+      }
+      if (dateObj.date === i) {
+        dayClass = "datepicker_modal_calendar_grid_cell-selected";
       }
 
-      if (dateObj.date === i) {
-        dayClass = "datepicker_modal_calendar_date_day-normal selected-day";
-      }
       dateCells.push(
-        <button type="button"
+        <button
+          type="button"
           key={i}
-          onClick={() => {
-            // console.log(dateObj);
-            onDateClick(i, dateObj.month, dateObj.year);
-          }}
+          onClick={
+            min && new Date(`${dateObj.year}-${dateObj.month + 1}-${i}`) < min
+              ? () => {}
+              : () => {
+                  // console.log(dateObj);
+                  onDateClick(i, dateObj.month, dateObj.year);
+                }
+          }
           className={dayClass}
         >
           {i}
@@ -48,15 +62,21 @@ const Calendar: React.FC<ICalendarProps> = ({ dateObj, currentDateObj, onDateCli
   return (
     <div className="datepicker_modal_calendar">
       <div className="datepicker_modal_calendar_week">
-        <div className="datepicker_modal_calendar_week_day">MON</div>
-        <div className="datepicker_modal_calendar_week_day">TUE</div>
-        <div className="datepicker_modal_calendar_week_day">WED</div>
-        <div className="datepicker_modal_calendar_week_day">THU</div>
-        <div className="datepicker_modal_calendar_week_day">FRI</div>
-        <div className="datepicker_modal_calendar_week_day">SAT</div>
-        <div className="datepicker_modal_calendar_week_day">SUN</div>
+        <div className="datepicker_modal_calendar_week_cell">MON</div>
+        <div className="datepicker_modal_calendar_week_cell">TUE</div>
+        <div className="datepicker_modal_calendar_week_cell">WED</div>
+        <div className="datepicker_modal_calendar_week_cell">THU</div>
+        <div className="datepicker_modal_calendar_week_cell">FRI</div>
+        <div className="datepicker_modal_calendar_week_cell">SAT</div>
+        <div className="datepicker_modal_calendar_week_cell">SUN</div>
       </div>
-      <div className="datepicker_modal_calendar_date">
+      <div className="datepicker_modal_calendar_grid">
+        {/* {Array(startDay)
+          .fill(null)
+          .map((element, i) => {
+            console.log(element);
+            return <div key={i} className="datepicker_modal_calendar_grid_day-empty" />;
+          })} */}
         {getStartEmptyCells()}
         {getDateCells()}
       </div>

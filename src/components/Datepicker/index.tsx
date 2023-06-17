@@ -11,6 +11,8 @@ const Datepicker: React.FC<IDatepickerProps> = ({
   onChange,
   selected,
   disabled = false,
+  min = null,
+  max = null,
 }) => {
   const currentYear = new Date().getFullYear();
   const currentMonth = new Date().getMonth();
@@ -160,6 +162,7 @@ const Datepicker: React.FC<IDatepickerProps> = ({
             onDateClick={onDateClick}
             dateObj={dateObj}
             currentDateObj={currentDateObj}
+            min={min}
           />
           <DatepickerTime
             onTimeClickHour={onTimeClickHour}
