@@ -10,9 +10,9 @@ export interface IDate {
 
 export interface IDatepickerProps {
   width?: string;
-  date?: Date;
-  disabled?:boolean
-  onChange: (date: Date)=>void
+  selected?: Date;
+  disabled?: boolean;
+  onChange: (date: Date) => void;
 }
 
 export interface ICalendarProps {

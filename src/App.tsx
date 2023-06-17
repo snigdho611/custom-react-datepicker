@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import Datepicker from "./components/Datepicker";
+import RightArrow from "icons/RightArrow";
 
 function App() {
   const [date, setDate] = useState<Date>();
@@ -11,8 +12,8 @@ function App() {
   return (
     <div style={{ width: "50%" }}>
       <Datepicker
-        onChange={(e)=>{
-          setDate(e)
+        onChange={(e) => {
+          setDate(e);
         }}
       />
     </div>

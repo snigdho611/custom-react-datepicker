@@ -9,56 +9,62 @@ import DatepickerFooter from "./Footer";
 const Datepicker: React.FC<IDatepickerProps> = ({
   width = "100%",
   onChange,
-  date,
+  selected,
   disabled = false,
 }) => {
+  const currentYear = new Date().getFullYear();
+  const currentMonth = new Date().getMonth();
+  const currentDate = new Date().getDate();
+  const currentHour = new Date().getHours();
+  const currentMinute = new Date().getMinutes();
+  const currentSeconds = new Date().getSeconds();
   const [dateObj, setDateObj] = useState<IDate>({
-    date: date ? new Date(date).getDate() : new Date().getDate(),
-    month: date ? new Date(date).getMonth() : new Date().getMonth(),
-    year: date ? new Date(date).getFullYear() : new Date().getFullYear(),
-    hours: date ? new Date(date).getHours() : 0,
-    minutes: date ? new Date(date).getMinutes() : 0,
+    date: selected ? new Date(selected).getDate() : currentDate,
+    month: selected ? new Date(selected).getMonth() : currentMonth,
+    year: selected ? new Date(selected).getFullYear() : currentYear,
+    hours: selected ? new Date(selected).getHours() : 0,
+    minutes: selected ? new Date(selected).getMinutes() : 0,
   });
   const [finalObj, setFinalDateObj] = useState<IDate | null>(
-    date
+    selected
       ? {
-          date: date ? new Date(date).getDate() : new Date().getDate(),
-          month: date ? new Date(date).getMonth() : new Date().getMonth(),
-          year: date ? new Date(date).getFullYear() : new Date().getFullYear(),
-          hours: date ? new Date(date).getHours() : 0,
-          minutes: date ? new Date(date).getMinutes() : 0,
+          date: selected ? new Date(selected).getDate() : currentDate,
+          month: selected ? new Date(selected).getMonth() : currentMonth,
+          year: selected ? new Date(selected).getFullYear() : currentYear,
+          hours: selected ? new Date(selected).getHours() : 0,
+          minutes: selected ? new Date(selected).getMinutes() : 0,
         }
       : null
   );
   const currentDateObj = useRef<IDate>({
-    date: date ? new Date(date).getDate() : new Date().getDate(),
-    month: date ? new Date(date).getMonth() : new Date().getMonth(),
-    year: date ? new Date(date).getFullYear() : new Date().getFullYear(),
-    hours: date ? new Date(date).getHours() : new Date().getHours(),
-    minutes: date ? new Date(date).getMinutes() : new Date().getMinutes(),
+    date: selected ? new Date(selected).getDate() : currentDate,
+    month: selected ? new Date(selected).getMonth() : currentMonth,
+    year: selected ? new Date(selected).getFullYear() : currentYear,
+    hours: selected ? new Date(selected).getHours() : currentHour,
+    minutes: selected ? new Date(selected).getMinutes() : currentMinute,
   });
   const menuRef = useRef<HTMLDivElement | null>(null);
   const inputRef = useRef<HTMLInputElement | null>(null);
-  const [open, setOpen] = useState<boolean>(false);
+  const [open, setOpen] = useState<boolean>(true);
 
-  useEffect(() => {
-    if (disabled) {
-      return;
-    }
-    const handleClickOutside = (event: Event) => {
-      if (inputRef.current && inputRef.current.contains(event.target as Node)) {
-        setOpen(!open);
-      }
-      if (open && menuRef.current && !menuRef.current.contains(event.target as Node)) {
-        setOpen(!open);
-      }
-    };
-    document.addEventListener("mousedown", handleClickOutside);
+  // useEffect(() => {
+  //   if (disabled) {
+  //     return;
+  //   }
+  //   const handleClickOutside = (event: Event) => {
+  //     if (inputRef.current && inputRef.current.contains(event.target as Node)) {
+  //       setOpen(!open);
+  //     }
+  //     if (open && menuRef.current && !menuRef.current.contains(event.target as Node)) {
+  //       setOpen(!open);
+  //     }
+  //   };
+  //   document.addEventListener("mousedown", handleClickOutside);
 
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [menuRef, setOpen, open, disabled]);
+  //   return () => {
+  //     document.removeEventListener("mousedown", handleClickOutside);
+  //   };
+  // }, [menuRef, setOpen, open, disabled]);
 
   const onNext = () => {
     if (dateObj.month === 11) {
@@ -116,15 +122,7 @@ const Datepicker: React.FC<IDatepickerProps> = ({
 
   const handleConfirm = () => {
     setFinalDateObj(dateObj);
-    onChange(
-      new Date(
-        dateObj.year,
-        dateObj.month,
-        dateObj.date,
-        dateObj.hours,
-        dateObj.minutes
-      )
-    );
+    onChange(new Date(dateObj.year, dateObj.month, dateObj.date, dateObj.hours, dateObj.minutes));
     setOpen(false);
   };
 
@@ -145,12 +143,11 @@ const Datepicker: React.FC<IDatepickerProps> = ({
         className="datepicker_input"
         value={
           finalObj
-            ? `${finalObj.year}/${String(finalObj.month + 1).padStart(
-                2,
-                "0"
-              )}/${String(finalObj.date).padStart(2, "0")} ${String(
-                finalObj.hours
-              ).padStart(2, "0")}:${String(finalObj.minutes).padStart(2, "0")}`
+            ? `${finalObj.year}/${String(finalObj.month + 1).padStart(2, "0")}/${String(
+                finalObj.date
+              ).padStart(2, "0")} ${String(finalObj.hours).padStart(2, "0")}:${String(
+                finalObj.minutes
+              ).padStart(2, "0")}`
             : ""
         }
         placeholder="Select a date"
@@ -158,11 +155,7 @@ const Datepicker: React.FC<IDatepickerProps> = ({
       />
       {open ? (
         <div className="datepicker_modal" ref={menuRef}>
-          <DatepickerHeader
-            selected={dateObj}
-            onNext={onNext}
-            onPrev={onPrev}
-          />
+          <DatepickerHeader selected={dateObj} onNext={onNext} onPrev={onPrev} />
           <DatepickerCalendar
             onDateClick={onDateClick}
             dateObj={dateObj}
