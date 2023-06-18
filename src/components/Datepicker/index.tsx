@@ -175,7 +175,9 @@ const Datepicker: React.FC<IDatepickerProps> = ({
           <DatepickerTime
             onTimeClickHour={onTimeClickHour}
             onTimeClickMinute={onTimeClickMinute}
-            dateObj={dateObj}
+            selected={dateObj}
+            min={min}
+            max={max}
           />
           <DatepickerFooter
             handleConfirm={handleConfirm}

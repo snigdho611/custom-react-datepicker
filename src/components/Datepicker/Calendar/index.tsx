@@ -37,7 +37,7 @@ const Calendar: React.FC<ICalendarProps> = ({
       if (min && new Date(`${dateObj.year}-${dateObj.month + 1}-${i}`) < min) {
         dayClass = "datepicker_modal_calendar_grid_cell-disabled";
       }
-      if (max && new Date(`${dateObj.year}-${dateObj.month + 1}-${i}`) >= max) {
+      if (max && new Date(`${dateObj.year}-${dateObj.month + 1}-${i}`) > max) {
         dayClass = "datepicker_modal_calendar_grid_cell-disabled";
       }
 
@@ -46,7 +46,8 @@ const Calendar: React.FC<ICalendarProps> = ({
           type="button"
           key={i}
           onClick={
-            min && new Date(`${dateObj.year}-${dateObj.month + 1}-${i}`) < min
+            (min && new Date(`${dateObj.year}-${dateObj.month + 1}-${i}`) < min) || 
+            (max && new Date(`${dateObj.year}-${dateObj.month + 1}-${i}`) > max)
               ? () => {}
               : () => {
                   // console.log(dateObj);

@@ -14,9 +14,9 @@ function App() {
         onChange={(e) => {
           setDate(e);
         }}
-        min={new Date("2023-06-10")}
-        max={new Date("2023-06-25")}
-        selected={new Date("2023-06-21 15:25:25")}
+        min={new Date(new Date().getTime() - 86400000)}
+        max={new Date(new Date().getTime())}
+        selected={new Date()}
       />
     </div>
   );

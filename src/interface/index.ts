@@ -32,7 +32,9 @@ export interface IFooterProps {
 }
 
 export interface ITimeProps {
-  dateObj: IDate;
+  selected: IDate;
   onTimeClickHour: (hours: number) => void;
   onTimeClickMinute: (minutes: number) => void;
+  min?: Date | null;
+  max?: Date | null;
 }
