@@ -1,14 +1,14 @@
 import { ICalendarProps } from "interface";
 
 const Calendar: React.FC<ICalendarProps> = ({
-  dateObj,
+  menuDisplayDate,
   currentDateObj,
   onDateClick,
   min = null,
   max = null,
 }) => {
-  const daysInMonth = new Date(dateObj.year, dateObj.month, 0).getDate();
-  const startDay = new Date(dateObj.year, dateObj.month, 0).getDay();
+  const daysInMonth = new Date(menuDisplayDate.year, menuDisplayDate.month, 0).getDate();
+  const startDay = new Date(menuDisplayDate.year, menuDisplayDate.month, 0).getDay();
 
   const getStartEmptyCells = (): JSX.Element[] => {
     const emptyCells = [];
@@ -26,18 +26,18 @@ const Calendar: React.FC<ICalendarProps> = ({
 
       if (
         currentDateObj.current.date === i &&
-        currentDateObj.current.month === dateObj.month &&
-        currentDateObj.current.year === dateObj.year
+        currentDateObj.current.month === menuDisplayDate.month &&
+        currentDateObj.current.year === menuDisplayDate.year
       ) {
         dayClass = "datepicker_modal_calendar_grid_cell-current";
       }
-      if (dateObj.date === i) {
+      if (menuDisplayDate.date === i) {
         dayClass = "datepicker_modal_calendar_grid_cell-selected";
       }
-      if (min && new Date(`${dateObj.year}-${dateObj.month + 1}-${i}`) < min) {
+      if (min && new Date(`${menuDisplayDate.year}-${menuDisplayDate.month + 1}-${i}`) < min) {
         dayClass = "datepicker_modal_calendar_grid_cell-disabled";
       }
-      if (max && new Date(`${dateObj.year}-${dateObj.month + 1}-${i}`) > max) {
+      if (max && new Date(`${menuDisplayDate.year}-${menuDisplayDate.month + 1}-${i}`) > max) {
         dayClass = "datepicker_modal_calendar_grid_cell-disabled";
       }
 
@@ -46,12 +46,12 @@ const Calendar: React.FC<ICalendarProps> = ({
           type="button"
           key={i}
           onClick={
-            (min && new Date(`${dateObj.year}-${dateObj.month + 1}-${i}`) < min) || 
-            (max && new Date(`${dateObj.year}-${dateObj.month + 1}-${i}`) > max)
+            (min && new Date(`${menuDisplayDate.year}-${menuDisplayDate.month + 1}-${i}`) < min) || 
+            (max && new Date(`${menuDisplayDate.year}-${menuDisplayDate.month + 1}-${i}`) > max)
               ? () => {}
               : () => {
-                  // console.log(dateObj);
-                  onDateClick(i, dateObj.month, dateObj.year);
+                  // console.log(menuDisplayDate);
+                  onDateClick(i, menuDisplayDate.month, menuDisplayDate.year);
                 }
           }
           className={dayClass}

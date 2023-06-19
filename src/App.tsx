@@ -9,13 +9,15 @@ function App() {
   }, [date]);
 
   return (
-    <div style={{ width: "50%" }}>
+    <div style={{ width: "50%",
+     margin: "0 auto"
+      }}>
       <Datepicker
         onChange={(e) => {
           setDate(e);
         }}
-        min={new Date(new Date().getTime() - 86400000)}
-        max={new Date(new Date().getTime())}
+        min={new Date("2023-06-05")}
+        max={new Date("2023-06-25")}
         selected={new Date()}
       />
     </div>

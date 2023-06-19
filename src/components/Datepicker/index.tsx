@@ -1,10 +1,10 @@
 import { useEffect, useRef, useState } from "react";
 import "./index.scss";
 import { IDate, IDatepickerProps } from "../../interface";
-import DatepickerTime from "./Time";
-import DatepickerHeader from "./Header";
-import DatepickerCalendar from "./Calendar";
-import DatepickerFooter from "./Footer";
+import Time from "./Time";
+import Calendar from "./Calendar";
+import Header from "./Header";
+import Footer from "./Footer";
 
 const Datepicker: React.FC<IDatepickerProps> = ({
   width = "100%",
@@ -20,14 +20,15 @@ const Datepicker: React.FC<IDatepickerProps> = ({
   const currentHour = new Date().getHours();
   const currentMinute = new Date().getMinutes();
   const currentSeconds = new Date().getSeconds();
-  const [dateObj, setDateObj] = useState<IDate>({
+  
+  const [menuDisplayDate, setMenuDisplayDate] = useState<IDate>({
     date: selected ? new Date(selected).getDate() : currentDate,
     month: selected ? new Date(selected).getMonth() : currentMonth,
     year: selected ? new Date(selected).getFullYear() : currentYear,
     hours: selected ? new Date(selected).getHours() : 0,
     minutes: selected ? new Date(selected).getMinutes() : 0,
   });
-  const [finalObj, setFinalDateObj] = useState<IDate | null>(
+  const [selectedDate, setSelectedDate] = useState<IDate | null>(
     selected
       ? {
           date: selected ? new Date(selected).getDate() : currentDate,
@@ -44,6 +45,7 @@ const Datepicker: React.FC<IDatepickerProps> = ({
     year: currentYear,
     hours: currentHour,
     minutes: currentMinute,
+    seconds: currentSeconds
   });
   const menuRef = useRef<HTMLDivElement | null>(null);
   const inputRef = useRef<HTMLInputElement | null>(null);
@@ -53,60 +55,74 @@ const Datepicker: React.FC<IDatepickerProps> = ({
     if (disabled) {
       return;
     }
+    const inputElement = inputRef.current
+    const handleSpacebar = (event: KeyboardEvent) =>{
+      if ((inputRef.current && inputRef.current.contains(event.target as Node) && event.code === "Space") 
+      ) {
+        console.log("Keyboard event detected, open or close menu")
+        setOpen(!open);
+      }
+    }
+
     const handleClickOutside = (event: Event) => {
       if (inputRef.current && inputRef.current.contains(event.target as Node)) {
+        console.log("Mouse event detected, open or close menu")
         setOpen(!open);
       }
       if (open && menuRef.current && !menuRef.current.contains(event.target as Node)) {
-        setOpen(!open);
+        console.log("Mouse event detected, close menu")
+        setOpen(false)
       }
     };
+    
+    inputElement && inputElement.addEventListener("keydown", handleSpacebar);
     document.addEventListener("mousedown", handleClickOutside);
 
     return () => {
+      inputElement && inputElement.removeEventListener("keydown", handleSpacebar);
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [menuRef, setOpen, open, disabled]);
+  }, [open, disabled]);
 
   const onNext = () => {
-    if (dateObj.month === 11) {
-      return setDateObj((prevState) => ({
+    if (menuDisplayDate.month === 11) {
+      return setMenuDisplayDate((prevState) => ({
         ...prevState,
         date: 1,
         month: 0,
-        year: dateObj.year + 1,
+        year: menuDisplayDate.year + 1,
       }));
     }
 
-    return setDateObj((prevState) => ({
+    return setMenuDisplayDate((prevState) => ({
       ...prevState,
       date: 1,
-      month: dateObj.month + 1,
+      month: menuDisplayDate.month + 1,
     }));
   };
 
   const onPrev = () => {
-    if (dateObj.year === 1970 && dateObj.month === 0) {
+    if (menuDisplayDate.year === 1970 && menuDisplayDate.month === 0) {
       return;
     }
-    if (dateObj.month === 0) {
-      return setDateObj((prevState) => ({
+    if (menuDisplayDate.month === 0) {
+      return setMenuDisplayDate((prevState) => ({
         ...prevState,
         date: 1,
         month: 11,
-        year: dateObj.year - 1,
+        year: menuDisplayDate.year - 1,
       }));
     }
 
-    return setDateObj((prevState) => ({
+    return setMenuDisplayDate((prevState) => ({
       ...prevState,
       date: 1,
-      month: dateObj.month - 1,
+      month: menuDisplayDate.month - 1,
     }));
   };
 
   const onDateClick = (date: number, month: number, year: number) => {
-    setDateObj((prevState) => ({
+    setMenuDisplayDate((prevState) => ({
       ...prevState,
       date,
       month,
@@ -115,23 +131,23 @@ const Datepicker: React.FC<IDatepickerProps> = ({
   };
 
   const onTimeClickHour = (hours: number) => {
-    setDateObj((prevState) => ({ ...prevState, hours }));
+    setMenuDisplayDate((prevState) => ({ ...prevState, hours }));
   };
 
   const onTimeClickMinute = (minutes: number) => {
-    setDateObj((prevState) => ({ ...prevState, minutes }));
+    setMenuDisplayDate((prevState) => ({ ...prevState, minutes }));
   };
 
   const handleConfirm = () => {
-    if (min && new Date(`${dateObj.year}-${dateObj.month + 1}-${dateObj.date}`) < min) {
-      setFinalDateObj(null);
+    if (min && new Date(`${menuDisplayDate.year}-${menuDisplayDate.month + 1}-${menuDisplayDate.date}`) < min) {
+      setSelectedDate(null);
     }
-    if (max && new Date(`${dateObj.year}-${dateObj.month + 1}-${dateObj.date}`) > max) {
-      setFinalDateObj(null);
+    if (max && new Date(`${menuDisplayDate.year}-${menuDisplayDate.month + 1}-${menuDisplayDate.date}`) > max) {
+      setSelectedDate(null);
     } else {
-      setFinalDateObj(dateObj);
+      setSelectedDate(menuDisplayDate);
     }
-    onChange(new Date(dateObj.year, dateObj.month, dateObj.date, dateObj.hours, dateObj.minutes));
+    onChange(new Date(menuDisplayDate.year, menuDisplayDate.month, menuDisplayDate.date, menuDisplayDate.hours, menuDisplayDate.minutes));
     setOpen(false);
   };
 
@@ -151,38 +167,43 @@ const Datepicker: React.FC<IDatepickerProps> = ({
         type="text"
         className="datepicker_input"
         value={
-          finalObj
-            ? `${finalObj.year}/${String(finalObj.month + 1).padStart(2, "0")}/${String(
-                finalObj.date
-              ).padStart(2, "0")} ${String(finalObj.hours).padStart(2, "0")}:${String(
-                finalObj.minutes
+          selectedDate
+            ? `${selectedDate.year}/${String(selectedDate.month + 1).padStart(2, "0")}/${String(
+                selectedDate.date
+              ).padStart(2, "0")} ${String(selectedDate.hours).padStart(2, "0")}:${String(
+                selectedDate.minutes
               ).padStart(2, "0")}`
             : ""
         }
         placeholder="Select a date"
         readOnly
       />
+      
       {open ? (
         <div className="datepicker_modal" ref={menuRef}>
-          <DatepickerHeader selected={dateObj} onNext={onNext} onPrev={onPrev} />
-          <DatepickerCalendar
+          <Header 
+            selected={menuDisplayDate} 
+            onNext={onNext} 
+            onPrev={onPrev} 
+            handleCancel={handleCancel}
+          />
+          <Calendar
             onDateClick={onDateClick}
-            dateObj={dateObj}
+            menuDisplayDate={menuDisplayDate}
             currentDateObj={currentDateObj}
             min={min}
             max={max}
           />
-          <DatepickerTime
+          <Time
             onTimeClickHour={onTimeClickHour}
             onTimeClickMinute={onTimeClickMinute}
-            selected={dateObj}
+            selected={menuDisplayDate}
             min={min}
             max={max}
           />
-          <DatepickerFooter
+          <Footer
             handleConfirm={handleConfirm}
-            handleCancel={handleCancel}
-            dateObj={dateObj}
+            menuDisplayDate={menuDisplayDate}
           />
         </div>
       ) : null}

@@ -1,8 +1,6 @@
 import { ITimeProps } from "interface";
 
 const DatepickerTime: React.FC<ITimeProps> = ({ selected, onTimeClickHour, onTimeClickMinute, min=null, max=null }) => {
-  const hours = Array.from({ length: 24 }, (_, index) => index);
-  const minutes = Array.from({ length: 60 }, (_, index) => index);
 
   const hours_ = () => {
     const minHours = []
@@ -11,7 +9,7 @@ const DatepickerTime: React.FC<ITimeProps> = ({ selected, onTimeClickHour, onTim
       }
     return minHours
   }
-  console.log(min?.getMinutes())
+  
   const minutes_ = () => {
     const minMinutes = []
       for (let i = min ? min.getMinutes() : 0; i < 60; i++) {
@@ -38,7 +36,9 @@ const DatepickerTime: React.FC<ITimeProps> = ({ selected, onTimeClickHour, onTim
         defaultValue={selected.minutes}
       >
         {minutes_().map((minute) => (
-          <option key={minute}>{minute < 10 ? "0" + minute : minute}</option>
+          <option key={minute}>
+            {minute < 10 ? "0" + minute : minute}
+          </option>
         ))}
       </select>
     </div>
