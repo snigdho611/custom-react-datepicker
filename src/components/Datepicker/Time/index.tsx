@@ -1,16 +1,35 @@
 import { ITimeProps } from "interface";
 
-const DatepickerTime: React.FC<ITimeProps> = ({ dateObj, onTimeClickHour, onTimeClickMinute }) => {
-  const hours = Array.from({ length: 24 }, (_, index) => index);
-  const minutes = Array.from({ length: 60 }, (_, index) => index);
+const DatepickerTime: React.FC<ITimeProps> = ({
+  selected,
+  onTimeClickHour,
+  onTimeClickMinute,
+  min = null,
+  max = null,
+}) => {
+  const hours_ = () => {
+    const minHours = [];
+    for (let i = min ? min.getHours() : 0; i < 24; i++) {
+      minHours.push(i);
+    }
+    return minHours;
+  };
+
+  const minutes_ = () => {
+    const minMinutes = [];
+    for (let i = min ? min.getMinutes() : 0; i < 60; i++) {
+      minMinutes.push(i);
+    }
+    return minMinutes;
+  };
 
   return (
     <div className="datepicker_modal_time">
       <select
         onChange={(e) => onTimeClickHour(parseInt(e.target.value))}
-        defaultValue={dateObj.hours}
+        defaultValue={selected.hours}
       >
-        {hours.map((hour) => (
+        {hours_().map((hour) => (
           <option key={hour} value={hour}>
             {hour < 10 ? "0" + hour : hour}
           </option>
@@ -19,9 +38,9 @@ const DatepickerTime: React.FC<ITimeProps> = ({ dateObj, onTimeClickHour, onTime
       <span className="time-divider">:</span>
       <select
         onChange={(e) => onTimeClickMinute(parseInt(e.target.value))}
-        defaultValue={dateObj.minutes}
+        defaultValue={selected.minutes}
       >
-        {minutes.map((minute) => (
+        {minutes_().map((minute) => (
           <option key={minute} value={minute}>
             {minute < 10 ? "0" + minute : minute}
           </option>

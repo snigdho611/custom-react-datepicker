@@ -4,8 +4,9 @@ export interface IDate {
   date: number;
   month: number;
   year: number;
-  hours: number;
-  minutes: number;
+  hours?: number;
+  minutes?: number;
+  seconds?: number;
 }
 
 export interface IDatepickerProps {
@@ -18,7 +19,7 @@ export interface IDatepickerProps {
 }
 
 export interface ICalendarProps {
-  dateObj: IDate;
+  menuDisplayDate: IDate;
   currentDateObj: MutableRefObject<IDate>;
   onDateClick: (date: number, month: number, year: number) => void;
   min?: Date | null;
@@ -26,13 +27,14 @@ export interface ICalendarProps {
 }
 
 export interface IFooterProps {
-  dateObj: IDate;
+  menuDisplayDate: IDate;
   handleConfirm: () => void;
-  handleCancel: () => void;
 }
 
 export interface ITimeProps {
-  dateObj: IDate;
+  selected: IDate;
   onTimeClickHour: (hours: number) => void;
   onTimeClickMinute: (minutes: number) => void;
+  min?: Date | null;
+  max?: Date | null;
 }
