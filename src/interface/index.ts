@@ -10,7 +10,7 @@ export interface IDate {
 
 export interface IDatepickerProps {
   width?: string;
-  selected?: Date;
+  value: Date | null;
   disabled?: boolean;
   onChange: (date: Date) => void;
   min?: Date | null;

@@ -22,7 +22,9 @@ const DatepickerTime: React.FC<ITimeProps> = ({ dateObj, onTimeClickHour, onTime
         defaultValue={dateObj.minutes}
       >
         {minutes.map((minute) => (
-          <option key={minute}>{minute < 10 ? "0" + minute : minute}</option>
+          <option key={minute} value={minute}>
+            {minute < 10 ? "0" + minute : minute}
+          </option>
         ))}
       </select>
     </div>

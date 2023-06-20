@@ -7,9 +7,9 @@ import DatepickerCalendar from "./Calendar";
 import DatepickerFooter from "./Footer";
 
 const Datepicker: React.FC<IDatepickerProps> = ({
-  width = "100%",
+  width,
   onChange,
-  selected,
+  value,
   disabled = false,
   min = null,
   max = null,
@@ -21,20 +21,20 @@ const Datepicker: React.FC<IDatepickerProps> = ({
   const currentMinute = new Date().getMinutes();
   const currentSeconds = new Date().getSeconds();
   const [dateObj, setDateObj] = useState<IDate>({
-    date: selected ? new Date(selected).getDate() : currentDate,
-    month: selected ? new Date(selected).getMonth() : currentMonth,
-    year: selected ? new Date(selected).getFullYear() : currentYear,
-    hours: selected ? new Date(selected).getHours() : 0,
-    minutes: selected ? new Date(selected).getMinutes() : 0,
+    date: value ? new Date(value).getDate() : currentDate,
+    month: value ? new Date(value).getMonth() : currentMonth,
+    year: value ? new Date(value).getFullYear() : currentYear,
+    hours: value ? new Date(value).getHours() : 0,
+    minutes: value ? new Date(value).getMinutes() : 0,
   });
   const [finalObj, setFinalDateObj] = useState<IDate | null>(
-    selected
+    value
       ? {
-          date: selected ? new Date(selected).getDate() : currentDate,
-          month: selected ? new Date(selected).getMonth() : currentMonth,
-          year: selected ? new Date(selected).getFullYear() : currentYear,
-          hours: selected ? new Date(selected).getHours() : 0,
-          minutes: selected ? new Date(selected).getMinutes() : 0,
+          date: value ? new Date(value).getDate() : currentDate,
+          month: value ? new Date(value).getMonth() : currentMonth,
+          year: value ? new Date(value).getFullYear() : currentYear,
+          hours: value ? new Date(value).getHours() : 0,
+          minutes: value ? new Date(value).getMinutes() : 0,
         }
       : null
   );
@@ -67,6 +67,12 @@ const Datepicker: React.FC<IDatepickerProps> = ({
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [menuRef, setOpen, open, disabled]);
+
+  useEffect(() => {
+    if (!value) {
+      setFinalDateObj(null);
+    }
+  }, [value]);
 
   const onNext = () => {
     if (dateObj.month === 11) {
@@ -123,6 +129,9 @@ const Datepicker: React.FC<IDatepickerProps> = ({
   };
 
   const handleConfirm = () => {
+    // if (!value) {
+    //   console.log("got null");
+    // }
     if (min && new Date(`${dateObj.year}-${dateObj.month + 1}-${dateObj.date}`) < min) {
       setFinalDateObj(null);
     }
@@ -133,6 +142,7 @@ const Datepicker: React.FC<IDatepickerProps> = ({
     }
     onChange(new Date(dateObj.year, dateObj.month, dateObj.date, dateObj.hours, dateObj.minutes));
     setOpen(false);
+    console.log(value);
   };
 
   const handleCancel = () => {

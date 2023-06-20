@@ -14,7 +14,7 @@ const Footer: React.FC<IFooterProps> = ({ dateObj, handleConfirm, handleCancel }
             dateObj.minutes
           ).padStart(2, "0")}`}
           {/* {dateObj.hours > 11 ? 'PM' : 'AM'} */}
-          {dateObj.hours}
+          {/* {dateObj.hours} */}
         </div>
         <div className="datepicker_modal_footer_content_buttons">
           <button

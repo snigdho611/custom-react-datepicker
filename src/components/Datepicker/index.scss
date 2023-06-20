@@ -8,9 +8,10 @@ $foreground: #009de1;
   font-family: "Noto Sans JP";
   border-radius: 12px;
   position: relative;
+  width: 100%;
   &_input {
     display: flex;
-    width: 292px;
+    width: 100%;
     border: 1px solid #d9d9d9;
     border-radius: 6px;
     outline: none;
