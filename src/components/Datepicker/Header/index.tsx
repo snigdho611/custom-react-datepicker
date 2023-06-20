@@ -1,10 +1,7 @@
 import { IDate } from "interface";
-// import { ReactComponent as ArrowLeft} from 'icons/left-arrow.svg'
 import RightArrrow from "icons/RightArrow";
 import LeftArrow from "icons/LeftArrow";
-import Close from "icons/Close";
-// import test from 'icons/test'
-import { ReactComponent as CloseIcon } from "icons/close.svg"
+import { ReactComponent as CloseIcon } from "icons/close.svg";
 
 interface IHeaderProps {
   selected: IDate;
@@ -36,7 +33,7 @@ const Header: React.FC<IHeaderProps> = ({ selected, onNext, onPrev, handleCancel
         className="datepicker_modal_header_buttons-cancel"
         onClick={() => handleCancel()}
       >
-      <CloseIcon />
+        <CloseIcon />
       </button>
       <div className="datepicker_modal_header_buttons">
         <button type="button" onClick={onPrev}>

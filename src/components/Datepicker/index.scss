@@ -9,6 +9,7 @@ $foreground: #105099;
   border-radius: 12px;
   position: relative;
   width: 100%;
+  min-width: 325px;
   &_input {
     display: flex;
     width: 100%;
