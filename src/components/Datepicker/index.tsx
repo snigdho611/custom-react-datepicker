@@ -88,7 +88,15 @@ const Datepicker: React.FC<IDatepickerProps> = ({
   }, [open, disabled]);
 
   useEffect(() => {
-    if (!value) {
+    if (value) {
+      setSelectedDate({
+        date: new Date(value).getDate(),
+        month: new Date(value).getMonth(),
+        year: new Date(value).getFullYear(),
+        hours: new Date(value).getHours(),
+        minutes: new Date(value).getMinutes(),
+      });
+    } else {
       setSelectedDate(null);
     }
   }, [value]);
@@ -180,10 +188,10 @@ const Datepicker: React.FC<IDatepickerProps> = ({
   };
 
   return (
-    <div className="datepicker">
+    <div className="datepicker" style={{ width: width }}>
       <input
         style={{
-          width,
+          // width,
           backgroundColor: disabled ? "#FAFAFA" : "#fff",
           cursor: disabled ? "default" : "pointer",
         }}

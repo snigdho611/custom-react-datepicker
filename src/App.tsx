@@ -13,8 +13,9 @@ function App() {
   // }, [start, end]);
 
   return (
-    <div style={{ width: "50%", display: "flex" }}>
+    <div style={{ display: "flex", gap: "10px" }}>
       <Datepicker
+        width="500px"
         value={start}
         onChange={(date) => {
           if (end && date > end) {
@@ -25,6 +26,7 @@ function App() {
         min={new Date(new Date().getTime() - 86400000)}
       />
       <Datepicker
+        width="500px"
         value={end}
         onChange={(date) => {
           setEnd(date);
