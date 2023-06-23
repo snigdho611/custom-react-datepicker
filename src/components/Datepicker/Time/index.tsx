@@ -8,14 +8,13 @@ const DatepickerTime: React.FC<ITimeProps> = ({
   min = null,
   max = null,
 }) => {
-
   return (
     <div className="datepicker_modal_time">
       <select
         onChange={(e) => onTimeClickHour(parseInt(e.target.value))}
         defaultValue={selected.hours}
       >
-        {arrayFill(min? selected.hours : 0, 24).map((hour) => (
+        {arrayFill(0, 24).map((hour) => (
           <option key={hour} value={hour}>
             {hour < 10 ? "0" + hour : hour}
           </option>

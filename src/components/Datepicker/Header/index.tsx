@@ -35,12 +35,12 @@ const Header: React.FC<IHeaderProps> = ({
     "December",
   ];
   const years = () => {
-    const _: number[] = []
+    const _: number[] = [];
     for (let index = 1500; index < 2500; index++) {
       _.push(index);
     }
     return _;
-  }
+  };
 
   return (
     <div className="datepicker_modal_header">
@@ -65,7 +65,11 @@ const Header: React.FC<IHeaderProps> = ({
             }}
           >
             {months.map((element, i) => {
-              return <option key={i} value={i}>{element}</option>;
+              return (
+                <option key={i} value={i}>
+                  {element}
+                </option>
+              );
             })}
           </select>
           <select
@@ -79,8 +83,12 @@ const Header: React.FC<IHeaderProps> = ({
               }));
             }}
           >
-            {years().map((element) => {
-              return <option value={element}>{element}</option>;
+            {years().map((element, i) => {
+              return (
+                <option key={i} value={element}>
+                  {element}
+                </option>
+              );
             })}
           </select>
           {/* <span>{months[selected.month]}</span>

@@ -17,9 +17,9 @@ function App() {
           }
           setStart(date);
         }}
-        min={new Date(new Date().getTime() - 86400000)}
+        // min={new Date(new Date().getTime() - 86400000)}
       />
-      <Datepicker
+      {/* <Datepicker
         width="500px"
         value={end}
         onChange={(date) => {
@@ -27,7 +27,7 @@ function App() {
         }}
         // min={new Date(new Date().getTime() - 86400000)}
         min={start ? new Date(start.getTime() - 86400000) : null}
-      />
+      /> */}
     </div>
   );
 }
