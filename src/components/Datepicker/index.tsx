@@ -5,6 +5,7 @@ import Time from "./Time";
 import Calendar from "./Calendar";
 import Header from "./Header";
 import Footer from "./Footer";
+import { arrayFill } from "utils";
 
 const Datepicker: React.FC<IDatepickerProps> = ({
   width,
@@ -18,15 +19,16 @@ const Datepicker: React.FC<IDatepickerProps> = ({
   const currentMonth = new Date().getMonth();
   const currentDate = new Date().getDate();
   const currentHour = new Date().getHours();
-  const currentMinute = new Date().getMinutes();
+  const currentMinutes = new Date().getMinutes();
   const currentSeconds = new Date().getSeconds();
 
   const [menuDisplayDate, setMenuDisplayDate] = useState<IDate>({
     date: value ? new Date(value).getDate() : currentDate,
     month: value ? new Date(value).getMonth() : currentMonth,
     year: value ? new Date(value).getFullYear() : currentYear,
-    hours: value ? new Date(value).getHours() : 0,
-    minutes: value ? new Date(value).getMinutes() : 0,
+    hours: value ? new Date(value).getHours() : currentHour,
+    minutes: value ? new Date(value).getMinutes() : currentMinutes,
+    seconds: value ? new Date(value).getSeconds() : currentSeconds,
   });
   const [selectedDate, setSelectedDate] = useState<IDate | null>(
     value
@@ -34,8 +36,9 @@ const Datepicker: React.FC<IDatepickerProps> = ({
           date: value ? new Date(value).getDate() : currentDate,
           month: value ? new Date(value).getMonth() : currentMonth,
           year: value ? new Date(value).getFullYear() : currentYear,
-          hours: value ? new Date(value).getHours() : 0,
-          minutes: value ? new Date(value).getMinutes() : 0,
+          hours: value ? new Date(value).getHours() : currentHour,
+          minutes: value ? new Date(value).getMinutes() : currentMinutes,
+          seconds: value ? new Date(value).getSeconds() : currentSeconds,
         }
       : null
   );
@@ -44,7 +47,7 @@ const Datepicker: React.FC<IDatepickerProps> = ({
     month: currentMonth,
     year: currentYear,
     hours: currentHour,
-    minutes: currentMinute,
+    minutes: currentMinutes,
     seconds: currentSeconds,
   });
   const menuRef = useRef<HTMLDivElement | null>(null);
@@ -69,11 +72,9 @@ const Datepicker: React.FC<IDatepickerProps> = ({
 
     const handleClickOutside = (event: Event) => {
       if (inputRef.current && inputRef.current.contains(event.target as Node)) {
-        console.log("Mouse event detected, open or close menu");
         setOpen(!open);
       }
       if (open && menuRef.current && !menuRef.current.contains(event.target as Node)) {
-        console.log("Mouse event detected, close menu");
         setOpen(false);
       }
     };
@@ -95,11 +96,29 @@ const Datepicker: React.FC<IDatepickerProps> = ({
         year: new Date(value).getFullYear(),
         hours: new Date(value).getHours(),
         minutes: new Date(value).getMinutes(),
+        seconds: new Date(value).getSeconds()
       });
     } else {
       setSelectedDate(null);
     }
   }, [value]);
+
+
+  useEffect(() => {
+    console.log(menuDisplayDate)
+    if(min){
+      if(menuDisplayDate?.date === new Date(new Date(min).getTime() + 86400000).getDate() ){
+        setMenuDisplayDate((prevState)=>({...prevState, hours: new Date(new Date(min).getTime() + 86400000).getHours()}))
+        // setMinutes(arrayFill(new Date(new Date(min).getTime() + 86400000).getMinutes(), 60))
+        // setHours(arrayFill(new Date(new Date(min).getTime() + 86400000).getHours(), 24))
+        // setMinutes(arrayFill(new Date(new Date(min).getTime() + 86400000).getMinutes(), 60))
+      }else{
+        setMenuDisplayDate((prevState)=>({...prevState, hours: new Date().getHours()}))
+        // ()
+        // setMinutes(arrayFill(0, 60))
+      }
+    }
+  }, [menuDisplayDate?.date, menuDisplayDate?.month, min, max])
 
   const onNext = () => {
     if (menuDisplayDate.month === 11) {
@@ -111,7 +130,6 @@ const Datepicker: React.FC<IDatepickerProps> = ({
       }));
     }
 
-    console.log(selected)
 
     return setMenuDisplayDate((prevState) => ({
       ...prevState,

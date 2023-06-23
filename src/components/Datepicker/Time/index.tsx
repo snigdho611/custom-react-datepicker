@@ -1,4 +1,5 @@
 import { ITimeProps } from "interface";
+import { arrayFill } from "utils";
 
 const DatepickerTime: React.FC<ITimeProps> = ({
   selected,
@@ -7,21 +8,6 @@ const DatepickerTime: React.FC<ITimeProps> = ({
   min = null,
   max = null,
 }) => {
-  const hours_ = () => {
-    const minHours = [];
-    for (let i = min ? min.getHours() : 0; i < 24; i++) {
-      minHours.push(i);
-    }
-    return minHours;
-  };
-
-  const minutes_ = () => {
-    const minMinutes = [];
-    for (let i = min ? min.getMinutes() : 0; i < 60; i++) {
-      minMinutes.push(i);
-    }
-    return minMinutes;
-  };
 
   return (
     <div className="datepicker_modal_time">
@@ -29,7 +15,7 @@ const DatepickerTime: React.FC<ITimeProps> = ({
         onChange={(e) => onTimeClickHour(parseInt(e.target.value))}
         defaultValue={selected.hours}
       >
-        {hours_().map((hour) => (
+        {arrayFill(min? selected.hours : 0, 24).map((hour) => (
           <option key={hour} value={hour}>
             {hour < 10 ? "0" + hour : hour}
           </option>
@@ -40,7 +26,7 @@ const DatepickerTime: React.FC<ITimeProps> = ({
         onChange={(e) => onTimeClickMinute(parseInt(e.target.value))}
         defaultValue={selected.minutes}
       >
-        {minutes_().map((minute) => (
+        {arrayFill(0, 60).map((minute) => (
           <option key={minute} value={minute}>
             {minute < 10 ? "0" + minute : minute}
           </option>

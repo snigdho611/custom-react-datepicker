@@ -36,13 +36,11 @@ const Header: React.FC<IHeaderProps> = ({
   ];
   const years = () => {
     const _: number[] = []
-    for (let index = 0; index < 9998; index++) {
+    for (let index = 1500; index < 2500; index++) {
       _.push(index);
     }
     return _;
   }
-
-  console.log(years())
 
   return (
     <div className="datepicker_modal_header">
@@ -54,9 +52,6 @@ const Header: React.FC<IHeaderProps> = ({
         <CloseIcon />
       </button>
       <div className="datepicker_modal_header_buttons">
-        {/* <button type="button" onClick={onPrev}>
-          <LeftArrow />
-        </button> */}
         <div className="datepicker_modal_header_buttons_display">
           <select
             name=""

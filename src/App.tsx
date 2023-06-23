@@ -3,14 +3,8 @@ import Datepicker from "./components/Datepicker";
 import { IDate } from "interface";
 
 function App() {
-  // const [date, setDate] = useState<Date>();
-  const [start, setStart] = useState<Date | null>(new Date("2023-06-21 15:25:25"));
+  const [start, setStart] = useState<Date | null>(new Date());
   const [end, setEnd] = useState<Date | null>(null);
-
-  // useEffect(() => {
-  //   console.log("Start date:", start);
-  //   console.log("End date: ", end);
-  // }, [start, end]);
 
   return (
     <div style={{ display: "flex", gap: "10px" }}>
@@ -32,7 +26,7 @@ function App() {
           setEnd(date);
         }}
         // min={new Date(new Date().getTime() - 86400000)}
-        min={start ? new Date(start.getTime()) : null}
+        min={start ? new Date(start.getTime() - 86400000) : null}
       />
     </div>
   );
