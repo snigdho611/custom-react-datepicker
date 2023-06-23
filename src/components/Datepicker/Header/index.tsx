@@ -2,6 +2,8 @@ import { IDate } from "interface";
 // import test from 'icons/test'
 import { ReactComponent as CloseIcon } from "icons/close.svg";
 import { Dispatch, SetStateAction } from "react";
+import RightArrrow from "icons/RightArrow";
+import LeftArrow from "icons/LeftArrow";
 
 interface IHeaderProps {
   menuDisplayDate: IDate;
