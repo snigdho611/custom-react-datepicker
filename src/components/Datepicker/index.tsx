@@ -111,6 +111,8 @@ const Datepicker: React.FC<IDatepickerProps> = ({
       }));
     }
 
+    console.log(selected)
+
     return setMenuDisplayDate((prevState) => ({
       ...prevState,
       date: 1,
@@ -213,11 +215,12 @@ const Datepicker: React.FC<IDatepickerProps> = ({
 
       {open ? (
         <div className="datepicker_modal" ref={menuRef}>
-          <Header
-            selected={menuDisplayDate}
-            onNext={onNext}
-            onPrev={onPrev}
+          <Header 
+            menuDisplayDate={menuDisplayDate} 
+            onNext={onNext} 
+            onPrev={onPrev} 
             handleCancel={handleCancel}
+            setMenuDisplayDate={setMenuDisplayDate}
           />
           <Calendar
             onDateClick={onDateClick}

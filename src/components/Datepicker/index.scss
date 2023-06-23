@@ -50,19 +50,19 @@ $foreground: #105099;
         display: flex;
         justify-content: space-evenly;
         font-weight: 500;
-        & button {
-          background-color: transparent;
-          color: #939598;
-          font-weight: bold;
-          border: none;
-          cursor: pointer;
-          &:focus {
-            outline: 1px solid $foreground;
-          }
-          &:hover {
-            outline: 1px solid $foreground;
-          }
-        }
+        // & button {
+        //   background-color: transparent;
+        //   color: #939598;
+        //   font-weight: bold;
+        //   border: none;
+        //   cursor: pointer;
+        //   &:focus {
+        //     outline: 1px solid $foreground;
+        //   }
+        //   &:hover {
+        //     outline: 1px solid $foreground;
+        //   }
+        // }
         &_display {
           display: flex;
           gap: 5%;
@@ -76,9 +76,16 @@ $foreground: #105099;
           cursor: pointer;
           top: 10px;
           right: 10px;
+          height: 20px;
+          width: 20px;
           // transform: scale(-0.75);
           border-radius: 50%;
-          &:hover {
+          // background-image: url('../../icons/close.svg');
+          // background-repeat: no-repeat;
+          // background-position: center;
+          padding: 2.5px;
+          transition: background-color 0.25s ;
+          &:hover{
             background-color: $foreground;
           }
         }
