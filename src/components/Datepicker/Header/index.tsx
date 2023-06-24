@@ -1,9 +1,5 @@
 import { IDate } from "interface";
-// import test from 'icons/test'
-import { ReactComponent as CloseIcon } from "icons/close.svg";
 import { Dispatch, SetStateAction } from "react";
-import RightArrrow from "icons/RightArrow";
-import LeftArrow from "icons/LeftArrow";
 
 interface IHeaderProps {
   menuDisplayDate: IDate;
@@ -41,13 +37,13 @@ const Header: React.FC<IHeaderProps> = ({ handleCancel, menuDisplayDate, setMenu
         className="datepicker_modal_header_buttons-cancel"
         onClick={() => handleCancel()}
       >
-        <CloseIcon />
+        {/* <CloseIcon /> */}X
       </button>
       <div className="datepicker_modal_header_buttons">
         <div className="datepicker_modal_header_buttons_display">
           <select
-            name=""
-            id=""
+            name="month"
+            id="month"
             defaultValue={menuDisplayDate.month}
             onChange={(e) => {
               setMenuDisplayDate((prevState: IDate) => ({
@@ -65,8 +61,8 @@ const Header: React.FC<IHeaderProps> = ({ handleCancel, menuDisplayDate, setMenu
             })}
           </select>
           <select
-            name=""
-            id=""
+            name="year"
+            id="year"
             defaultValue={menuDisplayDate.year}
             onChange={(e) => {
               setMenuDisplayDate((prevState: IDate) => ({
