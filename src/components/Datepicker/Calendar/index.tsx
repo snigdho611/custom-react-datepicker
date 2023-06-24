@@ -23,7 +23,21 @@ const Calendar: React.FC<ICalendarProps> = ({
     const dateCells = [];
     for (let i = 1; i <= daysInMonth; i += 1) {
       let dayClass: string = "datepicker_modal_calendar_grid_cell-normal";
-
+      // if (min) {
+      //   console.log(
+      //     new Date(
+      //       `${menuDisplayDate.year}-${menuDisplayDate.month + 1}-${i} ${menuDisplayDate.hours}:${
+      //         menuDisplayDate.minutes
+      //       }:${menuDisplayDate.seconds}`
+      //     ),
+      //     min,
+      //     new Date(
+      //       `${menuDisplayDate.year}-${menuDisplayDate.month + 1}-${i} ${menuDisplayDate.hours}:${
+      //         menuDisplayDate.minutes
+      //       }:${menuDisplayDate.seconds}`
+      //     ) < min
+      //   );
+      // }
       if (
         currentDateObj.current.date === i &&
         currentDateObj.current.month === menuDisplayDate.month &&
@@ -46,7 +60,7 @@ const Calendar: React.FC<ICalendarProps> = ({
           type="button"
           key={i}
           onClick={
-            (min && new Date(`${menuDisplayDate.year}-${menuDisplayDate.month + 1}-${i}`) < min) || 
+            (min && new Date(`${menuDisplayDate.year}-${menuDisplayDate.month + 1}-${i}`) < min) ||
             (max && new Date(`${menuDisplayDate.year}-${menuDisplayDate.month + 1}-${i}`) > max)
               ? () => {}
               : () => {
