@@ -14,6 +14,8 @@ export interface IDatepickerProps {
   value: Date | null;
   disabled?: boolean;
   onChange: (date: Date) => void;
+  min?: Date | null;
+  max?: Date | null;
 }
 
 export interface ICalendarProps {
@@ -33,4 +35,6 @@ export interface ITimeProps {
   selected: IDate;
   onTimeClickHour: (hours: number) => void;
   onTimeClickMinute: (minutes: number) => void;
+  min?: Date | null;
+  max?: Date | null;
 }
