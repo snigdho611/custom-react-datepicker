@@ -7,19 +7,11 @@ import LeftArrow from "icons/LeftArrow";
 
 interface IHeaderProps {
   menuDisplayDate: IDate;
-  onNext: () => void;
-  onPrev: () => void;
   handleCancel: () => void;
   setMenuDisplayDate: Dispatch<SetStateAction<any>>;
 }
 
-const Header: React.FC<IHeaderProps> = ({
-  onNext,
-  onPrev,
-  handleCancel,
-  menuDisplayDate,
-  setMenuDisplayDate,
-}) => {
+const Header: React.FC<IHeaderProps> = ({ handleCancel, menuDisplayDate, setMenuDisplayDate }) => {
   const months = [
     "January",
     "February",
@@ -91,12 +83,7 @@ const Header: React.FC<IHeaderProps> = ({
               );
             })}
           </select>
-          {/* <span>{months[selected.month]}</span>
-          <span>{selected.year}</span> */}
         </div>
-        {/* <button type="button" onClick={onNext}>
-          <RightArrrow />
-        </button> */}
       </div>
       <hr className="datepicker_modal_header_divider" />
     </div>

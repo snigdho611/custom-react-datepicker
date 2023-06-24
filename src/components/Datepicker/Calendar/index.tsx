@@ -46,7 +46,7 @@ const Calendar: React.FC<ICalendarProps> = ({
           type="button"
           key={i}
           onClick={
-            (min && new Date(`${menuDisplayDate.year}-${menuDisplayDate.month + 1}-${i}`) < min) || 
+            (min && new Date(`${menuDisplayDate.year}-${menuDisplayDate.month + 1}-${i}`) < min) ||
             (max && new Date(`${menuDisplayDate.year}-${menuDisplayDate.month + 1}-${i}`) > max)
               ? () => {}
               : () => {

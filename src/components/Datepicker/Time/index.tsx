@@ -1,13 +1,7 @@
 import { ITimeProps } from "interface";
 import { arrayFill } from "utils";
 
-const DatepickerTime: React.FC<ITimeProps> = ({
-  selected,
-  onTimeClickHour,
-  onTimeClickMinute,
-  min = null,
-  max = null,
-}) => {
+const DatepickerTime: React.FC<ITimeProps> = ({ selected, onTimeClickHour, onTimeClickMinute }) => {
   return (
     <div className="datepicker_modal_time">
       <select

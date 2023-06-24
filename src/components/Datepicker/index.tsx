@@ -5,7 +5,6 @@ import Time from "./Time";
 import Calendar from "./Calendar";
 import Header from "./Header";
 import Footer from "./Footer";
-import { arrayFill } from "utils";
 
 const Datepicker: React.FC<IDatepickerProps> = ({
   width,
@@ -96,67 +95,12 @@ const Datepicker: React.FC<IDatepickerProps> = ({
         year: new Date(value).getFullYear(),
         hours: new Date(value).getHours(),
         minutes: new Date(value).getMinutes(),
-        seconds: new Date(value).getSeconds()
+        seconds: new Date(value).getSeconds(),
       });
     } else {
       setSelectedDate(null);
     }
   }, [value]);
-
-
-  useEffect(() => {
-    console.log(menuDisplayDate)
-    if(min){
-      if(menuDisplayDate?.date === new Date(new Date(min).getTime() + 86400000).getDate() ){
-        setMenuDisplayDate((prevState)=>({...prevState, hours: new Date(new Date(min).getTime() + 86400000).getHours()}))
-        // setMinutes(arrayFill(new Date(new Date(min).getTime() + 86400000).getMinutes(), 60))
-        // setHours(arrayFill(new Date(new Date(min).getTime() + 86400000).getHours(), 24))
-        // setMinutes(arrayFill(new Date(new Date(min).getTime() + 86400000).getMinutes(), 60))
-      }else{
-        setMenuDisplayDate((prevState)=>({...prevState, hours: new Date().getHours()}))
-        // ()
-        // setMinutes(arrayFill(0, 60))
-      }
-    }
-  }, [menuDisplayDate?.date, menuDisplayDate?.month, min, max])
-
-  const onNext = () => {
-    if (menuDisplayDate.month === 11) {
-      return setMenuDisplayDate((prevState) => ({
-        ...prevState,
-        date: 1,
-        month: 0,
-        year: menuDisplayDate.year + 1,
-      }));
-    }
-
-
-    return setMenuDisplayDate((prevState) => ({
-      ...prevState,
-      date: 1,
-      month: menuDisplayDate.month + 1,
-    }));
-  };
-
-  const onPrev = () => {
-    if (menuDisplayDate.year === 1970 && menuDisplayDate.month === 0) {
-      return;
-    }
-    if (menuDisplayDate.month === 0) {
-      return setMenuDisplayDate((prevState) => ({
-        ...prevState,
-        date: 1,
-        month: 11,
-        year: menuDisplayDate.year - 1,
-      }));
-    }
-
-    return setMenuDisplayDate((prevState) => ({
-      ...prevState,
-      date: 1,
-      month: menuDisplayDate.month - 1,
-    }));
-  };
 
   const onDateClick = (date: number, month: number, year: number) => {
     setMenuDisplayDate((prevState) => ({
@@ -200,7 +144,6 @@ const Datepicker: React.FC<IDatepickerProps> = ({
       )
     );
     setOpen(false);
-    console.log(value);
   };
 
   const handleCancel = () => {
@@ -211,7 +154,6 @@ const Datepicker: React.FC<IDatepickerProps> = ({
     <div className="datepicker" style={{ width: width }}>
       <input
         style={{
-          // width,
           backgroundColor: disabled ? "#FAFAFA" : "#fff",
           cursor: disabled ? "default" : "pointer",
         }}
@@ -233,10 +175,8 @@ const Datepicker: React.FC<IDatepickerProps> = ({
 
       {open ? (
         <div className="datepicker_modal" ref={menuRef}>
-          <Header 
-            menuDisplayDate={menuDisplayDate} 
-            onNext={onNext} 
-            onPrev={onPrev} 
+          <Header
+            menuDisplayDate={menuDisplayDate}
             handleCancel={handleCancel}
             setMenuDisplayDate={setMenuDisplayDate}
           />
@@ -251,8 +191,6 @@ const Datepicker: React.FC<IDatepickerProps> = ({
             onTimeClickHour={onTimeClickHour}
             onTimeClickMinute={onTimeClickMinute}
             selected={menuDisplayDate}
-            min={min}
-            max={max}
           />
           <Footer handleConfirm={handleConfirm} menuDisplayDate={menuDisplayDate} />
         </div>

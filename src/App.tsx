@@ -1,6 +1,5 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Datepicker from "./components/Datepicker";
-import { IDate } from "interface";
 
 function App() {
   const [start, setStart] = useState<Date | null>(new Date());
@@ -17,17 +16,7 @@ function App() {
           }
           setStart(date);
         }}
-        // min={new Date(new Date().getTime() - 86400000)}
       />
-      {/* <Datepicker
-        width="500px"
-        value={end}
-        onChange={(date) => {
-          setEnd(date);
-        }}
-        // min={new Date(new Date().getTime() - 86400000)}
-        min={start ? new Date(start.getTime() - 86400000) : null}
-      /> */}
     </div>
   );
 }
