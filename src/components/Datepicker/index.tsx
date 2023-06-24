@@ -6,7 +6,14 @@ import Calendar from "components/Datepicker/Calendar";
 import Header from "components/Datepicker/Header";
 import Footer from "components/Datepicker/Footer";
 
-const Datepicker: React.FC<IDatepickerProps> = ({ width, onChange, value, disabled = false }) => {
+const Datepicker: React.FC<IDatepickerProps> = ({
+  width,
+  onChange,
+  value,
+  disabled = false,
+  min = null,
+  max = null,
+}) => {
   const current = {
     date: new Date().getFullYear(),
     month: new Date().getMonth(),
@@ -57,21 +64,21 @@ const Datepicker: React.FC<IDatepickerProps> = ({ width, onChange, value, disabl
       }
     };
 
-    const handleClickOutside = (event: Event) => {
-      if (inputRef.current && inputRef.current.contains(event.target as Node)) {
-        setOpen(!open);
-      }
-      if (open && menuRef.current && !menuRef.current.contains(event.target as Node)) {
-        setOpen(false);
-      }
-    };
+    // const handleClickOutside = (event: Event) => {
+    //   if (inputRef.current && inputRef.current.contains(event.target as Node)) {
+    //     setOpen(!open);
+    //   }
+    //   if (open && menuRef.current && !menuRef.current.contains(event.target as Node)) {
+    //     setOpen(false);
+    //   }
+    // };
 
     inputElement && inputElement.addEventListener("keydown", handleSpacebar);
-    document.addEventListener("mousedown", handleClickOutside);
+    // document.addEventListener("mousedown", handleClickOutside);
 
     return () => {
       inputElement && inputElement.removeEventListener("keydown", handleSpacebar);
-      document.removeEventListener("mousedown", handleClickOutside);
+      // document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [open, disabled]);
 
@@ -106,49 +113,44 @@ const Datepicker: React.FC<IDatepickerProps> = ({ width, onChange, value, disabl
   //   }
   // }, [menuDisplayDate?.date, menuDisplayDate?.month, min, max])
 
-  const onNext = () => {
-    if (menuDisplayDate.month === 11) {
-      return setMenuDisplayDate((prevState) => ({
-        ...prevState,
-        date: 1,
-        month: 0,
-        year: menuDisplayDate.year + 1,
-      }));
+  useEffect(() => {
+    if (min) {
+      if (
+        menuDisplayDate.year === min.getFullYear() &&
+        menuDisplayDate.month === min.getMonth() &&
+        menuDisplayDate.date === min.getDate()
+      ) {
+        // console.log(
+        //   new Date(`${menuDisplayDate.year}-${menuDisplayDate.month}-${menuDisplayDate.date}`)
+        // );
+      }
     }
+  }, [menuDisplayDate.year, menuDisplayDate.month, menuDisplayDate.date, min]);
 
-    return setMenuDisplayDate((prevState) => ({
-      ...prevState,
-      date: 1,
-      month: menuDisplayDate.month + 1,
-    }));
-  };
-
-  const onPrev = () => {
-    if (menuDisplayDate.year === 1970 && menuDisplayDate.month === 0) {
-      return;
-    }
-    if (menuDisplayDate.month === 0) {
-      return setMenuDisplayDate((prevState) => ({
-        ...prevState,
-        date: 1,
-        month: 11,
-        year: menuDisplayDate.year - 1,
-      }));
-    }
-
-    return setMenuDisplayDate((prevState) => ({
-      ...prevState,
-      date: 1,
-      month: menuDisplayDate.month - 1,
-    }));
-  };
-
-  const onDateClick = (date: number, month: number, year: number) => {
+  const onDateClick = (
+    year: number,
+    month: number,
+    date: number,
+    hours: number,
+    minutes: number,
+    seconds: number
+  ) => {
+    console.log({
+      date,
+      month,
+      year,
+      hours,
+      minutes,
+      seconds,
+    });
     setMenuDisplayDate((prevState) => ({
       ...prevState,
       date,
       month,
       year,
+      hours,
+      minutes,
+      seconds,
     }));
   };
 
@@ -212,6 +214,8 @@ const Datepicker: React.FC<IDatepickerProps> = ({ width, onChange, value, disabl
             onDateClick={onDateClick}
             menuDisplayDate={menuDisplayDate}
             currentDateObj={current}
+            min={min}
+            max={max}
           />
           <Time
             onTimeClickHour={onTimeClickHour}

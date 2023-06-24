@@ -1,5 +1,3 @@
-import { MutableRefObject } from "react";
-
 export interface IDate {
   date: number;
   month: number;
@@ -21,7 +19,14 @@ export interface IDatepickerProps {
 export interface ICalendarProps {
   menuDisplayDate: IDate;
   currentDateObj: IDate;
-  onDateClick: (date: number, month: number, year: number) => void;
+  onDateClick: (
+    date: number,
+    month: number,
+    year: number,
+    hours: number,
+    minutes: number,
+    seconds: number
+  ) => void;
   min?: Date | null;
   max?: Date | null;
 }

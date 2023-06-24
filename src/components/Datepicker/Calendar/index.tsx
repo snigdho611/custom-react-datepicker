@@ -7,7 +7,7 @@ const Calendar: React.FC<ICalendarProps> = ({
   min = null,
   max = null,
 }) => {
-  const daysInMonth = new Date(menuDisplayDate.year, menuDisplayDate.month, 0).getDate();
+  const daysInMonth = new Date(menuDisplayDate.year, menuDisplayDate.month + 1, 0).getDate();
   const startDay = new Date(menuDisplayDate.year, menuDisplayDate.month, 0).getDay();
 
   const getStartEmptyCells = (): JSX.Element[] => {
@@ -19,25 +19,10 @@ const Calendar: React.FC<ICalendarProps> = ({
     return emptyCells;
   };
 
-  const getDateCells = () => {
+  const getDateCells = (): JSX.Element[] => {
     const dateCells = [];
     for (let i = 1; i <= daysInMonth; i += 1) {
       let dayClass: string = "datepicker_modal_calendar_grid_cell-normal";
-      // if (min) {
-      //   console.log(
-      //     new Date(
-      //       `${menuDisplayDate.year}-${menuDisplayDate.month + 1}-${i} ${menuDisplayDate.hours}:${
-      //         menuDisplayDate.minutes
-      //       }:${menuDisplayDate.seconds}`
-      //     ),
-      //     min,
-      //     new Date(
-      //       `${menuDisplayDate.year}-${menuDisplayDate.month + 1}-${i} ${menuDisplayDate.hours}:${
-      //         menuDisplayDate.minutes
-      //       }:${menuDisplayDate.seconds}`
-      //     ) < min
-      //   );
-      // }
       if (
         currentDateObj.date === i &&
         currentDateObj.month === menuDisplayDate.month &&
@@ -48,24 +33,55 @@ const Calendar: React.FC<ICalendarProps> = ({
       if (menuDisplayDate.date === i) {
         dayClass = "datepicker_modal_calendar_grid_cell-selected";
       }
-      if (min && new Date(`${menuDisplayDate.year}-${menuDisplayDate.month + 1}-${i}`) < min) {
+      if (
+        min &&
+        new Date(`${menuDisplayDate.year}-${menuDisplayDate.month + 1}-${i}`) <
+          new Date(`${min.getFullYear()}-${min.getMonth() + 1}-${min.getDate()}`)
+      ) {
+        // console.log(
+        //   new Date(`${menuDisplayDate.year}-${menuDisplayDate.month + 1}-${i}`),
+        //   new Date(`${min.getFullYear()}-${min.getMonth() + 1}-${min.getDate()}`)
+        // );
         dayClass = "datepicker_modal_calendar_grid_cell-disabled";
       }
-      if (max && new Date(`${menuDisplayDate.year}-${menuDisplayDate.month + 1}-${i}`) > max) {
+      if (
+        max &&
+        new Date(`${menuDisplayDate.year}-${menuDisplayDate.month + 1}-${i}`) >
+          new Date(`${max.getFullYear()}-${max.getMonth() + 1}-${max.getDate()}`)
+      ) {
+        // console.log(
+        //   new Date(`${menuDisplayDate.year}-${menuDisplayDate.month + 1}-${i}`),
+        //   max && new Date(`${max.getFullYear()}-${max.getMonth() + 1}-${max.getDate()}`)
+        // );
         dayClass = "datepicker_modal_calendar_grid_cell-disabled";
       }
+
+      // if (max && new Date(`${menuDisplayDate.year}-${menuDisplayDate.month + 1}-${i}`) > max) {
+      //   dayClass = "datepicker_modal_calendar_grid_cell-disabled";
+      // }
 
       dateCells.push(
         <button
           type="button"
           key={i}
           onClick={
-            (min && new Date(`${menuDisplayDate.year}-${menuDisplayDate.month + 1}-${i}`) < min) ||
-            (max && new Date(`${menuDisplayDate.year}-${menuDisplayDate.month + 1}-${i}`) > max)
+            (min &&
+              new Date(`${menuDisplayDate.year}-${menuDisplayDate.month + 1}-${i}`) <
+                new Date(`${min.getFullYear()}-${min.getMonth() + 1}-${min.getDate()}`)) ||
+            (max &&
+              new Date(`${menuDisplayDate.year}-${menuDisplayDate.month + 1}-${i}`) >
+                new Date(`${max.getFullYear()}-${max.getMonth() + 1}-${max.getDate()}`))
               ? () => {}
               : () => {
                   // console.log(menuDisplayDate);
-                  onDateClick(i, menuDisplayDate.month, menuDisplayDate.year);
+                  onDateClick(
+                    menuDisplayDate.year,
+                    menuDisplayDate.month,
+                    i,
+                    menuDisplayDate.hours,
+                    menuDisplayDate.minutes,
+                    menuDisplayDate.seconds
+                  );
                 }
           }
           className={dayClass}

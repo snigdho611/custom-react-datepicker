@@ -185,6 +185,7 @@ $foreground-light: #5097e8;
             }
             &:focus {
               // background-color: $foreground;
+              border: none;
               background-color: $disabled;
               color: white;
               outline: none;
