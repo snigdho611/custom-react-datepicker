@@ -1,55 +1,42 @@
 import { useEffect, useRef, useState } from "react";
 import "./index.scss";
-import { IDate, IDatepickerProps } from "../../interface";
-import Time from "./Time";
-import Calendar from "./Calendar";
-import Header from "./Header";
-import Footer from "./Footer";
-import { arrayFill } from "utils";
+import { IDate, IDatepickerProps } from "interface";
+import Time from "components/Datepicker/Time";
+import Calendar from "components/Datepicker/Calendar";
+import Header from "components/Datepicker/Header";
+import Footer from "components/Datepicker/Footer";
 
-const Datepicker: React.FC<IDatepickerProps> = ({
-  width,
-  onChange,
-  value,
-  disabled = false,
-  min = null,
-  max = null,
-}) => {
-  const currentYear = new Date().getFullYear();
-  const currentMonth = new Date().getMonth();
-  const currentDate = new Date().getDate();
-  const currentHour = new Date().getHours();
-  const currentMinutes = new Date().getMinutes();
-  const currentSeconds = new Date().getSeconds();
+const Datepicker: React.FC<IDatepickerProps> = ({ width, onChange, value, disabled = false }) => {
+  const current = {
+    date: new Date().getFullYear(),
+    month: new Date().getMonth(),
+    year: new Date().getDate(),
+    hours: new Date().getHours(),
+    minutes: new Date().getMinutes(),
+    seconds: new Date().getSeconds(),
+  };
 
   const [menuDisplayDate, setMenuDisplayDate] = useState<IDate>({
-    date: value ? new Date(value).getDate() : currentDate,
-    month: value ? new Date(value).getMonth() : currentMonth,
-    year: value ? new Date(value).getFullYear() : currentYear,
-    hours: value ? new Date(value).getHours() : currentHour,
-    minutes: value ? new Date(value).getMinutes() : currentMinutes,
-    seconds: value ? new Date(value).getSeconds() : currentSeconds,
+    date: value ? new Date(value).getDate() : current.date,
+    month: value ? new Date(value).getMonth() : current.month,
+    year: value ? new Date(value).getFullYear() : current.year,
+    hours: value ? new Date(value).getHours() : current.hours,
+    minutes: value ? new Date(value).getMinutes() : current.minutes,
+    seconds: value ? new Date(value).getSeconds() : current.seconds,
   });
   const [selectedDate, setSelectedDate] = useState<IDate | null>(
     value
       ? {
-          date: value ? new Date(value).getDate() : currentDate,
-          month: value ? new Date(value).getMonth() : currentMonth,
-          year: value ? new Date(value).getFullYear() : currentYear,
-          hours: value ? new Date(value).getHours() : currentHour,
-          minutes: value ? new Date(value).getMinutes() : currentMinutes,
-          seconds: value ? new Date(value).getSeconds() : currentSeconds,
+          date: value ? new Date(value).getDate() : current.date,
+          month: value ? new Date(value).getMonth() : current.month,
+          year: value ? new Date(value).getFullYear() : current.year,
+          hours: value ? new Date(value).getHours() : current.hours,
+          minutes: value ? new Date(value).getMinutes() : current.minutes,
+          seconds: value ? new Date(value).getSeconds() : current.seconds,
         }
       : null
   );
-  const currentDateObj = useRef<IDate>({
-    date: currentDate,
-    month: currentMonth,
-    year: currentYear,
-    hours: currentHour,
-    minutes: currentMinutes,
-    seconds: currentSeconds,
-  });
+
   const menuRef = useRef<HTMLDivElement | null>(null);
   const inputRef = useRef<HTMLInputElement | null>(null);
   const [open, setOpen] = useState<boolean>(true);
@@ -174,20 +161,7 @@ const Datepicker: React.FC<IDatepickerProps> = ({
   };
 
   const handleConfirm = () => {
-    if (
-      min &&
-      new Date(`${menuDisplayDate.year}-${menuDisplayDate.month + 1}-${menuDisplayDate.date}`) < min
-    ) {
-      setSelectedDate(null);
-    }
-    if (
-      max &&
-      new Date(`${menuDisplayDate.year}-${menuDisplayDate.month + 1}-${menuDisplayDate.date}`) > max
-    ) {
-      setSelectedDate(null);
-    } else {
-      setSelectedDate(menuDisplayDate);
-    }
+    setSelectedDate(menuDisplayDate);
     onChange(
       new Date(
         menuDisplayDate.year,
@@ -198,7 +172,6 @@ const Datepicker: React.FC<IDatepickerProps> = ({
       )
     );
     setOpen(false);
-    console.log(value);
   };
 
   const handleCancel = () => {
@@ -209,7 +182,6 @@ const Datepicker: React.FC<IDatepickerProps> = ({
     <div className="datepicker" style={{ width: width }}>
       <input
         style={{
-          // width,
           backgroundColor: disabled ? "#FAFAFA" : "#fff",
           cursor: disabled ? "default" : "pointer",
         }}
@@ -233,24 +205,18 @@ const Datepicker: React.FC<IDatepickerProps> = ({
         <div className="datepicker_modal" ref={menuRef}>
           <Header
             menuDisplayDate={menuDisplayDate}
-            onNext={onNext}
-            onPrev={onPrev}
             handleCancel={handleCancel}
             setMenuDisplayDate={setMenuDisplayDate}
           />
           <Calendar
             onDateClick={onDateClick}
             menuDisplayDate={menuDisplayDate}
-            currentDateObj={currentDateObj}
-            min={min}
-            max={max}
+            currentDateObj={current}
           />
           <Time
             onTimeClickHour={onTimeClickHour}
             onTimeClickMinute={onTimeClickMinute}
             selected={menuDisplayDate}
-            min={min}
-            max={max}
           />
           <Footer handleConfirm={handleConfirm} menuDisplayDate={menuDisplayDate} />
         </div>

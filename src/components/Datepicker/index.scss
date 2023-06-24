@@ -2,6 +2,7 @@ $cellheight: 30px;
 $cellwidth: 36px;
 $disabled: #bfc1c2;
 $foreground: #105099;
+$foreground-light: #5097e8;
 
 .datepicker {
   font-size: 14px;
@@ -50,27 +51,29 @@ $foreground: #105099;
         display: flex;
         justify-content: space-evenly;
         font-weight: 500;
-        // & button {
-        //   background-color: transparent;
-        //   color: #939598;
-        //   font-weight: bold;
-        //   border: none;
-        //   cursor: pointer;
-        //   &:focus {
-        //     outline: 1px solid $foreground;
-        //   }
-        //   &:hover {
-        //     outline: 1px solid $foreground;
-        //   }
-        // }
         &_display {
           display: flex;
           gap: 5%;
+          & select {
+            width: 100px;
+            height: 30px;
+            text-align: center;
+            border-radius: 4px;
+            border: none;
+            background-color: #eaeded;
+            font-family: "Noto Sans JP", sans-serif;
+            outline: 1px solid transparent;
+            transition: outline-color 0.25s;
+            &:focus,
+            &:hover {
+              cursor: pointer;
+              outline: 1px solid $foreground-light;
+            }
+          }
         }
         &-cancel {
           background-color: transparent;
           border: 1px solid #d9d9d9;
-          // float: right;
           border: none;
           position: absolute;
           cursor: pointer;
@@ -78,15 +81,14 @@ $foreground: #105099;
           right: 10px;
           height: 20px;
           width: 20px;
-          // transform: scale(-0.75);
           border-radius: 50%;
-          // background-image: url('../../icons/close.svg');
-          // background-repeat: no-repeat;
-          // background-position: center;
           padding: 2.5px;
-          transition: background-color 0.25s ;
-          &:hover{
-            background-color: $foreground;
+          background-color: transparent;
+          transition: background-color 0.25s, color 0.25s;
+          &:hover,
+          &:focus {
+            background-color: $foreground-light;
+            color: white;
           }
         }
       }
@@ -135,12 +137,13 @@ $foreground: #105099;
             height: $cellheight;
             border-radius: 4px;
             &:hover {
-              background-color: $foreground;
+              background-color: $foreground-light;
               color: white;
               transition: background-color 0.25s, color 0.25s;
             }
             &:focus {
-              background-color: $foreground;
+              background-color: $foreground-light;
+              border: 1px solid $foreground-light;
               color: white;
               outline: none;
             }
@@ -150,6 +153,17 @@ $foreground: #105099;
             background-color: $foreground;
             color: white;
             cursor: pointer;
+            &:hover {
+              background-color: $foreground-light;
+              color: white;
+              transition: background-color 0.25s, color 0.25s;
+            }
+            &:focus {
+              border: 1px solid $foreground-light;
+              color: white;
+              outline: none;
+              background-color: $foreground;
+            }
           }
           &-current {
             @extend .datepicker_modal_calendar_grid_cell-normal;
@@ -192,10 +206,12 @@ $foreground: #105099;
         border: none;
         background-color: #eaeded;
         font-family: "Noto Sans JP", sans-serif;
+        outline: 1px solid transparent;
+        transition: outline-color 0.25s;
         &:focus,
         &:hover {
           cursor: pointer;
-          outline: 1px solid black;
+          outline: 1px solid $foreground-light;
         }
       }
     }
@@ -225,15 +241,17 @@ $foreground: #105099;
             cursor: pointer;
             font-family: "Noto Sans JP", sans-serif;
           }
-          // &-cancel {
-          //   background-color: transparent;
-          //   border: 1px solid #d9d9d9;
-          // }
           &-confirm {
             background-color: transparent;
             border: 1px solid $foreground;
             background-color: $foreground;
             color: white;
+            transition: background-color 0.25s;
+            &:hover,
+            &:focus {
+              outline: none;
+              background-color: $foreground-light;
+            }
           }
         }
       }

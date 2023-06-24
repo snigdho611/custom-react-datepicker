@@ -1,25 +1,13 @@
 import { IDate } from "interface";
-// import test from 'icons/test'
-import { ReactComponent as CloseIcon } from "icons/close.svg";
 import { Dispatch, SetStateAction } from "react";
-import RightArrrow from "icons/RightArrow";
-import LeftArrow from "icons/LeftArrow";
 
 interface IHeaderProps {
   menuDisplayDate: IDate;
-  onNext: () => void;
-  onPrev: () => void;
   handleCancel: () => void;
   setMenuDisplayDate: Dispatch<SetStateAction<any>>;
 }
 
-const Header: React.FC<IHeaderProps> = ({
-  onNext,
-  onPrev,
-  handleCancel,
-  menuDisplayDate,
-  setMenuDisplayDate,
-}) => {
+const Header: React.FC<IHeaderProps> = ({ handleCancel, menuDisplayDate, setMenuDisplayDate }) => {
   const months = [
     "January",
     "February",
@@ -49,13 +37,13 @@ const Header: React.FC<IHeaderProps> = ({
         className="datepicker_modal_header_buttons-cancel"
         onClick={() => handleCancel()}
       >
-        <CloseIcon />
+        {/* <CloseIcon /> */}X
       </button>
       <div className="datepicker_modal_header_buttons">
         <div className="datepicker_modal_header_buttons_display">
           <select
-            name=""
-            id=""
+            name="month"
+            id="month"
             defaultValue={menuDisplayDate.month}
             onChange={(e) => {
               setMenuDisplayDate((prevState: IDate) => ({
@@ -73,8 +61,8 @@ const Header: React.FC<IHeaderProps> = ({
             })}
           </select>
           <select
-            name=""
-            id=""
+            name="year"
+            id="year"
             defaultValue={menuDisplayDate.year}
             onChange={(e) => {
               setMenuDisplayDate((prevState: IDate) => ({
@@ -91,12 +79,7 @@ const Header: React.FC<IHeaderProps> = ({
               );
             })}
           </select>
-          {/* <span>{months[selected.month]}</span>
-          <span>{selected.year}</span> */}
         </div>
-        {/* <button type="button" onClick={onNext}>
-          <RightArrrow />
-        </button> */}
       </div>
       <hr className="datepicker_modal_header_divider" />
     </div>
