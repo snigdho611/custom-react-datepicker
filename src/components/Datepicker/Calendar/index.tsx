@@ -21,8 +21,12 @@ const Calendar: React.FC<ICalendarProps> = ({
 
   const getDateCells = (): JSX.Element[] => {
     const dateCells = [];
+    
     for (let i = 1; i <= daysInMonth; i += 1) {
       let dayClass: string = "datepicker_modal_calendar_grid_cell-normal";
+      if (menuDisplayDate.date === i) {
+        dayClass = "datepicker_modal_calendar_grid_cell-selected";
+      }
       if (
         currentDateObj.date === i &&
         currentDateObj.month === menuDisplayDate.month &&
@@ -30,18 +34,11 @@ const Calendar: React.FC<ICalendarProps> = ({
       ) {
         dayClass = "datepicker_modal_calendar_grid_cell-current";
       }
-      if (menuDisplayDate.date === i) {
-        dayClass = "datepicker_modal_calendar_grid_cell-selected";
-      }
       if (
         min &&
         new Date(`${menuDisplayDate.year}-${menuDisplayDate.month + 1}-${i}`) <
           new Date(`${min.getFullYear()}-${min.getMonth() + 1}-${min.getDate()}`)
       ) {
-        // console.log(
-        //   new Date(`${menuDisplayDate.year}-${menuDisplayDate.month + 1}-${i}`),
-        //   new Date(`${min.getFullYear()}-${min.getMonth() + 1}-${min.getDate()}`)
-        // );
         dayClass = "datepicker_modal_calendar_grid_cell-disabled";
       }
       if (
@@ -49,17 +46,9 @@ const Calendar: React.FC<ICalendarProps> = ({
         new Date(`${menuDisplayDate.year}-${menuDisplayDate.month + 1}-${i}`) >
           new Date(`${max.getFullYear()}-${max.getMonth() + 1}-${max.getDate()}`)
       ) {
-        // console.log(
-        //   new Date(`${menuDisplayDate.year}-${menuDisplayDate.month + 1}-${i}`),
-        //   max && new Date(`${max.getFullYear()}-${max.getMonth() + 1}-${max.getDate()}`)
-        // );
         dayClass = "datepicker_modal_calendar_grid_cell-disabled";
       }
-
-      // if (max && new Date(`${menuDisplayDate.year}-${menuDisplayDate.month + 1}-${i}`) > max) {
-      //   dayClass = "datepicker_modal_calendar_grid_cell-disabled";
-      // }
-
+      
       dateCells.push(
         <button
           type="button"

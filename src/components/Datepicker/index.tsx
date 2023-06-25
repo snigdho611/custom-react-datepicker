@@ -15,9 +15,9 @@ const Datepicker: React.FC<IDatepickerProps> = ({
   max = null,
 }) => {
   const current = {
-    date: new Date().getFullYear(),
+    date: new Date().getDate(),
     month: new Date().getMonth(),
-    year: new Date().getDate(),
+    year: new Date().getFullYear(),
     hours: new Date().getHours(),
     minutes: new Date().getMinutes(),
     seconds: new Date().getSeconds(),
