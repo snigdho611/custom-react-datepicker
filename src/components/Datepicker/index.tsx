@@ -161,47 +161,31 @@ const Datepicker: React.FC<IDatepickerProps> = ({
       minutes,
       seconds,
     }));
-    // if (
-    //   min &&
-    //   new Date(`${year}-${month + 1}-${date}`).getTime() ===
-    //     new Date(`${min.getFullYear()}-${min.getMonth() + 1}-${min.getDate()}`).getTime() &&
-    //   max
-    //   // &&
-    //   // new Date(`${year}-${month + 1}-${date}`).getTime() ===
-    //   //   new Date(`${max.getFullYear()}-${max.getMonth() + 1}-${max.getDate()}`).getTime()
-    // ) {
-    //   console.log("first");
-    //   setHoursRange({ start: min.getHours(), end: max.getHours() });
-    //   setMinuteRange({ start: min.getMinutes(), end: max.getMinutes() });
-    // } else
-    // if (
-    //   min &&
-    //   // !max &&
-    //   new Date(`${year}-${month + 1}-${date}`).getTime() ===
-    //     new Date(`${min.getFullYear()}-${min.getMonth() + 1}-${min.getDate()}`).getTime()
-    // ) {
-    //   setHoursRange({ start: min.getHours(), end: 23 });
-    //   setMinuteRange({ start: min.getMinutes(), end: 60 });
-    // } else if (
-    //   !min &&
-    //   max
-    //   // &&
-    //   // new Date(`${year}-${month + 1}-${date}`).getTime() ===
-    //   //   new Date(`${max.getFullYear()}-${max.getMonth() + 1}-${max.getDate()}`).getTime()
-    // ) {
-    //   setHoursRange({ start: 0, end: max.getHours() });
-    //   setMinuteRange({ start: 0, end: max.getMinutes() });
-    // } else if (!min && !max) {
-    //   setHoursRange({ start: 0, end: 24 });
-    //   setMinuteRange({ start: 0, end: 60 });
-    // }
-    // if (
-    //   min &&
-    //   new Date(`${year}-${month + 1}-${date}`).getTime() ===
-    //     new Date(`${min.getFullYear()}-${min.getMonth() + 1}-${min.getDate()}`).getTime()
-    // ) {
-    //   // console.log("ok");
-    // }
+    if (min) {
+      if(new Date(`${year}-${month + 1}-${date}`).getTime() ===
+      new Date(`${min.getFullYear()}-${min.getMonth() + 1}-${min.getDate()}`).getTime()){
+        setHoursRange({ start: min.getHours(), end: 23 });
+        setMinuteRange({ start: min.getMinutes(), end: 60 });
+      }else{
+        setHoursRange({ start: 0, end: 24 });
+        setMinuteRange({ start: 0, end: 60 });
+      }
+    } 
+    if(max){
+      if(new Date(`${year}-${month + 1}-${date}`).getTime() ===
+      new Date(`${max.getFullYear()}-${max.getMonth() + 1}-${max.getDate()}`).getTime()
+      ){
+        setHoursRange({ start: 0, end: max.getHours() });
+        setMinuteRange({ start: 0, end: max.getMinutes() });
+      }else{
+        setHoursRange({ start: 0, end: 24 });
+        setMinuteRange({ start: 0, end: 60 });
+      }
+    }
+    else if (!min && !max) {
+      setHoursRange({ start: 0, end: 24 });
+      setMinuteRange({ start: 0, end: 60 });
+    }
   };
 
   const onTimeClickHour = (hours: number) => {
