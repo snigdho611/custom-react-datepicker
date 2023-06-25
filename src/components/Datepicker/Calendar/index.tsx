@@ -35,8 +35,8 @@ const Calendar: React.FC<ICalendarProps> = ({
       }
       if (
         min &&
-        new Date(`${menuDisplayDate.year}-${menuDisplayDate.month + 1}-${i}`) <
-          new Date(`${min.getFullYear()}-${min.getMonth() + 1}-${min.getDate()}`)
+        new Date(`${menuDisplayDate.year}-${menuDisplayDate.month + 1}-${i}`).getTime() <
+          new Date(`${min.getFullYear()}-${min.getMonth() + 1}-${min.getDate()}`).getTime()
       ) {
         // console.log(
         //   new Date(`${menuDisplayDate.year}-${menuDisplayDate.month + 1}-${i}`),
@@ -46,8 +46,8 @@ const Calendar: React.FC<ICalendarProps> = ({
       }
       if (
         max &&
-        new Date(`${menuDisplayDate.year}-${menuDisplayDate.month + 1}-${i}`) >
-          new Date(`${max.getFullYear()}-${max.getMonth() + 1}-${max.getDate()}`)
+        new Date(`${menuDisplayDate.year}-${menuDisplayDate.month + 1}-${i}`).getTime() >
+          new Date(`${max.getFullYear()}-${max.getMonth() + 1}-${max.getDate()}`).getTime()
       ) {
         // console.log(
         //   new Date(`${menuDisplayDate.year}-${menuDisplayDate.month + 1}-${i}`),
@@ -66,11 +66,13 @@ const Calendar: React.FC<ICalendarProps> = ({
           key={i}
           onClick={
             (min &&
-              new Date(`${menuDisplayDate.year}-${menuDisplayDate.month + 1}-${i}`) <
-                new Date(`${min.getFullYear()}-${min.getMonth() + 1}-${min.getDate()}`)) ||
+              new Date(`${menuDisplayDate.year}-${menuDisplayDate.month + 1}-${i}`).getTime() <
+                new Date(
+                  `${min.getFullYear()}-${min.getMonth() + 1}-${min.getDate()}`
+                ).getTime()) ||
             (max &&
-              new Date(`${menuDisplayDate.year}-${menuDisplayDate.month + 1}-${i}`) >
-                new Date(`${max.getFullYear()}-${max.getMonth() + 1}-${max.getDate()}`))
+              new Date(`${menuDisplayDate.year}-${menuDisplayDate.month + 1}-${i}`).getTime() >
+                new Date(`${max.getFullYear()}-${max.getMonth() + 1}-${max.getDate()}`).getTime())
               ? () => {}
               : () => {
                   // console.log(menuDisplayDate);
