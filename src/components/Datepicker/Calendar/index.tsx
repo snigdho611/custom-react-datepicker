@@ -21,17 +21,18 @@ const Calendar: React.FC<ICalendarProps> = ({
 
   const getDateCells = (): JSX.Element[] => {
     const dateCells = [];
+
     for (let i = 1; i <= daysInMonth; i += 1) {
       let dayClass: string = "datepicker_modal_calendar_grid_cell-normal";
+      if (menuDisplayDate.date === i) {
+        dayClass = "datepicker_modal_calendar_grid_cell-selected";
+      }
       if (
         currentDateObj.date === i &&
         currentDateObj.month === menuDisplayDate.month &&
         currentDateObj.year === menuDisplayDate.year
       ) {
         dayClass = "datepicker_modal_calendar_grid_cell-current";
-      }
-      if (menuDisplayDate.date === i) {
-        dayClass = "datepicker_modal_calendar_grid_cell-selected";
       }
       if (
         min &&
@@ -47,7 +48,6 @@ const Calendar: React.FC<ICalendarProps> = ({
       ) {
         dayClass = "datepicker_modal_calendar_grid_cell-disabled";
       }
-
       dateCells.push(
         <button
           type="button"
