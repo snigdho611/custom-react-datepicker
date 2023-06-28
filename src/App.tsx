@@ -17,10 +17,7 @@ function App() {
           setStart(date);
         }}
         min={new Date("2023-06-10 10:52:00")}
-        max={new Date("2023-06-12 11:21:00")}
-        // min={new Date("2023-06-10 09:20")}
-        // max={new Date("2023-06-10 11:30:00")}
-        // min={new Date(new Date().getTime() - 86400000)}
+        max={new Date("2023-06-14 11:21:00")}
       />
     </div>
   );

@@ -8,7 +8,7 @@ const DatepickerTime: React.FC<ITimeProps> = ({
   hoursRange,
   minutesRange,
 }) => {
-  console.log(hoursRange, minutesRange);
+  // console.log(hoursRange, minutesRange);
   // console.log(
   //   arrayFill(hoursRange.start, hoursRange.end),
   //   arrayFill(minutesRange.start, minutesRange.end)

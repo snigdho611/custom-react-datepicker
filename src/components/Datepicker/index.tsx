@@ -73,21 +73,21 @@ const Datepicker: React.FC<IDatepickerProps> = ({
       }
     };
 
-    // const handleClickOutside = (event: Event) => {
-    //   if (inputRef.current && inputRef.current.contains(event.target as Node)) {
-    //     setOpen(!open);
-    //   }
-    //   if (open && menuRef.current && !menuRef.current.contains(event.target as Node)) {
-    //     setOpen(false);
-    //   }
-    // };
+    const handleClickOutside = (event: Event) => {
+      if (inputRef.current && inputRef.current.contains(event.target as Node)) {
+        setOpen(!open);
+      }
+      if (open && menuRef.current && !menuRef.current.contains(event.target as Node)) {
+        setOpen(false);
+      }
+    };
 
     inputElement && inputElement.addEventListener("keydown", handleSpacebar);
-    // document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
 
     return () => {
       inputElement && inputElement.removeEventListener("keydown", handleSpacebar);
-      // document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [open, disabled]);
 
@@ -106,36 +106,6 @@ const Datepicker: React.FC<IDatepickerProps> = ({
     }
   }, [value]);
 
-  // useEffect(() => {
-  //   console.log(menuDisplayDate)
-  //   if(min){
-  //     if(menuDisplayDate?.date === new Date(new Date(min).getTime() + 86400000).getDate() ){
-  //       setMenuDisplayDate((prevState)=>({...prevState, hours: new Date(new Date(min).getTime() + 86400000).getHours()}))
-  //       // setMinutes(arrayFill(new Date(new Date(min).getTime() + 86400000).getMinutes(), 60))
-  //       // setHours(arrayFill(new Date(new Date(min).getTime() + 86400000).getHours(), 24))
-  //       // setMinutes(arrayFill(new Date(new Date(min).getTime() + 86400000).getMinutes(), 60))
-  //     }else{
-  //       setMenuDisplayDate((prevState)=>({...prevState, hours: new Date().getHours()}))
-  //       // ()
-  //       // setMinutes(arrayFill(0, 60))
-  //     }
-  //   }
-  // }, [menuDisplayDate?.date, menuDisplayDate?.month, min, max])
-
-  useEffect(() => {
-    if (min) {
-      if (
-        menuDisplayDate.year === min.getFullYear() &&
-        menuDisplayDate.month === min.getMonth() &&
-        menuDisplayDate.date === min.getDate()
-      ) {
-        // console.log(
-        //   new Date(`${menuDisplayDate.year}-${menuDisplayDate.month}-${menuDisplayDate.date}`)
-        // );
-      }
-    }
-  }, [menuDisplayDate.year, menuDisplayDate.month, menuDisplayDate.date, min, max]);
-
   const onDateClick = (
     year: number,
     month: number,
@@ -144,14 +114,6 @@ const Datepicker: React.FC<IDatepickerProps> = ({
     minutes: number,
     seconds: number
   ) => {
-    // console.log({
-    //   date,
-    //   month,
-    //   year,
-    //   hours,
-    //   minutes,
-    //   seconds,
-    // });
     setMenuDisplayDate((prevState) => ({
       ...prevState,
       date,
@@ -161,28 +123,53 @@ const Datepicker: React.FC<IDatepickerProps> = ({
       minutes,
       seconds,
     }));
-    if (min) {
-      if(new Date(`${year}-${month + 1}-${date}`).getTime() ===
-      new Date(`${min.getFullYear()}-${min.getMonth() + 1}-${min.getDate()}`).getTime()){
+    if (min && max) {
+      if (
+        new Date(`${year}-${month + 1}-${date}`).getTime() ===
+        new Date(`${min.getFullYear()}-${min.getMonth() + 1}-${min.getDate()}`).getTime()
+      ) {
+        // console.log("On the minimum date, hours and minutes reduced");
         setHoursRange({ start: min.getHours(), end: 23 });
         setMinuteRange({ start: min.getMinutes(), end: 60 });
-      }else{
-        setHoursRange({ start: 0, end: 24 });
-        setMinuteRange({ start: 0, end: 60 });
-      }
-    } 
-    if(max){
-      if(new Date(`${year}-${month + 1}-${date}`).getTime() ===
-      new Date(`${max.getFullYear()}-${max.getMonth() + 1}-${max.getDate()}`).getTime()
-      ){
-        setHoursRange({ start: 0, end: max.getHours() });
+      } else if (
+        new Date(`${year}-${month + 1}-${date}`).getTime() ===
+        new Date(`${max.getFullYear()}-${max.getMonth() + 1}-${max.getDate()}`).getTime()
+      ) {
+        // console.log("On the maximum date, hours and minutes reduced");
+        setHoursRange({ start: 0, end: max.getHours() + 1 });
         setMinuteRange({ start: 0, end: max.getMinutes() });
-      }else{
+      } else {
+        // console.log("Not on the minimum or maximum date, hours and minutes reset");
         setHoursRange({ start: 0, end: 24 });
         setMinuteRange({ start: 0, end: 60 });
       }
-    }
-    else if (!min && !max) {
+    } else if (min && !max) {
+      if (
+        new Date(`${year}-${month + 1}-${date}`).getTime() ===
+        new Date(`${min.getFullYear()}-${min.getMonth() + 1}-${min.getDate()}`).getTime()
+      ) {
+        // console.log("On the minimum date, hours and minutes reduced");
+        setHoursRange({ start: min.getHours(), end: 23 });
+        setMinuteRange({ start: min.getMinutes(), end: 60 });
+      } else {
+        // console.log("Not on the minimum date, hours and minutes reset");
+        setHoursRange({ start: 0, end: 24 });
+        setMinuteRange({ start: 0, end: 60 });
+      }
+    } else if (!min && max) {
+      if (
+        new Date(`${year}-${month + 1}-${date}`).getTime() ===
+        new Date(`${max.getFullYear()}-${max.getMonth() + 1}-${max.getDate()}`).getTime()
+      ) {
+        // console.log("On the maximum date, hours and minutes reduced");
+        setHoursRange({ start: 0, end: max.getHours() + 1 });
+        setMinuteRange({ start: 0, end: max.getMinutes() });
+      } else {
+        // console.log("Not on the maximum date, hours and minutes reset");
+        setHoursRange({ start: 0, end: 24 });
+        setMinuteRange({ start: 0, end: 60 });
+      }
+    } else if (!min && !max) {
       setHoursRange({ start: 0, end: 24 });
       setMinuteRange({ start: 0, end: 60 });
     }
@@ -190,6 +177,34 @@ const Datepicker: React.FC<IDatepickerProps> = ({
 
   const onTimeClickHour = (hours: number) => {
     setMenuDisplayDate((prevState) => ({ ...prevState, hours }));
+    if (min) {
+      if (
+        new Date(
+          `${menuDisplayDate.year}-${menuDisplayDate.month + 1}-${menuDisplayDate.date}`
+        ).getTime() ===
+        new Date(`${min.getFullYear()}-${min.getMonth() + 1}-${min.getDate()}`).getTime()
+      ) {
+        if (min.getHours() === hours) {
+          setMinuteRange({ start: min.getMinutes(), end: 60 });
+        } else {
+          setMinuteRange({ start: 0, end: 60 });
+        }
+      }
+    }
+    if (max) {
+      if (
+        new Date(
+          `${menuDisplayDate.year}-${menuDisplayDate.month + 1}-${menuDisplayDate.date}`
+        ).getTime() ===
+        new Date(`${max.getFullYear()}-${max.getMonth() + 1}-${max.getDate()}`).getTime()
+      ) {
+        if (max.getHours() === hours) {
+          setMinuteRange({ start: 0, end: max.getMinutes() });
+        } else {
+          setMinuteRange({ start: 0, end: 60 });
+        }
+      }
+    }
   };
 
   const onTimeClickMinute = (minutes: number) => {

@@ -1,8 +1,8 @@
 $cellheight: 30px;
 $cellwidth: 36px;
-$disabled: #bfc1c2;
-$foreground: #105099;
-$foreground-light: #5097e8;
+$disabled: #b0b0b0;
+$foreground: #3684dc;
+$foreground-light: #7cb3f2;
 
 .datepicker {
   font-size: 14px;
@@ -30,6 +30,7 @@ $foreground-light: #5097e8;
     }
   }
   &_modal {
+    margin-top: 2px;
     position: absolute;
     background-color: white;
     min-height: 371px;
@@ -277,5 +278,5 @@ $foreground-light: #5097e8;
 }
 .disabled-day {
   cursor: default;
-  background-color: lime !important;
+  // background-color: lime !important;
 }

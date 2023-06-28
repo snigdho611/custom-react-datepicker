@@ -38,10 +38,6 @@ const Calendar: React.FC<ICalendarProps> = ({
         new Date(`${menuDisplayDate.year}-${menuDisplayDate.month + 1}-${i}`).getTime() <
           new Date(`${min.getFullYear()}-${min.getMonth() + 1}-${min.getDate()}`).getTime()
       ) {
-        // console.log(
-        //   new Date(`${menuDisplayDate.year}-${menuDisplayDate.month + 1}-${i}`),
-        //   new Date(`${min.getFullYear()}-${min.getMonth() + 1}-${min.getDate()}`)
-        // );
         dayClass = "datepicker_modal_calendar_grid_cell-disabled";
       }
       if (
@@ -49,16 +45,8 @@ const Calendar: React.FC<ICalendarProps> = ({
         new Date(`${menuDisplayDate.year}-${menuDisplayDate.month + 1}-${i}`).getTime() >
           new Date(`${max.getFullYear()}-${max.getMonth() + 1}-${max.getDate()}`).getTime()
       ) {
-        // console.log(
-        //   new Date(`${menuDisplayDate.year}-${menuDisplayDate.month + 1}-${i}`),
-        //   max && new Date(`${max.getFullYear()}-${max.getMonth() + 1}-${max.getDate()}`)
-        // );
         dayClass = "datepicker_modal_calendar_grid_cell-disabled";
       }
-
-      // if (max && new Date(`${menuDisplayDate.year}-${menuDisplayDate.month + 1}-${i}`) > max) {
-      //   dayClass = "datepicker_modal_calendar_grid_cell-disabled";
-      // }
 
       dateCells.push(
         <button
@@ -107,12 +95,6 @@ const Calendar: React.FC<ICalendarProps> = ({
         <div className="datepicker_modal_calendar_week_cell">SUN</div>
       </div>
       <div className="datepicker_modal_calendar_grid">
-        {/* {Array(startDay)
-          .fill(null)
-          .map((element, i) => {
-            console.log(element);
-            return <div key={i} className="datepicker_modal_calendar_grid_day-empty" />;
-          })} */}
         {getStartEmptyCells()}
         {getDateCells()}
       </div>
