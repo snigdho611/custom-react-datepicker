@@ -10,6 +10,8 @@ const Calendar: React.FC<ICalendarProps> = ({
   const daysInMonth = new Date(menuDisplayDate.year, menuDisplayDate.month + 1, 0).getDate();
   const startDay = new Date(menuDisplayDate.year, menuDisplayDate.month, 0).getDay();
 
+  console.log(currentDateObj);
+
   const getStartEmptyCells = (): JSX.Element[] => {
     const emptyCells = [];
     for (let i = 0; i < startDay; i += 1) {
@@ -24,15 +26,16 @@ const Calendar: React.FC<ICalendarProps> = ({
 
     for (let i = 1; i <= daysInMonth; i += 1) {
       let dayClass: string = "datepicker_modal_calendar_grid_cell-normal";
-      if (menuDisplayDate.date === i) {
-        dayClass = "datepicker_modal_calendar_grid_cell-selected";
-      }
+
       if (
         currentDateObj.date === i &&
         currentDateObj.month === menuDisplayDate.month &&
         currentDateObj.year === menuDisplayDate.year
       ) {
         dayClass = "datepicker_modal_calendar_grid_cell-current";
+      }
+      if (menuDisplayDate.date === i) {
+        dayClass = "datepicker_modal_calendar_grid_cell-selected";
       }
       if (
         min &&
