@@ -55,7 +55,7 @@ const Datepicker: React.FC<IDatepickerProps> = ({
 
   const menuRef = useRef<HTMLDivElement | null>(null);
   const inputRef = useRef<HTMLInputElement | null>(null);
-  const [open, setOpen] = useState<boolean>(true);
+  const [open, setOpen] = useState<boolean>(false);
 
   useEffect(() => {
     if (disabled) {

@@ -2,7 +2,7 @@ import { useState } from "react";
 import Datepicker from "./components/Datepicker";
 
 function App() {
-  const [start, setStart] = useState<Date | null>(new Date());
+  const [start, setStart] = useState<Date | null>(null);
 
   return (
     <div style={{ display: "flex", gap: "10px" }}>
