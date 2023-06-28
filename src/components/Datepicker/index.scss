@@ -136,7 +136,7 @@ $foreground-light: #7cb3f2;
             font-family: "Noto Sans JP", sans-serif;
             padding: 5px;
             height: $cellheight;
-            border-radius: 50%;
+            border-radius: 4px;
             &:hover {
               background-color: $foreground-light;
               color: white;
