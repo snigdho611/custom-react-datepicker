@@ -1,5 +1,5 @@
-$cellheight: 30px;
-$cellwidth: 36px;
+$cellheight: 35px;
+$cellwidth: 35px;
 $disabled: #b0b0b0;
 $foreground: #3684dc;
 $foreground-light: #7cb3f2;
@@ -44,7 +44,7 @@ $foreground-light: #7cb3f2;
       position: relative;
       &_divider {
         margin: 17px auto 20px auto;
-        width: 251px;
+        width: 100%;
         border-top: 1px solid #d9d9d9;
       }
       &_buttons {
@@ -136,7 +136,7 @@ $foreground-light: #7cb3f2;
             font-family: "Noto Sans JP", sans-serif;
             padding: 5px;
             height: $cellheight;
-            border-radius: 4px;
+            border-radius: 50%;
             &:hover {
               background-color: $foreground-light;
               color: white;

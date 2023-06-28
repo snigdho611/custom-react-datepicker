@@ -1,8 +1,9 @@
 # React DateTime Selector
 
-The React DateTime Selector is a control for [React](https://reactjs.org). It makes a more customizable UI and allows date and time picking intricacies.
+<img height="400px" src="https://res.cloudinary.com/drnym8nne/image/upload/v1687972800/Screenshot_2023-06-28_231938_ga8c4x.png" alt="MUI logo">
 
-It provides with the option of selecting the default year, month, date, hours and minute.
+<p>The React DateTime Selector is a control for [React](https://reactjs.org). It makes a more customizable UI and allows date and time picking intricacies.</p>
+<p>It provides with the option of selecting the default year, month, date, hours and minute.</p>
 
 <ul>
     <li>
