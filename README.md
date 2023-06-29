@@ -2,7 +2,7 @@
 
 <img height="400px" src="https://res.cloudinary.com/drnym8nne/image/upload/v1687972800/Screenshot_2023-06-28_231938_ga8c4x.png" alt="MUI logo">
 
-<p>The React DateTime Selector is a control for [React](https://reactjs.org). It makes a more customizable UI and allows date and time picking intricacies.</p>
+<p>The React DateTime Selector is a control for <a href="https://reactjs.org">React</a>. It makes a more customizable UI and allows date and time picking intricacies.</p>
 <p>It provides with the option of selecting the default year, month, date, hours and minute.</p>
 
 <ul>
@@ -18,3 +18,4 @@
 </ul>
 
 Deployed <a href="https://custom-react-datepicker-pi.vercel.app/">here</a>
+Developed with: TypeScript, React JS.
