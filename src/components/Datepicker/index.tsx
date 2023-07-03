@@ -113,7 +113,7 @@ const Datepicker: React.FC<IDatepickerProps> = ({
       setHoursRange({ start: min.getHours(), end: 24 });
       setMinuteRange({ start: min.getMinutes(), end: 60 });
     }
-    if (max && value === max) {
+    if (max && value && value.getTime() === max.getTime()) {
       setHoursRange({ start: 0, end: max.getHours() });
       setMinuteRange({ start: 0, end: max.getMinutes() });
     }
