@@ -26,8 +26,7 @@ const Calendar: React.FC<ICalendarProps> = ({
       let dayClass: string = "datepicker_modal_calendar_grid_cell-normal";
       if (menuDisplayDate.date === i) {
         dayClass = "datepicker_modal_calendar_grid_cell-selected";
-      }
-      if (
+      } else if (
         currentDateObj.date === i &&
         currentDateObj.month === menuDisplayDate.month &&
         currentDateObj.year === menuDisplayDate.year

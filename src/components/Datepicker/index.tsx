@@ -81,11 +81,7 @@ const Datepicker: React.FC<IDatepickerProps> = ({
       if (inputRef.current && inputRef.current.contains(event.target as Node)) {
         setOpen(!open);
       }
-      if (
-        open &&
-        menuRef.current &&
-        !menuRef.current.contains(event.target as Node)
-      ) {
+      if (open && menuRef.current && !menuRef.current.contains(event.target as Node)) {
         setOpen(false);
       }
     };
@@ -94,13 +90,13 @@ const Datepicker: React.FC<IDatepickerProps> = ({
     document.addEventListener("mousedown", handleClickOutside);
 
     return () => {
-      inputElement &&
-        inputElement.removeEventListener("keydown", handleSpacebar);
+      inputElement && inputElement.removeEventListener("keydown", handleSpacebar);
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [open, disabled]);
 
   useEffect(() => {
+    // console.log(min);
     if (value) {
       setSelectedDate({
         date: new Date(value).getDate(),
@@ -113,7 +109,15 @@ const Datepicker: React.FC<IDatepickerProps> = ({
     } else {
       setSelectedDate(null);
     }
-  }, [value]);
+    if (min && value && value.getTime() === min.getTime()) {
+      setHoursRange({ start: min.getHours(), end: 24 });
+      setMinuteRange({ start: min.getMinutes(), end: 60 });
+    }
+    if (max && value === max) {
+      setHoursRange({ start: 0, end: max.getHours() });
+      setMinuteRange({ start: 0, end: max.getMinutes() });
+    }
+  }, [value, min, max]);
 
   const onDateClick = (
     year: number,
@@ -135,17 +139,13 @@ const Datepicker: React.FC<IDatepickerProps> = ({
     if (min && max) {
       if (
         new Date(`${year}-${month + 1}-${date}`).getTime() ===
-        new Date(
-          `${min.getFullYear()}-${min.getMonth() + 1}-${min.getDate()}`
-        ).getTime()
+        new Date(`${min.getFullYear()}-${min.getMonth() + 1}-${min.getDate()}`).getTime()
       ) {
         setHoursRange({ start: min.getHours(), end: 23 });
         setMinuteRange({ start: min.getMinutes(), end: 60 });
       } else if (
         new Date(`${year}-${month + 1}-${date}`).getTime() ===
-        new Date(
-          `${max.getFullYear()}-${max.getMonth() + 1}-${max.getDate()}`
-        ).getTime()
+        new Date(`${max.getFullYear()}-${max.getMonth() + 1}-${max.getDate()}`).getTime()
       ) {
         setHoursRange({ start: 0, end: max.getHours() + 1 });
         setMinuteRange({ start: 0, end: max.getMinutes() });
@@ -156,9 +156,7 @@ const Datepicker: React.FC<IDatepickerProps> = ({
     } else if (min && !max) {
       if (
         new Date(`${year}-${month + 1}-${date}`).getTime() ===
-        new Date(
-          `${min.getFullYear()}-${min.getMonth() + 1}-${min.getDate()}`
-        ).getTime()
+        new Date(`${min.getFullYear()}-${min.getMonth() + 1}-${min.getDate()}`).getTime()
       ) {
         setHoursRange({ start: min.getHours(), end: 23 });
         setMinuteRange({ start: min.getMinutes(), end: 60 });
@@ -169,9 +167,7 @@ const Datepicker: React.FC<IDatepickerProps> = ({
     } else if (!min && max) {
       if (
         new Date(`${year}-${month + 1}-${date}`).getTime() ===
-        new Date(
-          `${max.getFullYear()}-${max.getMonth() + 1}-${max.getDate()}`
-        ).getTime()
+        new Date(`${max.getFullYear()}-${max.getMonth() + 1}-${max.getDate()}`).getTime()
       ) {
         // console.log("On the maximum date, hours and minutes reduced");
         setHoursRange({ start: 0, end: max.getHours() + 1 });
@@ -192,13 +188,9 @@ const Datepicker: React.FC<IDatepickerProps> = ({
     if (min) {
       if (
         new Date(
-          `${menuDisplayDate.year}-${menuDisplayDate.month + 1}-${
-            menuDisplayDate.date
-          }`
+          `${menuDisplayDate.year}-${menuDisplayDate.month + 1}-${menuDisplayDate.date}`
         ).getTime() ===
-        new Date(
-          `${min.getFullYear()}-${min.getMonth() + 1}-${min.getDate()}`
-        ).getTime()
+        new Date(`${min.getFullYear()}-${min.getMonth() + 1}-${min.getDate()}`).getTime()
       ) {
         if (min.getHours() === hours) {
           setMinuteRange({ start: min.getMinutes(), end: 60 });
@@ -210,13 +202,9 @@ const Datepicker: React.FC<IDatepickerProps> = ({
     if (max) {
       if (
         new Date(
-          `${menuDisplayDate.year}-${menuDisplayDate.month + 1}-${
-            menuDisplayDate.date
-          }`
+          `${menuDisplayDate.year}-${menuDisplayDate.month + 1}-${menuDisplayDate.date}`
         ).getTime() ===
-        new Date(
-          `${max.getFullYear()}-${max.getMonth() + 1}-${max.getDate()}`
-        ).getTime()
+        new Date(`${max.getFullYear()}-${max.getMonth() + 1}-${max.getDate()}`).getTime()
       ) {
         if (max.getHours() === hours) {
           setMinuteRange({ start: 0, end: max.getMinutes() });
@@ -252,17 +240,15 @@ const Datepicker: React.FC<IDatepickerProps> = ({
   const showDisplayTime = () => {
     if (selectedDate) {
       if (time === "false") {
-        return `${selectedDate.year}/${String(selectedDate.month + 1).padStart(
-          2,
-          "0"
-        )}/${String(selectedDate.date).padStart(2, "0")}`;
+        return `${selectedDate.year}/${String(selectedDate.month + 1).padStart(2, "0")}/${String(
+          selectedDate.date
+        ).padStart(2, "0")}`;
       }
-      return `${selectedDate.year}/${String(selectedDate.month + 1).padStart(
-        2,
-        "0"
-      )}/${String(selectedDate.date).padStart(2, "0")} ${String(
-        selectedDate.hours
-      ).padStart(2, "0")}:${String(selectedDate.minutes).padStart(2, "0")}`;
+      return `${selectedDate.year}/${String(selectedDate.month + 1).padStart(2, "0")}/${String(
+        selectedDate.date
+      ).padStart(2, "0")} ${String(selectedDate.hours).padStart(2, "0")}:${String(
+        selectedDate.minutes
+      ).padStart(2, "0")}`;
     }
     return "";
   };
@@ -307,11 +293,7 @@ const Datepicker: React.FC<IDatepickerProps> = ({
               time={time}
             />
           )}
-          <Footer
-            handleConfirm={handleConfirm}
-            menuDisplayDate={menuDisplayDate}
-            time={time}
-          />
+          <Footer handleConfirm={handleConfirm} menuDisplayDate={menuDisplayDate} time={time} />
         </div>
       ) : null}
     </div>

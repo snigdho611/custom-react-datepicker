@@ -11,12 +11,9 @@ function App() {
         width="500px"
         value={start}
         onChange={(date) => {
-          if (end && date > end) {
-            setEnd(null);
-          }
           setStart(date);
         }}
-        min={start}
+        min={new Date()}
         max={new Date("2023-07-29 11:21:00")}
         time={"true"}
       />
