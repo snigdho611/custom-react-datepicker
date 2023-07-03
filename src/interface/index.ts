@@ -14,6 +14,7 @@ export interface IDatepickerProps {
   onChange: (date: Date) => void;
   min?: Date | null;
   max?: Date | null;
+  time?: "optional" | "true" | "false";
 }
 
 export interface ICalendarProps {
@@ -34,6 +35,7 @@ export interface ICalendarProps {
 export interface IFooterProps {
   menuDisplayDate: IDate;
   handleConfirm: () => void;
+  time?: "optional" | "true" | "false";
 }
 
 export interface ITimeProps {
@@ -42,4 +44,5 @@ export interface ITimeProps {
   onTimeClickMinute: (minutes: number) => void;
   hoursRange: { start: number; end: number };
   minutesRange: { start: number; end: number };
+  time?: "optional" | "true" | "false";
 }

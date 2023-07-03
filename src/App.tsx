@@ -2,7 +2,7 @@ import { useState } from "react";
 import Datepicker from "./components/Datepicker";
 
 function App() {
-  const [start, setStart] = useState<Date | null>(new Date("2023-06-12 05:37:00"));
+  const [start, setStart] = useState<Date | null>(new Date());
   const [end, setEnd] = useState<Date | null>(null);
 
   return (
@@ -16,8 +16,9 @@ function App() {
           }
           setStart(date);
         }}
-        min={new Date("2023-06-10 10:52:00")}
-        max={new Date("2023-06-14 11:21:00")}
+        min={start}
+        max={new Date("2023-07-29 11:21:00")}
+        time={"true"}
       />
     </div>
   );

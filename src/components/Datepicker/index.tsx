@@ -13,6 +13,7 @@ const Datepicker: React.FC<IDatepickerProps> = ({
   disabled = false,
   min = null,
   max = null,
+  time = "false",
 }) => {
   const current = {
     date: new Date().getDate(),
@@ -48,7 +49,10 @@ const Datepicker: React.FC<IDatepickerProps> = ({
     start: 0,
     end: 24,
   });
-  const [minutesRange, setMinuteRange] = useState<{ start: number; end: number }>({
+  const [minutesRange, setMinuteRange] = useState<{
+    start: number;
+    end: number;
+  }>({
     start: 0,
     end: 60,
   });
@@ -77,7 +81,11 @@ const Datepicker: React.FC<IDatepickerProps> = ({
       if (inputRef.current && inputRef.current.contains(event.target as Node)) {
         setOpen(!open);
       }
-      if (open && menuRef.current && !menuRef.current.contains(event.target as Node)) {
+      if (
+        open &&
+        menuRef.current &&
+        !menuRef.current.contains(event.target as Node)
+      ) {
         setOpen(false);
       }
     };
@@ -86,7 +94,8 @@ const Datepicker: React.FC<IDatepickerProps> = ({
     document.addEventListener("mousedown", handleClickOutside);
 
     return () => {
-      inputElement && inputElement.removeEventListener("keydown", handleSpacebar);
+      inputElement &&
+        inputElement.removeEventListener("keydown", handleSpacebar);
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [open, disabled]);
@@ -126,40 +135,43 @@ const Datepicker: React.FC<IDatepickerProps> = ({
     if (min && max) {
       if (
         new Date(`${year}-${month + 1}-${date}`).getTime() ===
-        new Date(`${min.getFullYear()}-${min.getMonth() + 1}-${min.getDate()}`).getTime()
+        new Date(
+          `${min.getFullYear()}-${min.getMonth() + 1}-${min.getDate()}`
+        ).getTime()
       ) {
-        // console.log("On the minimum date, hours and minutes reduced");
         setHoursRange({ start: min.getHours(), end: 23 });
         setMinuteRange({ start: min.getMinutes(), end: 60 });
       } else if (
         new Date(`${year}-${month + 1}-${date}`).getTime() ===
-        new Date(`${max.getFullYear()}-${max.getMonth() + 1}-${max.getDate()}`).getTime()
+        new Date(
+          `${max.getFullYear()}-${max.getMonth() + 1}-${max.getDate()}`
+        ).getTime()
       ) {
-        // console.log("On the maximum date, hours and minutes reduced");
         setHoursRange({ start: 0, end: max.getHours() + 1 });
         setMinuteRange({ start: 0, end: max.getMinutes() });
       } else {
-        // console.log("Not on the minimum or maximum date, hours and minutes reset");
         setHoursRange({ start: 0, end: 24 });
         setMinuteRange({ start: 0, end: 60 });
       }
     } else if (min && !max) {
       if (
         new Date(`${year}-${month + 1}-${date}`).getTime() ===
-        new Date(`${min.getFullYear()}-${min.getMonth() + 1}-${min.getDate()}`).getTime()
+        new Date(
+          `${min.getFullYear()}-${min.getMonth() + 1}-${min.getDate()}`
+        ).getTime()
       ) {
-        // console.log("On the minimum date, hours and minutes reduced");
         setHoursRange({ start: min.getHours(), end: 23 });
         setMinuteRange({ start: min.getMinutes(), end: 60 });
       } else {
-        // console.log("Not on the minimum date, hours and minutes reset");
         setHoursRange({ start: 0, end: 24 });
         setMinuteRange({ start: 0, end: 60 });
       }
     } else if (!min && max) {
       if (
         new Date(`${year}-${month + 1}-${date}`).getTime() ===
-        new Date(`${max.getFullYear()}-${max.getMonth() + 1}-${max.getDate()}`).getTime()
+        new Date(
+          `${max.getFullYear()}-${max.getMonth() + 1}-${max.getDate()}`
+        ).getTime()
       ) {
         // console.log("On the maximum date, hours and minutes reduced");
         setHoursRange({ start: 0, end: max.getHours() + 1 });
@@ -180,9 +192,13 @@ const Datepicker: React.FC<IDatepickerProps> = ({
     if (min) {
       if (
         new Date(
-          `${menuDisplayDate.year}-${menuDisplayDate.month + 1}-${menuDisplayDate.date}`
+          `${menuDisplayDate.year}-${menuDisplayDate.month + 1}-${
+            menuDisplayDate.date
+          }`
         ).getTime() ===
-        new Date(`${min.getFullYear()}-${min.getMonth() + 1}-${min.getDate()}`).getTime()
+        new Date(
+          `${min.getFullYear()}-${min.getMonth() + 1}-${min.getDate()}`
+        ).getTime()
       ) {
         if (min.getHours() === hours) {
           setMinuteRange({ start: min.getMinutes(), end: 60 });
@@ -194,9 +210,13 @@ const Datepicker: React.FC<IDatepickerProps> = ({
     if (max) {
       if (
         new Date(
-          `${menuDisplayDate.year}-${menuDisplayDate.month + 1}-${menuDisplayDate.date}`
+          `${menuDisplayDate.year}-${menuDisplayDate.month + 1}-${
+            menuDisplayDate.date
+          }`
         ).getTime() ===
-        new Date(`${max.getFullYear()}-${max.getMonth() + 1}-${max.getDate()}`).getTime()
+        new Date(
+          `${max.getFullYear()}-${max.getMonth() + 1}-${max.getDate()}`
+        ).getTime()
       ) {
         if (max.getHours() === hours) {
           setMinuteRange({ start: 0, end: max.getMinutes() });
@@ -229,6 +249,24 @@ const Datepicker: React.FC<IDatepickerProps> = ({
     setOpen(false);
   };
 
+  const showDisplayTime = () => {
+    if (selectedDate) {
+      if (time === "false") {
+        return `${selectedDate.year}/${String(selectedDate.month + 1).padStart(
+          2,
+          "0"
+        )}/${String(selectedDate.date).padStart(2, "0")}`;
+      }
+      return `${selectedDate.year}/${String(selectedDate.month + 1).padStart(
+        2,
+        "0"
+      )}/${String(selectedDate.date).padStart(2, "0")} ${String(
+        selectedDate.hours
+      ).padStart(2, "0")}:${String(selectedDate.minutes).padStart(2, "0")}`;
+    }
+    return "";
+  };
+
   return (
     <div className="datepicker" style={{ width: width }}>
       <input
@@ -239,15 +277,7 @@ const Datepicker: React.FC<IDatepickerProps> = ({
         ref={inputRef}
         type="text"
         className="datepicker_input"
-        value={
-          selectedDate
-            ? `${selectedDate.year}/${String(selectedDate.month + 1).padStart(2, "0")}/${String(
-                selectedDate.date
-              ).padStart(2, "0")} ${String(selectedDate.hours).padStart(2, "0")}:${String(
-                selectedDate.minutes
-              ).padStart(2, "0")}`
-            : ""
-        }
+        value={showDisplayTime()}
         placeholder="Select a date"
         readOnly
       />
@@ -266,14 +296,22 @@ const Datepicker: React.FC<IDatepickerProps> = ({
             min={min}
             max={max}
           />
-          <Time
-            onTimeClickHour={onTimeClickHour}
-            onTimeClickMinute={onTimeClickMinute}
-            selected={menuDisplayDate}
-            hoursRange={hoursRange}
-            minutesRange={minutesRange}
+          {/* time === "true" || time === "optional" */}
+          {time === "false" ? null : (
+            <Time
+              onTimeClickHour={onTimeClickHour}
+              onTimeClickMinute={onTimeClickMinute}
+              selected={menuDisplayDate}
+              hoursRange={hoursRange}
+              minutesRange={minutesRange}
+              time={time}
+            />
+          )}
+          <Footer
+            handleConfirm={handleConfirm}
+            menuDisplayDate={menuDisplayDate}
+            time={time}
           />
-          <Footer handleConfirm={handleConfirm} menuDisplayDate={menuDisplayDate} />
         </div>
       ) : null}
     </div>
