@@ -10,7 +10,7 @@ const Calendar: React.FC<ICalendarProps> = ({
   const daysInMonth = new Date(menuDisplayDate.year, menuDisplayDate.month + 1, 0).getDate();
   const startDay = new Date(menuDisplayDate.year, menuDisplayDate.month, 0).getDay();
 
-  console.log(currentDateObj);
+  // console.log(currentDateObj);
 
   const getStartEmptyCells = (): JSX.Element[] => {
     const emptyCells = [];

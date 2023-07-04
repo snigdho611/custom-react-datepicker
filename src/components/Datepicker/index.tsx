@@ -45,12 +45,12 @@ const Datepicker: React.FC<IDatepickerProps> = ({
   );
 
   const [hoursRange, setHoursRange] = useState<{ start: number; end: number }>({
-    start: 0,
-    end: 24,
+    start: min ? min.getHours() : 0,
+    end: max ? max.getHours() : 24,
   });
   const [minutesRange, setMinuteRange] = useState<{ start: number; end: number }>({
-    start: 0,
-    end: 60,
+    start: min ? min.getMinutes() : 0,
+    end: max ? max.getMinutes() : 60,
   });
 
   const menuRef = useRef<HTMLDivElement | null>(null);
