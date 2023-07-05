@@ -2,7 +2,7 @@ import { useState } from "react";
 import Datepicker from "./components/Datepicker";
 
 function App() {
-  const [start, setStart] = useState<Date | null>(null);
+  const [dateVal, setDateVal] = useState<Date | null>(null);
   const [minDate, setMinDate] = useState<number>(2);
   const [minMonth, setMinMonth] = useState<number>(new Date().getMonth());
   const [minYear, setMinYear] = useState<number>(new Date().getFullYear());
@@ -222,9 +222,9 @@ function App() {
       </div>
       <Datepicker
         width="500px"
-        value={start}
+        value={dateVal}
         onChange={(date) => {
-          setStart(date);
+          setDateVal(date);
         }}
         min={min}
         max={max}
