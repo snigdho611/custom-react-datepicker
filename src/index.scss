@@ -26,35 +26,51 @@ body {
 .rangebar {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  // gap: 10px;
+  font-size: 13px;
+  margin: 5px 0px;
   &_row {
     // display: flex;
+    width: fit-content;
     display: grid;
-    grid-template-columns: repeat(8, 100px);
-    gap: 5px;
+    grid-template-columns: 90px 90px 90px 90px 90px 90px 90px 90px 250px;
+    // gap: 5px;
     align-items: center;
-    &_input {
-      width: 70px;
-      text-align: center;
-      padding: 5px;
-      border-radius: 10%;
-    }
-    &_button {
-      background-color: transparent;
-      border: 1px solid $foreground;
-      background-color: $foreground;
-      color: white;
-      transition: background-color 0.25s;
-      font-size: 14px;
-      padding: 5px 20px;
-      border-radius: 6px;
-      // height: ;
-      cursor: pointer;
-      font-family: "Noto Sans JP", sans-serif;
-      &:hover,
-      &:focus {
-        outline: none;
-        background-color: $foreground-light;
+    text-align: center;
+    &_cell {
+      outline: 1px solid black;
+      margin-right: 1px;
+      margin-top: 1px;
+      height: 35px;
+      justify-content: center;
+      align-items: center;
+      display: flex;
+      &_input {
+        width: 70px;
+        text-align: center;
+        padding: 5px;
+        border-radius: 10%;
+        margin: 0 auto;
+        border: 1px solid $foreground;
+      }
+      &_button {
+        background-color: transparent;
+        border: 1px solid $foreground;
+        background-color: $foreground;
+        color: white;
+        transition: background-color 0.25s;
+        font-size: 14px;
+        padding: 5px 20px;
+        border-radius: 6px;
+        // height: ;
+        cursor: pointer;
+        font-family: "Noto Sans JP", sans-serif;
+        font-size: 12px;
+        &:hover,
+        &:focus {
+          outline: none;
+          background-color: $foreground-light;
+        }
       }
     }
   }

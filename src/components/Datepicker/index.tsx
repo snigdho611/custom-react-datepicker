@@ -106,14 +106,6 @@ const Datepicker: React.FC<IDatepickerProps> = ({
     }
   }, [value]);
 
-  useEffect(() => {
-    //   if(min){
-    //     if(min.getTime() > )
-    //   }
-    console.log(min);
-    console.log(max);
-  }, [min, max]);
-
   const onDateClick = (
     year: number,
     month: number,
