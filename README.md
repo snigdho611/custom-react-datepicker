@@ -102,5 +102,5 @@ const [max, setMax] = useState<Date>("2023-07-28 12:55:00");
 <b><i>Updated UI after setting the minimum and maximum values respectively</i></b>
 <img height="400px" src="https://res.cloudinary.com/drnym8nne/image/upload/v1688583880/datepicker/Screenshot_2023-07-06_010429_rx6xhk.png" alt="MUI logo">
 
-Deployed <a href="https://custom-react-datepicker-pi.vercel.app/">here</a> in <a href="http://vercel.com">Vercel</a>
+Deployed <a href="https://custom-react-datepicker-kappa.vercel.app/">here</a> in <a href="http://vercel.com">Vercel</a>
 Developed with: TypeScript, React JS.
