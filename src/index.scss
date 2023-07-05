@@ -1,0 +1,61 @@
+$cellheight: 35px;
+$cellwidth: 35px;
+$disabled: #b0b0b0;
+$foreground: #3684dc;
+$foreground-light: #7cb3f2;
+
+html {
+  box-sizing: border-box;
+}
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu",
+    "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  /* background-color: gray; */
+}
+
+.rangebar {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  &_row {
+    // display: flex;
+    display: grid;
+    grid-template-columns: repeat(8, 100px);
+    gap: 5px;
+    align-items: center;
+    &_input {
+      width: 70px;
+      text-align: center;
+      padding: 5px;
+      border-radius: 10%;
+    }
+    &_button {
+      background-color: transparent;
+      border: 1px solid $foreground;
+      background-color: $foreground;
+      color: white;
+      transition: background-color 0.25s;
+      font-size: 14px;
+      padding: 5px 20px;
+      border-radius: 6px;
+      // height: ;
+      cursor: pointer;
+      font-family: "Noto Sans JP", sans-serif;
+      &:hover,
+      &:focus {
+        outline: none;
+        background-color: $foreground-light;
+      }
+    }
+  }
+}

@@ -55,7 +55,7 @@ const Datepicker: React.FC<IDatepickerProps> = ({
 
   const menuRef = useRef<HTMLDivElement | null>(null);
   const inputRef = useRef<HTMLInputElement | null>(null);
-  const [open, setOpen] = useState<boolean>(false);
+  const [open, setOpen] = useState<boolean>(true);
 
   useEffect(() => {
     if (disabled) {
@@ -83,7 +83,7 @@ const Datepicker: React.FC<IDatepickerProps> = ({
     };
 
     inputElement && inputElement.addEventListener("keydown", handleSpacebar);
-    document.addEventListener("mousedown", handleClickOutside);
+    // document.addEventListener("mousedown", handleClickOutside);
 
     return () => {
       inputElement && inputElement.removeEventListener("keydown", handleSpacebar);
@@ -111,7 +111,8 @@ const Datepicker: React.FC<IDatepickerProps> = ({
     //     if(min.getTime() > )
     //   }
     console.log(min);
-  }, [min]);
+    console.log(max);
+  }, [min, max]);
 
   const onDateClick = (
     year: number,
@@ -229,7 +230,7 @@ const Datepicker: React.FC<IDatepickerProps> = ({
         menuDisplayDate.minutes
       )
     );
-    setOpen(false);
+    // setOpen(false);
   };
 
   const handleCancel = () => {
