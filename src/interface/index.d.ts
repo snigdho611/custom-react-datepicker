@@ -14,6 +14,7 @@ export interface IDatepickerProps {
   onChange: (date: Date) => void;
   min?: Date | null;
   max?: Date | null;
+  timepicker?: boolean;
 }
 
 export interface ICalendarProps {

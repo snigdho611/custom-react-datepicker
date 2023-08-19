@@ -228,6 +228,7 @@ function App() {
         }}
         min={min}
         max={max}
+        timepicker={false}
       />
     </>
   );

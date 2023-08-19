@@ -13,6 +13,7 @@ const Datepicker: React.FC<IDatepickerProps> = ({
   disabled = false,
   min = null,
   max = null,
+  timepicker = true,
 }) => {
   const current = {
     date: new Date().getDate(),
@@ -55,7 +56,7 @@ const Datepicker: React.FC<IDatepickerProps> = ({
 
   const menuRef = useRef<HTMLDivElement | null>(null);
   const inputRef = useRef<HTMLInputElement | null>(null);
-  const [open, setOpen] = useState<boolean>(false);
+  const [open, setOpen] = useState<boolean>(true);
 
   useEffect(() => {
     if (disabled) {
@@ -266,13 +267,15 @@ const Datepicker: React.FC<IDatepickerProps> = ({
             min={min}
             max={max}
           />
-          <Time
-            onTimeClickHour={onTimeClickHour}
-            onTimeClickMinute={onTimeClickMinute}
-            selected={menuDisplayDate}
-            hoursRange={hoursRange}
-            minutesRange={minutesRange}
-          />
+          {timepicker ? (
+            <Time
+              onTimeClickHour={onTimeClickHour}
+              onTimeClickMinute={onTimeClickMinute}
+              selected={menuDisplayDate}
+              hoursRange={hoursRange}
+              minutesRange={minutesRange}
+            />
+          ) : null}
           <Footer handleConfirm={handleConfirm} menuDisplayDate={menuDisplayDate} />
         </div>
       ) : null}
