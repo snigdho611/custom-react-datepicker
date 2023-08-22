@@ -16,7 +16,7 @@ function App() {
   const [maxHours, setMaxHours] = useState<number>(new Date().getHours());
   const [maxMinutes, setMaxMinutes] = useState<number>(new Date().getMinutes());
   const [max, setMax] = useState<null | Date>(null);
-  const [timepicker, setTimepicker] = useState<boolean>(false);
+  const [timepicker, setTimepicker] = useState<boolean>(true);
 
   return (
     <>
@@ -249,7 +249,7 @@ function App() {
         }}
         min={min}
         max={max}
-        timepicker={!timepicker}
+        timepicker={true}
       />
     </>
   );

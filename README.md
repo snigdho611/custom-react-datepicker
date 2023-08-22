@@ -4,7 +4,7 @@
 <p>It provides with the option of selecting the default year, month, date, hours and minute.</p>
 
 <b><i>Initial UI</i></b>
-<img height="400px" src="https://res.cloudinary.com/drnym8nne/image/upload/v1688583880/datepicker/Screenshot_2023-07-06_010309_jqkdn4.png" alt="MUI logo">
+<img height="400px" src="https://res.cloudinary.com/drnym8nne/image/upload/v1692720059/datepicker/v5/v5-1_pqz3qv.png" alt="MUI logo">
 
 <ul>
     <li>
@@ -16,11 +16,6 @@
     <li>
         Allows selection of the <b>minimum</b> and <b>maximum</b> values for range.
     </li>
-</ul>
-
-<b>Version Update: 1.0.1</b>
-
-<ul>
     <li>Option to set Minimum date
         <ul>
             <li>Added a minimum range option that allows a dynamic date value to be passed</li>
@@ -34,6 +29,26 @@
         </ul>
     </li>
     <li>Noticeable updates to the UI</li>
+    
+</ul>
+
+```ts
+const [dateVal, setDateVal] = useState<Date | null>(null);
+
+<Datepicker
+  width="500px"
+  value={dateVal}
+  onChange={(date) => {
+    setDateVal(date);
+  }}
+  timepicker={true}
+/>;
+```
+
+<b>Version Update: 1.0.5</b>
+
+<ul>
+    <li>The timepicker is turned off by default, and can be added by a property called "timepicker"</li>
 </ul>
 
 For implementation, the Datepicker components needs to be imported to the component.
