@@ -45,6 +45,9 @@ const [dateVal, setDateVal] = useState<Date | null>(null);
 />;
 ```
 
+<b><i>After activating Datepicker</i></b>
+<img height="400px" src="https://res.cloudinary.com/drnym8nne/image/upload/v1692720061/datepicker/v5/v5-2_fsb7xf.png" alt="MUI logo">
+
 <b>Version Update: 1.0.5</b>
 
 <ul>
