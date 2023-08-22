@@ -1,8 +1,12 @@
 $cellheight: 35px;
 $cellwidth: 35px;
 $disabled: #b0b0b0;
+$grey-custom: #d9d9d9;
+$grey-custom-focus: #9aa5b1;
 $foreground: #3684dc;
 $foreground-light: #7cb3f2;
+$background: #eaeded;
+$text: #313133;
 
 .datepicker {
   font-size: 14px;
@@ -14,19 +18,19 @@ $foreground-light: #7cb3f2;
   &_input {
     display: flex;
     width: 100%;
-    border: 1px solid #d9d9d9;
+    border: 1px solid $grey-custom;
     border-radius: 6px;
     outline: none;
     padding: 10px 16px;
     font-family: "Noto Sans JP", sans-serif;
     height: 38px;
     font-size: 14px;
-    color: #313133;
+    color: $text;
     &:hover {
       cursor: pointer;
     }
     &:focus {
-      outline: 1px solid #9aa5b1;
+      outline: 1px solid $grey-custom-focus;
     }
   }
   &_modal {
@@ -34,7 +38,9 @@ $foreground-light: #7cb3f2;
     position: absolute;
     background-color: white;
     min-height: 371px;
-    box-shadow: 0px 6px 16px #0000001f;
+    // box-shadow: 0px 6px 16px #0000001f;
+    outline: 1px solid $disabled;
+    border-radius: 8px;
     z-index: 1;
     width: 100%;
     &_header {
@@ -45,7 +51,7 @@ $foreground-light: #7cb3f2;
       &_divider {
         margin: 17px auto 20px auto;
         width: 100%;
-        border-top: 1px solid #d9d9d9;
+        border-top: 1px solid $grey-custom;
       }
       &_buttons {
         padding: 25px 23px 0px 23px;
@@ -61,7 +67,7 @@ $foreground-light: #7cb3f2;
             text-align: center;
             border-radius: 4px;
             border: none;
-            background-color: #eaeded;
+            background-color: $background;
             font-family: "Noto Sans JP", sans-serif;
             outline: 1px solid transparent;
             transition: outline-color 0.25s;
@@ -74,7 +80,7 @@ $foreground-light: #7cb3f2;
         }
         &-cancel {
           background-color: transparent;
-          border: 1px solid #d9d9d9;
+          border: 1px solid $grey-custom;
           border: none;
           position: absolute;
           cursor: pointer;
@@ -114,7 +120,6 @@ $foreground-light: #7cb3f2;
           width: $cellwidth;
           height: 14px;
           vertical-align: middle;
-          color: #939598;
         }
       }
       &_grid {
@@ -208,7 +213,7 @@ $foreground-light: #7cb3f2;
         text-align: center;
         border-radius: 4px;
         border: none;
-        background-color: #eaeded;
+        background-color: $background;
         font-family: "Noto Sans JP", sans-serif;
         outline: 1px solid transparent;
         transition: outline-color 0.25s;
@@ -224,7 +229,7 @@ $foreground-light: #7cb3f2;
       &_divider {
         margin: 16px auto 10px auto;
         width: 100%;
-        border-top: 1px solid #d9d9d9;
+        border-top: 1px solid $grey-custom;
       }
       &_content {
         align-items: center;

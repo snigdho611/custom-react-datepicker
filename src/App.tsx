@@ -16,6 +16,7 @@ function App() {
   const [maxHours, setMaxHours] = useState<number>(new Date().getHours());
   const [maxMinutes, setMaxMinutes] = useState<number>(new Date().getMinutes());
   const [max, setMax] = useState<null | Date>(null);
+  const [timepicker, setTimepicker] = useState<boolean>(false);
 
   return (
     <>
@@ -219,6 +220,26 @@ function App() {
             <span>{max ? new Date(max).toString() : ""}</span>
           </div>
         </div>
+        <div className="rangebar_datetime">
+          <div>
+            <input
+              type="checkbox"
+              name=""
+              id=""
+              onChange={(e) => setTimepicker(!e.target.checked)}
+            />
+            Timepicker
+          </div>
+          <div>
+            Timepicker is now{" "}
+            {!timepicker ? (
+              <span style={{ color: "green" }}>Active</span>
+            ) : (
+              <span style={{ color: "red" }}>Inactive</span>
+            )}
+            , open timepicker to check
+          </div>
+        </div>
       </div>
       <Datepicker
         width="500px"
@@ -228,7 +249,7 @@ function App() {
         }}
         min={min}
         max={max}
-        timepicker={false}
+        timepicker={!timepicker}
       />
     </>
   );

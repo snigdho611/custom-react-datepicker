@@ -13,7 +13,7 @@ const Datepicker: React.FC<IDatepickerProps> = ({
   disabled = false,
   min = null,
   max = null,
-  timepicker = true,
+  timepicker = false,
 }) => {
   const current = {
     date: new Date().getDate(),
@@ -91,6 +91,10 @@ const Datepicker: React.FC<IDatepickerProps> = ({
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [open, disabled]);
+
+  useEffect(() => {
+    console.log("first");
+  }, []);
 
   useEffect(() => {
     if (value) {

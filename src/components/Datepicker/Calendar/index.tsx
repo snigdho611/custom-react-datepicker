@@ -78,6 +78,10 @@ const Calendar: React.FC<ICalendarProps> = ({
                 }
           }
           className={dayClass}
+          // style={{
+          //   backgroundColor:
+          //     dayClass === "datepicker_modal_calendar_grid_cell-selected" ? "black" : "",
+          // }}
         >
           {i}
         </button>

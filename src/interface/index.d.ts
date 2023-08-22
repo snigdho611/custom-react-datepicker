@@ -15,6 +15,11 @@ export interface IDatepickerProps {
   min?: Date | null;
   max?: Date | null;
   timepicker?: boolean;
+  style?: {
+    foreground: string;
+    background: string;
+    dateRadius: string;
+  };
 }
 
 export interface ICalendarProps {

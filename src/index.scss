@@ -20,21 +20,17 @@ body {
     "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  /* background-color: gray; */
 }
 
 .rangebar {
   display: flex;
   flex-direction: column;
-  // gap: 10px;
   font-size: 13px;
   margin: 5px 0px;
   &_row {
-    // display: flex;
     width: fit-content;
     display: grid;
     grid-template-columns: 90px 90px 90px 90px 90px 90px 90px 90px 250px;
-    // gap: 5px;
     align-items: center;
     text-align: center;
     &_cell {
@@ -62,7 +58,6 @@ body {
         font-size: 14px;
         padding: 5px 20px;
         border-radius: 6px;
-        // height: ;
         cursor: pointer;
         font-family: "Noto Sans JP", sans-serif;
         font-size: 12px;
@@ -73,5 +68,14 @@ body {
         }
       }
     }
+  }
+  &_datetime {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    justify-content: center;
+    width: fit-content;
+    padding-top: 15px;
+    padding-bottom: 15px;
   }
 }
