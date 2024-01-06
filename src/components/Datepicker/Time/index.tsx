@@ -1,5 +1,5 @@
-import { ITimeProps } from "interface";
-import { arrayFill } from "utils";
+import { ITimeProps } from "../../../interface";
+import { arrayFill } from "../../../utils";
 
 const DatepickerTime: React.FC<ITimeProps> = ({
   selected,

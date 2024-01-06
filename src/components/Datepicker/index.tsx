@@ -1,10 +1,10 @@
 import { useEffect, useRef, useState } from "react";
 import "./index.scss";
-import { IDate, IDatepickerProps } from "interface";
-import Time from "components/Datepicker/Time";
-import Calendar from "components/Datepicker/Calendar";
-import Header from "components/Datepicker/Header";
-import Footer from "components/Datepicker/Footer";
+import { IDate, IDatepickerProps } from "../../interface";
+import Time from "../Datepicker/Time";
+import Calendar from "../Datepicker/Calendar";
+import Header from "../Datepicker/Header";
+import Footer from "../Datepicker/Footer";
 
 const Datepicker: React.FC<IDatepickerProps> = ({
   width,

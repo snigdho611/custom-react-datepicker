@@ -1,4 +1,4 @@
-import { ICalendarProps } from "interface";
+import { ICalendarProps } from "../../../interface";
 
 const Calendar: React.FC<ICalendarProps> = ({
   menuDisplayDate,
@@ -25,7 +25,7 @@ const Calendar: React.FC<ICalendarProps> = ({
     const dateCells = [];
 
     for (let i = 1; i <= daysInMonth; i += 1) {
-      let dayClass: string = "datepicker_modal_calendar_grid_cell-normal";
+      let dayClass = "datepicker_modal_calendar_grid_cell-normal";
 
       if (
         currentDateObj.date === i &&
@@ -64,7 +64,9 @@ const Calendar: React.FC<ICalendarProps> = ({
             (max &&
               new Date(`${menuDisplayDate.year}-${menuDisplayDate.month + 1}-${i}`).getTime() >
                 new Date(`${max.getFullYear()}-${max.getMonth() + 1}-${max.getDate()}`).getTime())
-              ? () => {}
+              ? () => {
+                //
+              }
               : () => {
                   // console.log(menuDisplayDate);
                   onDateClick(

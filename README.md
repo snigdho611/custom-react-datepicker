@@ -1,124 +1,30 @@
-# React DateTime Selector
+# React + TypeScript + Vite
 
-<p>The React DateTime Selector is a control for <a href="https://reactjs.org">React</a>. It makes a more customizable UI and allows date and time picking intricacies.</p>
-<p>It provides with the option of selecting the default year, month, date, hours and minute.</p>
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-<b><i>Initial UI</i></b>
-<img height="400px" src="https://res.cloudinary.com/drnym8nne/image/upload/v1692720059/datepicker/v5/v5-1_pqz3qv.png" alt="MUI logo">
+Currently, two official plugins are available:
 
-<ul>
-    <li>
-        The current value for the picker is set to the current day and time.
-    </li>
-    <li>
-        It can be changed as per requirement by passing a <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date" >Date</a> object.
-    </li>
-    <li>
-        Allows selection of the <b>minimum</b> and <b>maximum</b> values for range.
-    </li>
-    <li>Option to set Minimum date
-        <ul>
-            <li>Added a minimum range option that allows a dynamic date value to be passed</li>
-            <li>Selecting any date or time before the minimum value that is set is not possible</li>
-        </ul>
-    </li>
-    <li>Option to set Maximum date
-        <ul>
-            <li>Added a maximum range option that allows a dynamic date value to be passed</li>
-            <li>Selecting any date or time beyond the maximum value that is set is not possible</li>
-        </ul>
-    </li>
-    <li>Noticeable updates to the UI</li>
-    
-</ul>
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-```ts
-const [dateVal, setDateVal] = useState<Date | null>(null);
+## Expanding the ESLint configuration
 
-<Datepicker
-  width="500px"
-  value={dateVal}
-  onChange={(date) => {
-    setDateVal(date);
-  }}
-  timepicker={true}
-/>;
+If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+
+- Configure the top-level `parserOptions` property like this:
+
+```js
+export default {
+  // other rules...
+  parserOptions: {
+    ecmaVersion: 'latest',
+    sourceType: 'module',
+    project: ['./tsconfig.json', './tsconfig.node.json'],
+    tsconfigRootDir: __dirname,
+  },
+}
 ```
 
-<b><i>After activating Datepicker</i></b>
-<img height="400px" src="https://res.cloudinary.com/drnym8nne/image/upload/v1692720061/datepicker/v5/v5-2_fsb7xf.png" alt="MUI logo">
-
-<b>Version Update: 1.0.5</b>
-
-<ul>
-    <li>The timepicker is turned off by default, and can be added by a property called "timepicker"</li>
-</ul>
-
-For implementation, the Datepicker components needs to be imported to the component.
-
-<ul>
-    <li>
-        The state of the Datepicker is held in a state, typed as a <span style="color: gold;">Date</span> or <span style="color: red;">null</span> value
-    </li>
-    <li>
-        The onChange function works to get the newly set state back and update the original state variable
-    </li>
-</ul>
-
-```ts
-const [dateVal, setDateVal] = useState<Date | null>(null);
-
-<Datepicker
-  width="500px"
-  value={dateVal}
-  onChange={(date) => {
-    setDateVal(date);
-  }}
-/>;
-```
-
-<b>Update 07.06.23</b>
-
-<p>As of the current release (1.0.1), it is possible to add a range for minimum and maximum value in the datepicker, before and after which selection will not be possible respectively.
-
-A single Date object can be passed into the Datepicker for both the minimum and the maximum value, the prop names being `min` and `max` for each.
-
-```ts
-const [dateVal, setDateVal] = useState<Date | null>(null);
-
-<Datepicker
-  width="500px"
-  value={dateVal}
-  onChange={(date) => {
-    setDateVal(date);
-  }}
-  min={new Date("2023-07-02 01:02:00")}
-  min={new Date("2023-07-28 12:55:00")}
-/>;
-```
-
-Alternatively, the minimum and maximum can also be kept inside states in order to update them when needed.
-
-```ts
-const [dateVal, setDateVal] = useState<Date | null>(null);
-const [min, setMin] = useState<Date>("2023-07-02 01:02:00");
-const [max, setMax] = useState<Date>("2023-07-28 12:55:00");
-
-<Datepicker
-  width="500px"
-  value={dateVal}
-  onChange={(date) => {
-    setDateVal(date);
-  }}
-  min={min}
-  max={max}
-/>;
-```
-
-<p>Note: Minimum and maximum ranges can work independently, i.e. one does not need to be set for the other to work</p>
-
-<b><i>Updated UI after setting the minimum and maximum values respectively</i></b>
-<img height="400px" src="https://res.cloudinary.com/drnym8nne/image/upload/v1688583880/datepicker/Screenshot_2023-07-06_010429_rx6xhk.png" alt="MUI logo">
-
-Deployed <a href="https://custom-react-datepicker-kappa.vercel.app/">here</a> in <a href="http://vercel.com">Vercel</a>
-Developed with: TypeScript, React JS.
+- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
+- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
+- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list

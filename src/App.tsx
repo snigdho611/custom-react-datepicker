@@ -1,5 +1,7 @@
-import { useState } from "react";
-import Datepicker from "./components/Datepicker";
+import { useState } from 'react'
+// import './App.css'
+import './index.scss'
+import Datepicker from './components/Datepicker';
 
 function App() {
   const [dateVal, setDateVal] = useState<Date | null>(null);
@@ -85,7 +87,7 @@ function App() {
             <button
               className="rangebar_row_cell_button"
               onClick={() => {
-                if (new Date(`${minYear}-${minMonth + 1}-${minDate} ${minHours}:${minMinutes}`)) {
+                // if (new Date(`${minYear}-${minMonth + 1}-${minDate} ${minHours}:${minMinutes}`)) {
                   if (max) {
                     if (
                       max.getTime() <
@@ -104,7 +106,7 @@ function App() {
                       new Date(`${minYear}-${minMonth + 1}-${minDate} ${minHours}:${minMinutes}`)
                     );
                   }
-                }
+                // }
               }}
             >
               Set
@@ -181,7 +183,7 @@ function App() {
             <button
               className="rangebar_row_cell_button"
               onClick={() => {
-                if (new Date(`${maxYear}-${maxMonth + 1}-${maxDate} ${maxHours}:${maxMinutes}`)) {
+                // if (new Date(`${maxYear}-${maxMonth + 1}-${maxDate} ${maxHours}:${maxMinutes}`)) {
                   if (min) {
                     if (
                       min.getTime() >
@@ -200,7 +202,7 @@ function App() {
                       new Date(`${maxYear}-${maxMonth + 1}-${maxDate} ${maxHours}:${maxMinutes}`)
                     );
                   }
-                }
+                // }
               }}
             >
               Set
@@ -249,10 +251,10 @@ function App() {
         }}
         min={min}
         max={max}
-        timepicker={true}
+        timepicker={!timepicker}
       />
     </>
   );
 }
 
-export default App;
+export default App
