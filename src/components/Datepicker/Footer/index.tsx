@@ -1,4 +1,5 @@
-import { IFooterProps } from "interface";
+import { IFooterProps } from "../../../interface";
+import React from "react";
 
 const Footer: React.FC<IFooterProps> = ({ menuDisplayDate, handleConfirm }) => {
   return (

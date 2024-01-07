@@ -1,7 +1,9 @@
 {
   "name": "custom-react-datepicker",
   "private": true,
+  "main": "dist/index.js",
   "version": "0.0.0",
+  "files": [ "dist" ],
   "type": "module",
   "scripts": {
     "dev": "vite",

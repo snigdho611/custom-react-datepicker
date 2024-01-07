@@ -1,3 +1,4 @@
+import React from "react";
 import { useEffect, useRef, useState } from "react";
 import "./index.scss";
 import { IDate, IDatepickerProps } from "../../interface";

@@ -1,10 +1,11 @@
-import { IDate } from "interface";
 import { Dispatch, SetStateAction } from "react";
+import { IDate } from "../../../interface";
+import React from "react";
 
 interface IHeaderProps {
   menuDisplayDate: IDate;
   handleCancel: () => void;
-  setMenuDisplayDate: Dispatch<SetStateAction<any>>;
+  setMenuDisplayDate: Dispatch<SetStateAction<IDate>>;
 }
 
 const Header: React.FC<IHeaderProps> = ({ handleCancel, menuDisplayDate, setMenuDisplayDate }) => {
